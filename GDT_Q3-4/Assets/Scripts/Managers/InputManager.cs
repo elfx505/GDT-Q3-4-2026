@@ -36,5 +36,11 @@ public class InputManager : Singleton<InputManager>
             } 
         }
 
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            Debug.Log("r Key pressed!");
+            GameManager.Instance.ChangeView();
+        }
+
     }
 }
