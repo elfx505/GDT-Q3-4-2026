@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager
+public class InputManagers
 {
 	void Start()
 	{
@@ -11,7 +11,8 @@ public class InputManager
 	}
 	void Update()
 	{
-		if(Keyboard.current.eKey.wasPressedThisFrame){
+		if (Keyboard.current.eKey.wasPressedThisFrame)
+		{
 
 		}
 	}
