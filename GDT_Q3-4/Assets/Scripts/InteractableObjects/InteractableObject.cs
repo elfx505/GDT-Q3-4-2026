@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events; 
+using UnityEngine.Events;
 
 public class InteractableObject : MonoBehaviour, IInteractable
 {
     [Header("Settings")]
     [SerializeField] private bool isRepeatable = true;
-    
+    [Header("Item Interactions")]
+    [SerializeField] private List<ItemInteraction> itemInteractions;
     private bool _hasBeenInteracted = false;
 
     // For plugging in sounds/particles inside Inspector
@@ -15,14 +17,37 @@ public class InteractableObject : MonoBehaviour, IInteractable
     {
         if (!isRepeatable && _hasBeenInteracted) return;
 
-        Debug.Log($"Interacted with: {gameObject.transform.name}");
-        
-        PerformAction(); // Execute Action
+        ItemSO heldItem = InventoryManager.Instance.heldItem;
 
-        onInteract?.Invoke(); // Invoke Sounds/VFX
+        if (heldItem != null)
+        {
+            foreach (var interaction in itemInteractions)
+            {
+                if (interaction.requiredItem == heldItem)
+                {
+                    Debug.Log($"Used {heldItem.itemName} on {name}");
+                    interaction.onSuccess?.Invoke();
+
+                    if (heldItem.onetime)
+                        InventoryManager.Instance.StopHolding();
+
+                    _hasBeenInteracted = true;
+                    return;
+                }
+            }
+
+            Debug.Log("That's not the correct item.");
+            return;
+        }
+
+        Debug.Log($"Default click on: {name}");
+
+        PerformAction();
+        onInteract?.Invoke();
 
         _hasBeenInteracted = true;
     }
+
 
     protected virtual void PerformAction()
     {

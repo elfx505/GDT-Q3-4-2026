@@ -4,6 +4,7 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     public string itemName = "Item";
+    public ItemType itemType;
     public Sprite icon;
     public bool onetime = false;
 }

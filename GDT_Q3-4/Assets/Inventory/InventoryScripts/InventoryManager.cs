@@ -42,13 +42,17 @@ public class InventoryManager : MonoBehaviour
     {
         heldItem = null;
     }
-    
+
     void Update()
     {
         if (heldItem != null && Input.GetMouseButtonDown(0)) // left click
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log("Used " + heldItem.itemName + " at " + pos);
+            // StopHolding();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
             StopHolding();
         }
     }

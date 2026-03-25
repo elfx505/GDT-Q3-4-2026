@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ColleactableTestItem
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Item
+  itemType: 0
   icon: {fileID: 7482667652216324306, guid: 9c4e763c81c53b84e8590b87f54927d1, type: 3}
-  onetime: 0
+  onetime: 1
