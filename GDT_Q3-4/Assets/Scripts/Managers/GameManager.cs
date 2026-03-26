@@ -22,7 +22,9 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         InitializeGameStatesFromProfile();
-
+        
+        GameManager.Instance.SetState("game_start", true);
+        
         // Get all Room Objects in the Scene
         rooms = GameObject.FindGameObjectsWithTag("Room");
         Debug.Log("Total Rooms Detected: " + rooms.Length);
@@ -88,6 +90,21 @@ public class GameManager : Singleton<GameManager>
             activeRoomViews[i].SetActive(i == 0);
         }
         
+        if (targetRoom.name == "Bathroom")
+        {
+            if(GetState("game_start"))
+            {
+                GameManager.Instance.SetState("water", true);
+            }
+        }
+        if (targetRoom.name == "Office")
+        {
+            if(GetState("completed_tutorial"))
+            {
+                GameManager.Instance.SetState("see_boss", true);
+            }
+        }
+
     }
 
     private void FetchViews(GameObject room)

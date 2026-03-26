@@ -15,3 +15,9 @@ MonoBehaviour:
   states:
   - key: completed_tutorial
     value: 0
+  - key: see_boss
+    value: 0
+  - key: game_start
+    value: 0
+  - key: water
+    value: 0
