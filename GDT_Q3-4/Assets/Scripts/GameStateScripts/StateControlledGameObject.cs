@@ -19,6 +19,7 @@ public class StateControlledGameObject : MonoBehaviour
     void OnEnable()
     {
         GameManager.onGameStateChange += HandleStateChange;
+        Refresh();
     }
     
     void OnDisable()
