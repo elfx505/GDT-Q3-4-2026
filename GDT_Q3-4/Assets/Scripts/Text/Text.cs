@@ -38,7 +38,7 @@ public class GameTextController : MonoBehaviour
                 {
                     "\n Click to continue...",
                     "You: \n Another day in the cursed company.",
-                    "You: \n I need to take a bothroom break."
+                    "You: \n I need to take a bathroom break."
                 });
                 break;
 
