@@ -3,15 +3,13 @@ using UnityEngine.UI;
 
 public class HeldItemFollower : MonoBehaviour
 {
-    Image myImage;
-    RectTransform myRectTransform;
-    Canvas parentCanvas;
+    private Image myImage;
+    private RectTransform myRectTransform;
 
     void Awake()
     {
         myImage = GetComponent<Image>();
         myRectTransform = GetComponent<RectTransform>();
-        parentCanvas = GetComponentInParent<Canvas>();
     }
 
     void Update()
@@ -22,19 +20,14 @@ public class HeldItemFollower : MonoBehaviour
             return;
         }
 
+        // Show the held item icon
         myImage.enabled = true;
         myImage.sprite = InventoryManager.Instance.heldItem.icon;
 
-        // Convert screen mouse position to local canvas coordinates
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            parentCanvas.GetComponent<RectTransform>(), // The canvas's RectTransform
-            Input.mousePosition,                         // Screen point
-            parentCanvas.worldCamera,                    // Use null for Overlay canvas
-            out localPoint
-        );
+        // Simple and reliable for Screen Space - Overlay
+        myRectTransform.position = Input.mousePosition;
 
-        // Now set the anchoredPosition of this image
-        myRectTransform.anchoredPosition = localPoint;
+        // Optional: small offset so the icon doesn't cover the cursor tip
+        // myRectTransform.position = Input.mousePosition + new Vector3(25, -25, 0);
     }
 }
