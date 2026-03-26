@@ -1,18 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : Singleton<InventoryManager>
 {
-    public static InventoryManager Instance { get; private set; }
     public List<ItemSO> items = new List<ItemSO>();
     public ItemSO heldItem = null;
 
-    void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
-    }
 
     public void AddItem(ItemSO item)
     {

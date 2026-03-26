@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +10,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject initialRoom;
     private GameObject activeRoom;
     private int currentViewIndex = 0;
+
+    public GameStateProfile startingProfile;
+
+    private Dictionary<string, bool> gameStates = new Dictionary<string, bool>();
+
+    public static event Action<string> onGameStateChange;
     
     protected override void Awake()
     {
         base.Awake();
+
+        InitializeGameStatesFromProfile();
 
         // Get all Room Objects in the Scene
         rooms = GameObject.FindGameObjectsWithTag("Room");
@@ -36,6 +45,30 @@ public class GameManager : Singleton<GameManager>
         // Enable Active Room and disable all other rooms
         ToggleRooms(initialRoom);
         
+    }
+
+
+    private void InitializeGameStatesFromProfile()
+    {
+        if (startingProfile == null) return;
+
+        foreach (var item in startingProfile.states)
+        {
+            gameStates[item.key] = item.value;
+        }
+
+        Debug.Log("Loaded Game State Data into gameState Dict!");
+    }
+
+    public void SetState(string key, bool value)
+    {
+        gameStates[key] = value;
+        onGameStateChange?.Invoke(key);
+    }
+
+    public bool GetState(string key)
+    {
+        return gameStates.ContainsKey(key) && gameStates[key];
     }
 
     public void ToggleRooms(GameObject targetRoom)

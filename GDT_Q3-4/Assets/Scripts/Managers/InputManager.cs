@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Unity.VisualScripting;
 
 public class InputManager : Singleton<InputManager>
 {
     Vector2 mousePosition;
     RaycastHit2D raycastHit2D;
+    public static event Action onEKey;
 
 
     // Update is called once per frame
@@ -40,6 +42,18 @@ public class InputManager : Singleton<InputManager>
         {
             Debug.Log("r Key pressed!");
             GameManager.Instance.ChangeView();
+        }
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            Debug.Log("e Key pressed!");
+            onEKey?.Invoke();
+        }
+
+        if (Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            Debug.Log("t Key pressed!");
+            GameManager.Instance.SetState("completed_tutorial", true);
         }
 
     }

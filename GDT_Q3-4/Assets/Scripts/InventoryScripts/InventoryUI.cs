@@ -15,9 +15,10 @@ public class InventoryUI : MonoBehaviour
     // hidden at first
     void Awake()
     {
-        Instance = this;
         panelToToggle.SetActive(false);
     }
+
+
     void Start()
     {
         if (panelToToggle != null)
