@@ -4,4 +4,5 @@ public enum ItemType
     RatTrap,
     Marker,
     Screwdriver,
+    Sponge,
 }
