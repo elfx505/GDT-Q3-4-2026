@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class GameTextController : MonoBehaviour
@@ -22,7 +23,7 @@ public class GameTextController : MonoBehaviour
 
     private void Update()
     {
-        if (isShowing && Input.GetMouseButtonDown(0))
+        if (isShowing && Mouse.current.leftButton.wasPressedThisFrame)
         {
             ShowNextMessage();
         }

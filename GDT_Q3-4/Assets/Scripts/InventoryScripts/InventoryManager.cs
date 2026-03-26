@@ -3,9 +3,18 @@ using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
+    [Header("Starting Items")]
+    public ItemSO startingNote;
     public List<ItemSO> items = new List<ItemSO>();
     public ItemSO heldItem = null;
 
+    void Start()
+    {
+        if (startingNote != null)
+        {
+            InventoryManager.Instance.AddItem(startingNote);
+        }
+    }
 
     public void AddItem(ItemSO item)
     {

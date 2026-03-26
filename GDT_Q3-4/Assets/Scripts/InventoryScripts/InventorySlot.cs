@@ -19,6 +19,15 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     {
         if (myItem == null) return;
 
-        InventoryManager.Instance.StartHolding(myItem);
+        if (myItem.isViewable)
+        {
+            Debug.Log("Opening viewer for: " + myItem.itemName);
+            ItemViewer.Instance.ShowItem(myItem);     // Open viewer
+        }
+        else
+        {
+            Debug.Log("Starting to hold: " + myItem.itemName);
+            InventoryManager.Instance.StartHolding(myItem);   // Normal hold behavior
+        }
     }
 }

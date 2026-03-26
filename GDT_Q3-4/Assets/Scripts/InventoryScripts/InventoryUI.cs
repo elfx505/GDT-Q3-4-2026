@@ -126,7 +126,16 @@ public class InventoryUI : MonoBehaviour
 
     void PickUpFromInventory(ItemSO item)
     {
-        InventoryManager.Instance.StartHolding(item);
+        if (item.isViewable)
+        {
+            Debug.Log("Opening viewer for: " + item.itemName);
+            ItemViewer.Instance.ShowItem(item);     // Open viewer
+        }
+        else
+        {
+            Debug.Log("Starting to hold: " + item.itemName);
+            InventoryManager.Instance.StartHolding(item);   // Normal hold behavior
+        }
         Refresh();
         if (panelToToggle != null) panelToToggle.SetActive(false);
     }
