@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StateControlledGameObject : MonoBehaviour
 {
-    public string stateKey;    
+    public string stateKey;
     public bool activeIfTrue = true; // When state value is true, should the object be active or not
     private Transform spriteChildObj;
 
@@ -21,7 +21,7 @@ public class StateControlledGameObject : MonoBehaviour
         GameManager.onGameStateChange += HandleStateChange;
         Refresh();
     }
-    
+
     void OnDisable()
     {
         GameManager.onGameStateChange -= HandleStateChange;
@@ -29,8 +29,9 @@ public class StateControlledGameObject : MonoBehaviour
 
     public void Refresh()
     {
+        if (GameManager.Instance == null)
+            return;
         bool currentState = GameManager.Instance.GetState(stateKey);
-        
         spriteChildObj.gameObject.SetActive(currentState == activeIfTrue);
     }
 
