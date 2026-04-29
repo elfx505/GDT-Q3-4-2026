@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class InputManager : Singleton<InputManager>
 {
     Vector2 mousePosition;
-    RaycastHit2D raycastHit2D;
+    RaycastHit raycastHit2D;
     public static event Action onEKey;
 
 
@@ -20,21 +21,20 @@ public class InputManager : Singleton<InputManager>
         // Check for click release        
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            // Convert mousePosition 2D vector to WorldSpace
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePosition);
-            Vector2 worldPos2D = new Vector2(worldPos.x, worldPos.y);
-
-            raycastHit2D = Physics2D.Raycast(worldPos2D, Vector2.zero);
-
-            Transform clickObj = raycastHit2D.collider != null ? raycastHit2D.collider.transform : null;
-
-            if (!clickObj) return;
-
-            // Check if the clicked object is interactable
-            IInteractable interactable = raycastHit2D.collider.GetComponent<IInteractable>();
-            if (interactable != null)
+            
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+            
+            if (Physics.Raycast(ray, out raycastHit2D))
             {
-                interactable.OnClick();
+
+                Transform clickObj = raycastHit2D.collider.transform;
+
+                // Check if the clicked object is interactable
+                IInteractable interactable = raycastHit2D.collider.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.OnClick();
+                }
             }
         }
 
