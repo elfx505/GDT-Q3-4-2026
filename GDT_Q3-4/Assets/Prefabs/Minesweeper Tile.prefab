@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6614992688677218449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5952252923663717341}
+  - component: {fileID: 6546106700108576630}
+  - component: {fileID: 7991722680226411540}
+  - component: {fileID: 1411920897320246929}
+  - component: {fileID: 7176170708210309646}
+  m_Layer: 5
+  m_Name: Minesweeper Tile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5952252923663717341
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614992688677218449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6546106700108576630
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614992688677218449}
+  m_CullTransparentMesh: 1
+--- !u!114 &7991722680226411540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614992688677218449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f9f8c4fe0dfaab1488cca9dfbe193978, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1411920897320246929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614992688677218449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c37c2cae71802b4ca3dadf474d8a39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasClickListener
+  onLeftClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7176170708210309646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614992688677218449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce66e454913fa24483f0df94502df0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinesweeperTile
+  isFlagged: 0
+  isCleared: 0
+  tileSprites:
+  - {fileID: 21300000, guid: 1c98c3e6e9d617c4d9ef268a917444b3, type: 3}
+  - {fileID: 21300000, guid: fc7d15b12134d2745ab2eedb95470e9c, type: 3}
+  - {fileID: 21300000, guid: 57215637c7eaebe4290271c7518e9411, type: 3}
+  - {fileID: 21300000, guid: 565317d2a5c107246b55f5f594b22a56, type: 3}
+  - {fileID: 21300000, guid: bf5f4ab1045af4e448f06d56a9c585f1, type: 3}
+  - {fileID: 21300000, guid: 9ae2e8fe88e00b742b65fb93a9d10da8, type: 3}
+  - {fileID: 21300000, guid: 3f0f7c82f576a144c91c0a2211b863ca, type: 3}
+  - {fileID: 21300000, guid: d18f7ab3656aa3445a558aa525c4a264, type: 3}
+  - {fileID: 21300000, guid: 972ca1aacd4709d49886aee9619fc87d, type: 3}
+  - {fileID: 21300000, guid: ae721eaa54475df47bc8affda5c86a69, type: 3}
+  flaggedSprite: {fileID: 21300000, guid: 002a79761b9b5a444bd255781efa48f4, type: 3}
+  normalTileSprite: {fileID: 21300000, guid: f9f8c4fe0dfaab1488cca9dfbe193978, type: 3}
