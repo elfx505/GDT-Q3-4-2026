@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 
-public class GameLogic : MonoBehaviour
+public class GameLogic : Singleton<GameLogic>
 {
     [Header("UI References")]
     [Tooltip("The parent object with the Layout Group")]
@@ -16,24 +16,43 @@ public class GameLogic : MonoBehaviour
     private int[,] gameGrid;
     private MinesweeperTile[,] tileGrid = new MinesweeperTile[9, 15];
     public GameObject tilePrefab;
+    public RestartButton restartButton;
+    public int clearedTileCount;
+    private int nonBombCount;
 
+    public enum MinesweeperGameState
+    {
+        WIN,
+        LOSE,
+        NORMAL
+    };
 
     private void OnEnable()
     {
         MinesweeperTile.OnTileCleared += ClearTileGroup;
+        MinesweeperTile.OnTileCleared += CheckGameState;
+
         MinesweeperTile.OnTileChorded += ChordTile;
+        MinesweeperTile.OnTileChorded += CheckGameState;
     }
 
     private void OnDisable()
     {
         MinesweeperTile.OnTileCleared -= ClearTileGroup;
+        MinesweeperTile.OnTileCleared -= CheckGameState;
+
         MinesweeperTile.OnTileChorded -= ChordTile;
+        MinesweeperTile.OnTileChorded -= CheckGameState;
     }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    protected override void Awake()
     {   
+        base.Awake();
+
+        clearedTileCount = 0;
+        
         // Hardcoded for now, might change later
         gameGrid = new int[,] 
         {
@@ -47,6 +66,15 @@ public class GameLogic : MonoBehaviour
             {9, 2, 3, 9, 3, 2, 1, 2, 3, 4, 4, 3, 3, 3, 2},
             {2, 9, 3, 9, 9, 2, 9, 2, 9, 9, 9, 1, 1, 9, 9}
         };
+
+        // Count bombs
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 15; j++)
+            {
+                if (gameGrid[i, j] != 9) nonBombCount++;
+            }
+        }
 
     }
 
@@ -202,6 +230,51 @@ public class GameLogic : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void RestartGame()
+    {
+        clearedTileCount = 0;       
+
+        foreach (MinesweeperTile tile in tileGrid)
+        {
+            tile.ResetTile();
+        }
+
+        restartButton.ChangeSprite(MinesweeperGameState.NORMAL);
+
+        // Clear Initial Tile (0, 10)
+        ClearTileGroup(0, 10);
+    }
+
+    private void CheckGameState(int tileX, int tileY)
+    {   
+        // Check if a bomb has been cleared, i.e. game over
+        if (tileGrid[tileX, tileY].tileType == 9)
+       {
+            // Pause Tile Inputs
+            foreach (MinesweeperTile tile in tileGrid)
+            {
+                tile.PauseTileInput();
+            }
+
+            // Change Reset Button Sprite
+            restartButton.ChangeSprite(MinesweeperGameState.LOSE);
+
+        }       
+
+        // Check if Cleared tiles == non-bomb tiles
+        if (nonBombCount == clearedTileCount)
+        {
+            // Pause Tile Inputs
+            foreach (MinesweeperTile tile in tileGrid)
+            {
+                tile.PauseTileInput();
+            }
+
+            // Change Reset Button Sprite
+            restartButton.ChangeSprite(MinesweeperGameState.WIN);
         }
     }
 

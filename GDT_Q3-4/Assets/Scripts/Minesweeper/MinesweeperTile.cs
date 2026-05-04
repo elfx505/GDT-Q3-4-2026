@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
+using NUnit.Framework;
 
 [RequireComponent(typeof(CanvasClickListener))]
 public class MinesweeperTile : MonoBehaviour
@@ -13,11 +14,12 @@ public class MinesweeperTile : MonoBehaviour
     private Sprite revealedSprite;
     private Image currentImage;
     private CanvasClickListener clickListener;
-    private int tileType;
+    public int tileType;
     private int tileX;
     private int tileY;
     public bool isFlagged = false;
     public bool isCleared = false;
+    public bool isPaused = false;
     public Sprite[] tileSprites;
     [SerializeField] private Sprite flaggedSprite;
     [SerializeField] private Sprite normalTileSprite;
@@ -44,10 +46,22 @@ public class MinesweeperTile : MonoBehaviour
         clickListener.onLeftClick.AddListener(OnButtonClicked);
         clickListener.onRightClick.AddListener(OnButtonRightClicked);
     }
+
+    public void ResetTile()
+    {
+        currentImage.sprite = normalTileSprite;
+
+        isCleared = false;
+        isFlagged = false;
+        isPaused = false;
+
+    }
     
     
     private void OnButtonClicked()
-    {
+    {   
+        if (isPaused) return;
+
         Debug.Log($"{tileType} Tile cleared at ({tileX}, {tileY})!");
 
         if (isFlagged) return; // Can't clear flagged tiles
@@ -65,7 +79,9 @@ public class MinesweeperTile : MonoBehaviour
     }
 
     private void OnButtonRightClicked()
-    {
+   {
+        if (isPaused) return;
+        
         Debug.Log($"Tile at ({tileX}, {tileY}) flagged/unflagged!");
 
         ToggleFlag();
@@ -74,7 +90,11 @@ public class MinesweeperTile : MonoBehaviour
 
     public void ClearTile()
     {   
+        if (isCleared) return;
+
         isCleared = true;
+
+        GameLogic.Instance.clearedTileCount++;
         // Change Sprite to Revealed Tile Sprite
         currentImage.sprite = revealedSprite;
     }
@@ -90,6 +110,11 @@ public class MinesweeperTile : MonoBehaviour
         // Change Sprite to Flagged or Normal based on isFlagged boolean
         currentImage.sprite = isFlagged? flaggedSprite : normalTileSprite;
 
+    }
+
+    public void PauseTileInput()
+    {
+        isPaused = true;
     }
     
 
