@@ -12,6 +12,8 @@ public class PasswordInputManager : MonoBehaviour
     public Transform numpadPanel;
 
     private Button[] numpadButtons;
+    [SerializeField] private Button delButton;
+    [SerializeField] private Button enterButton;
     private List<DigitInputField> digitInputFields = new List<DigitInputField>();
     public GameObject digitInputFieldPrefab;
 
@@ -37,6 +39,15 @@ public class PasswordInputManager : MonoBehaviour
             button.onClick.AddListener(() => RegisterInput(inputValue));
         }
 
+        // Assign Remaining Button listeners
+
+        // Backspace Button
+        delButton.onClick.RemoveAllListeners(); // Clear any pre-existing listeners
+        delButton.onClick.AddListener(() => DeleteLastDigitInput()); 
+
+        // Enter Button
+        enterButton.onClick.RemoveAllListeners(); // Clear any pre-existing listeners
+        enterButton.onClick.AddListener(() => CheckExistingInput());
 
     }
 
@@ -63,6 +74,44 @@ public class PasswordInputManager : MonoBehaviour
             digitInputFieldScript.SetupInputField(digit);
 
             digitInputFields.Add(digitInputFieldScript);
+        }
+    }
+
+    private void DeleteLastDigitInput()
+    {   
+        // Loop backwards starting from the end of the list
+        for (int i = digitInputFields.Count - 1; i >= 0; i--)
+        {
+            if (digitInputFields[i].hasInput)
+            {
+                digitInputFields[i].ClearInput(); // Clear last filled input filled and stop looking
+                break; 
+            }
+        }
+    }
+
+    private void CheckExistingInput()
+    {   
+
+        // Check if the last input field has an input, i.e. if the attempted password is fully entered
+        if (!digitInputFields[digitInputFields.Count - 1].hasInput)
+        {
+            // Clear Current Input
+            foreach (DigitInputField inputField in digitInputFields) inputField.ClearInput();
+            return;
+        }
+        
+        foreach (DigitInputField inputField in digitInputFields)
+        {
+            if (!inputField.CheckInputValidity())
+            {
+                // Clear Current Input
+                foreach (DigitInputField field in digitInputFields) field.ClearInput();
+                break;
+            }
+
+            // Reachable only if all Input is Valid
+            Debug.Log("Correct Password Entered! Opening Shutters..."); // Temp
         }
     }
     
