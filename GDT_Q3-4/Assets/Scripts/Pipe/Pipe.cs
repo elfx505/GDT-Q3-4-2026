@@ -64,10 +64,10 @@ public class Pipe : MonoBehaviour
                 break;
 
             case PipeType.T:
-                if (r == 0) return dir != Vector2Int.down;
-                if (r == 1) return dir != Vector2Int.left;
-                if (r == 2) return dir != Vector2Int.up;
-                if (r == 3) return dir != Vector2Int.right;
+                if (r == 0) return dir != Vector2Int.up;
+                if (r == 1) return dir != Vector2Int.right;
+                if (r == 2) return dir != Vector2Int.down;
+                if (r == 3) return dir != Vector2Int.left;
                 break;
         }
 
