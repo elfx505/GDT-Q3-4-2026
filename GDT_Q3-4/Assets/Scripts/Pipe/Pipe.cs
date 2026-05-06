@@ -19,6 +19,13 @@ public class Pipe : MonoBehaviour
 
     public Renderer rend;
 
+    void Awake()
+    {
+        rend = GetComponentInChildren<Renderer>();
+            if (rend == null)
+        Debug.LogError("Renderer NOT found!");
+    }
+
     void Start()
     {
         UpdateVisual();
@@ -84,7 +91,7 @@ public class Pipe : MonoBehaviour
     {
         if (rend != null)
         {
-            rend.material.color = isPowered ? Color.yellow : Color.white;
+        rend.material.color = isPowered ? Color.yellow : Color.white;
         }
     }
 }

@@ -4,11 +4,14 @@ using System.Collections.Generic;
 public class GridManager : MonoBehaviour    
 {
     public static GridManager Instance;
+
     public GameObject[] prefabs;
     public static int size = 7;
     public Pipe[,] grid = new Pipe[7,7];
     public float spacing = 1.5f;
-    public int difficulty;
+    public bool random_level = false;
+    public int levels;
+    int difficulty;
 
     void Awake()
     {
@@ -18,6 +21,7 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         difficulty = 1;
+
         LoadLevelByDifficulty(1);
     }
 
@@ -64,6 +68,7 @@ public class GridManager : MonoBehaviour
 
 
                 int r = Random.Range(0, 4);
+                if (!random_level) r = 0;
                 pipe.rotation = r;
                 obj.transform.Rotate(0, 0, -90 * r);
 
@@ -148,19 +153,14 @@ public class GridManager : MonoBehaviour
     public void LoadLevelByDifficulty(int level)
     {
         // Stop loading if we've passed all levels (only show win text once)
-        if (level > 3)
+        if (level > levels)
         {
             UIManager.Instance.ShowWinText();
             return;
         }
 
         // Load the appropriate level
-        switch (level)
-        {
-            case 1: LoadLevel("level1"); break;
-            case 2: LoadLevel("level2"); break;
-            case 3: LoadLevel("level3"); break;
-        }
+        LoadLevel("level"+level.ToString());
     }
 
     void CheckWin()
