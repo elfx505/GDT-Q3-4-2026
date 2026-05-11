@@ -53,7 +53,7 @@ public class InputManager : Singleton<InputManager>
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
             Debug.Log("t Key pressed!");
-            GameManager.Instance.SetState("completed_tutorial", true);
+            GameManager.Instance.SetState(GameState.CompletedTutorial, true);
         }
 
     }
