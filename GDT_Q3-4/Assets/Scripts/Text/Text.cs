@@ -29,11 +29,11 @@ public class GameTextController : MonoBehaviour
         }
     }
 
-    private void HandleGameStateChange(string key)
+    private void HandleGameStateChange(GameState key)
     {
         switch (key)
         {
-            case "game_start":
+            case GameState.GameStart:
                 StartSequence(new List<string>
                 {
                     "\n Click to continue...",
@@ -42,7 +42,7 @@ public class GameTextController : MonoBehaviour
                 });
                 break;
 
-            case "water":
+            case GameState.Water:
                 StartSequence(new List<string>
                 {
                     "You: \n What the ...",
@@ -51,7 +51,7 @@ public class GameTextController : MonoBehaviour
                 });
                 break;
 
-            case "see_boss":
+            case GameState.SeeBoss:
                 StartSequence(new List<string>
                 {
                     "Boss: \n Well, well, well!",

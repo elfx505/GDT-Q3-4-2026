@@ -13,9 +13,9 @@ public class GameManager : Singleton<GameManager>
 
     public GameStateProfile startingProfile;
 
-    private Dictionary<string, bool> gameStates = new Dictionary<string, bool>();
+    private Dictionary<GameState, bool> gameStates = new Dictionary<GameState, bool>();
 
-    public static event Action<string> onGameStateChange;
+    public static event Action<GameState> onGameStateChange;
     
     protected override void Awake()
     {
@@ -23,7 +23,7 @@ public class GameManager : Singleton<GameManager>
 
         InitializeGameStatesFromProfile();
         
-        GameManager.Instance.SetState("game_start", true);
+        GameManager.Instance.SetState(GameState.GameStart, true);
         
         // Get all Room Objects in the Scene
         rooms = GameObject.FindGameObjectsWithTag("Room");
@@ -62,13 +62,13 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Loaded Game State Data into gameState Dict!");
     }
 
-    public void SetState(string key, bool value)
+    public void SetState(GameState key, bool value)
     {
         gameStates[key] = value;
         onGameStateChange?.Invoke(key);
     }
 
-    public bool GetState(string key)
+    public bool GetState(GameState key)
     {
         return gameStates.ContainsKey(key) && gameStates[key];
     }
@@ -92,16 +92,16 @@ public class GameManager : Singleton<GameManager>
         
         if (targetRoom.name == "Bathroom")
         {
-            if(GetState("game_start"))
+            if(GetState(GameState.GameStart))
             {
-                GameManager.Instance.SetState("water", true);
+                GameManager.Instance.SetState(GameState.Water, true);
             }
         }
         if (targetRoom.name == "Office")
         {
-            if(GetState("completed_tutorial"))
+            if(GetState(GameState.CompletedTutorial))
             {
-                GameManager.Instance.SetState("see_boss", true);
+                GameManager.Instance.SetState(GameState.SeeBoss, true);
             }
         }
 

@@ -7,7 +7,7 @@ public class GameStateProfile : ScriptableObject
     [System.Serializable]
     public struct InitialState
     {
-        public string key;
+        public GameState key;
         public bool value;
     }
 

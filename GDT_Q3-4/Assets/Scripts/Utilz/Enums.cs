@@ -6,3 +6,11 @@ public enum ItemType
     Screwdriver,
     Sponge,
 }
+
+public enum GameState
+{
+    GameStart,
+    CompletedTutorial,
+    Water,
+    SeeBoss
+}

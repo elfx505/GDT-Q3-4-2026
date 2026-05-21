@@ -10,6 +10,14 @@ public class InputManager : Singleton<InputManager>
     RaycastHit raycastHit2D;
     public static event Action onEKey;
 
+    // Whiteboard specific input actions
+    public event Action<Vector2> OnDrawStart;
+    public event Action<Vector2> OnDrawHold;
+    public event Action OnDrawEnd;
+    public event Action OnDrawClear;
+    public event Action OnTrainAI;
+    public event Action OnDeleteAIDatabase;
+
 
     // Update is called once per frame
     void Update()
@@ -53,7 +61,39 @@ public class InputManager : Singleton<InputManager>
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
             Debug.Log("t Key pressed!");
-            GameManager.Instance.SetState("completed_tutorial", true);
+            GameManager.Instance.SetState(GameState.CompletedTutorial, true);
+        }
+
+        if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            Debug.Log("c Key pressed!");
+            OnDrawClear?.Invoke();
+        }
+
+        if (Keyboard.current.aKey.wasPressedThisFrame)
+        {
+            OnTrainAI?.Invoke();
+        }
+
+        if (Keyboard.current.dKey.wasPressedThisFrame)
+        {
+            OnDeleteAIDatabase?.Invoke();
+        }
+
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {   
+            OnDrawStart?.Invoke(mousePosition);
+            Debug.Log("Draw Start");
+        }
+        else if (Mouse.current.leftButton.isPressed)
+        {
+            OnDrawHold?.Invoke(mousePosition);
+        }
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            OnDrawEnd?.Invoke();
+            Debug.Log("Draw End");
         }
 
     }
