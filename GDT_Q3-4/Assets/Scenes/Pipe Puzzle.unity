@@ -292,6 +292,7 @@ MonoBehaviour:
   - {fileID: 1544241660738883258, guid: 1b8a754919f15f844bd2ab85330a9dec, type: 3}
   - {fileID: 615921094003130013, guid: 58b50d6a2bc55054fb836fc4e321c3a8, type: 3}
   - {fileID: 250129613914663357, guid: 1c6e1a90a7471ee438930b70d3e538c2, type: 3}
+  - {fileID: 4040397050466062539, guid: 0c0640a44fd9f92428b22ec4d9491adf, type: 3}
   spacing: 1.5
   random_level: 1
   levels: 3

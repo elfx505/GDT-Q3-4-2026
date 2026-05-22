@@ -7,23 +7,24 @@ public enum PipeType
     Straight,
     Corner,
     T,
-    Cross
+    Cross,
+    Empty
 }
 
 public class Pipe : MonoBehaviour
 {
     public PipeType type;
     public int rotation;
-
     public bool isPowered = false;
 
-    public Renderer rend;
+    private Renderer rend;
 
     void Awake()
     {
         rend = GetComponentInChildren<Renderer>();
-            if (rend == null)
-        Debug.LogError("Renderer NOT found!");
+        
+        if (rend == null)
+            Debug.LogError($"Renderer NOT found on {gameObject.name}!");
     }
 
     void Start()
@@ -35,7 +36,6 @@ public class Pipe : MonoBehaviour
     {
         rotation = (rotation + 1) % 4;
         transform.Rotate(0, 0, -90);
-
         GridManager.Instance.RecalculatePower();
     }
 
@@ -51,17 +51,13 @@ public class Pipe : MonoBehaviour
         switch (type)
         {
             case PipeType.Source:
-                       return (r % 2 == 0 && (dir == Vector2Int.up || dir == Vector2Int.down)) ||
-                       (r % 2 == 1 && (dir == Vector2Int.left || dir == Vector2Int.right));
             case PipeType.Sink:
-                return (r % 2 == 0 && (dir == Vector2Int.up || dir == Vector2Int.down)) ||
-                       (r % 2 == 1 && (dir == Vector2Int.left || dir == Vector2Int.right));
-            case PipeType.Cross:
-                return true;
-
             case PipeType.Straight:
                 return (r % 2 == 0 && (dir == Vector2Int.up || dir == Vector2Int.down)) ||
                        (r % 2 == 1 && (dir == Vector2Int.left || dir == Vector2Int.right));
+
+            case PipeType.Cross:
+                return true;
 
             case PipeType.Corner:
                 if (r == 0) return dir == Vector2Int.right || dir == Vector2Int.down;
@@ -76,8 +72,10 @@ public class Pipe : MonoBehaviour
                 if (r == 2) return dir != Vector2Int.down;
                 if (r == 3) return dir != Vector2Int.left;
                 break;
-        }
 
+            case PipeType.Empty:
+                return false;
+        }
         return false;
     }
 
@@ -89,9 +87,12 @@ public class Pipe : MonoBehaviour
 
     void UpdateVisual()
     {
-        if (rend != null)
-        {
-        rend.material.color = isPowered ? Color.yellow : Color.white;
-        }
+        if (rend == null) return;
+
+        Material mat = rend.material;                    // Create instance
+        Color targetColor = isPowered ? Color.yellow : Color.white;
+
+        // mat.SetColor("_BaseColor", targetColor);         // URP / HDRP
+        mat.SetColor("_Color", targetColor);          // Uncomment if using Built-in Render Pipeline
     }
 }

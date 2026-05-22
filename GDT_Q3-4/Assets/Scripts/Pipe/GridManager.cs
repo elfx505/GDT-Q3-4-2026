@@ -89,6 +89,7 @@ public class GridManager : MonoBehaviour
             case 'L': return PipeType.Corner;
             case 'T': return PipeType.T;
             case 'X': return PipeType.Cross;
+            case 'E': return PipeType.Empty;
         }
         return PipeType.Straight;
     }
