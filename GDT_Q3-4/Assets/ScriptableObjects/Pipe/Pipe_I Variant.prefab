@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8160536801353723154, guid: 5d0da4125fd38de4792ab5206750d028, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f4cb95b1e363b745906f6bd6839609c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -98,7 +102,6 @@ MonoBehaviour:
   type: 2
   rotation: 0
   isPowered: 0
-  rend: {fileID: 0}
 --- !u!65 &2411343080127137378
 BoxCollider:
   m_ObjectHideFlags: 0

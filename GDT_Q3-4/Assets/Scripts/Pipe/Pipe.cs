@@ -89,10 +89,14 @@ public class Pipe : MonoBehaviour
     {
         if (rend == null) return;
 
-        Material mat = rend.material;                    // Create instance
-        Color targetColor = isPowered ? Color.yellow : Color.white;
+        Color targetColor = isPowered ? Color.green : Color.red;
 
-        // mat.SetColor("_BaseColor", targetColor);         // URP / HDRP
-        mat.SetColor("_Color", targetColor);          // Uncomment if using Built-in Render Pipeline
+        foreach (var mat in rend.materials)
+        {
+            if (mat.HasProperty("_BaseColor"))
+                mat.SetColor("_BaseColor", targetColor);
+            else if (mat.HasProperty("_Color"))
+                mat.color = targetColor;
+        }
     }
 }

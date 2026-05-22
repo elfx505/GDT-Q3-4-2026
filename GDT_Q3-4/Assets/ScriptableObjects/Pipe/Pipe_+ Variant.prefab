@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 691318056701097556, guid: a69b5f022c4a49d4d8ea572f50a3f6dd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f4cb95b1e363b745906f6bd6839609c, type: 2}
     - target: {fileID: 3141642647681213417, guid: a69b5f022c4a49d4d8ea572f50a3f6dd, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
@@ -98,7 +102,6 @@ MonoBehaviour:
   type: 5
   rotation: 0
   isPowered: 0
-  rend: {fileID: 0}
 --- !u!65 &6640077658941042870
 BoxCollider:
   m_ObjectHideFlags: 0
