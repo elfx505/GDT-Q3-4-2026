@@ -4,51 +4,46 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("Camera System")]
+    [SerializeField] private CameraAnchor startingAnchor;
     
-    GameObject[] rooms;
-    List<GameObject> activeRoomViews;
-    [SerializeField] private GameObject initialRoom;
-    private GameObject activeRoom;
-    private int currentViewIndex = 0;
+    private CameraAnchor currentAnchor;
+    public CameraAnchor CurrentAnchor => currentAnchor; 
 
+    [Header("Game State")]
     public GameStateProfile startingProfile;
-
     private Dictionary<GameState, bool> gameStates = new Dictionary<GameState, bool>();
-
     public static event Action<GameState> onGameStateChange;
-    
+    public bool canDraw;
+
     protected override void Awake()
     {
         base.Awake();
-
         InitializeGameStatesFromProfile();
-        
-        GameManager.Instance.SetState(GameState.GameStart, true);
-        
-        // Get all Room Objects in the Scene
-        rooms = GameObject.FindGameObjectsWithTag("Room");
-        Debug.Log("Total Rooms Detected: " + rooms.Length);
-        activeRoomViews = new List<GameObject>();
-
-        // Check if initialRoom is set
-        if (initialRoom == null)
-        {
-            Debug.LogWarning("[GameManager] initialRoom not set!");
-
-            // Running in the editor
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            // Running in a build
-            Application.Quit();
-        #endif
-        }
-
-        // Enable Active Room and disable all other rooms
-        ToggleRooms(initialRoom);
-        
+        SetState(GameState.GameStart, true);
     }
 
+    private void Start()
+    {
+        if (startingAnchor != null)
+        {
+            MoveToAnchor(startingAnchor);
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager] Starting Anchor not set!");
+        }
+    }
+
+    public void MoveToAnchor(CameraAnchor targetAnchor)
+    {
+        if (targetAnchor == null) return;
+
+        currentAnchor = targetAnchor;
+        
+        // Tell the Camera Transition script to do the blink & move (position only)
+        CameraManager.Instance.MoveCameraToAnchor(targetAnchor.transform);
+    }
 
     private void InitializeGameStatesFromProfile()
     {
@@ -71,65 +66,5 @@ public class GameManager : Singleton<GameManager>
     public bool GetState(GameState key)
     {
         return gameStates.ContainsKey(key) && gameStates[key];
-    }
-
-    public void ToggleRooms(GameObject targetRoom)
-    {
-        foreach (GameObject room in rooms)
-        {   
-            room.SetActive(room == targetRoom);
-        }
-        
-        activeRoom = targetRoom;
-        currentViewIndex = 0;
-        FetchViews(targetRoom);
-
-        // Ensure only the first view is active immediately
-        for (int i = 0; i < activeRoomViews.Count; i++)
-        {
-            activeRoomViews[i].SetActive(i == 0);
-        }
-        
-        if (targetRoom.name == "Bathroom")
-        {
-            if(GetState(GameState.GameStart))
-            {
-                GameManager.Instance.SetState(GameState.Water, true);
-            }
-        }
-        if (targetRoom.name == "Office")
-        {
-            if(GetState(GameState.CompletedTutorial))
-            {
-                GameManager.Instance.SetState(GameState.SeeBoss, true);
-            }
-        }
-
-    }
-
-    private void FetchViews(GameObject room)
-    {   
-        // Clear previous views from list
-        activeRoomViews.Clear();
-
-        // A loop is used instead of GetComponentsInChildren, since GetComponentsInChildren is recursive and returns more than the first-depth children of the gameobject in the hierarchy
-        foreach (Transform childTransform in room.transform) 
-        {
-            activeRoomViews.Add(childTransform.gameObject);
-        }
-        Debug.Log("View Count in " + activeRoom.gameObject.name + ": " + activeRoomViews.Count);
-        
-    }
-
-    public void ChangeView()
-    {
-        if (activeRoomViews == null || activeRoomViews.Count == 0) return;
-
-        // Disable the current view
-        activeRoomViews[currentViewIndex].SetActive(false);
-        // Increment index
-        currentViewIndex = (currentViewIndex + 1) % activeRoomViews.Count;
-        // Enable new view
-        activeRoomViews[currentViewIndex].SetActive(true);
     }
 }

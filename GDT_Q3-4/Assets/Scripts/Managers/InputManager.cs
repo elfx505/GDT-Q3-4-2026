@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-using Unity.VisualScripting;
-using UnityEditor;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -18,23 +16,33 @@ public class InputManager : Singleton<InputManager>
     public event Action OnTrainAI;
     public event Action OnDeleteAIDatabase;
 
+    // Event for Camera Look
+    public event Action<Vector2> OnLookRotate;
 
-    // Update is called once per frame
     void Update()
     {
         if (Mouse.current == null) return;
 
         mousePosition = Mouse.current.position.ReadValue();
 
-        // Check for click release        
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        // Left Click Logic (Raycasting for Interactables)
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {  
+            if (!GameManager.Instance.canDraw) return;
+            OnDrawStart?.Invoke(mousePosition);
+            Debug.Log("Draw Start");
+        }
+        else if (Mouse.current.leftButton.isPressed)
+        {   
+            if (!GameManager.Instance.canDraw) return;
+            OnDrawHold?.Invoke(mousePosition);
+        }
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             
             if (Physics.Raycast(ray, out raycastHit2D))
             {
-
                 Transform clickObj = raycastHit2D.collider.transform;
 
                 // Check if the clicked object is interactable
@@ -44,29 +52,33 @@ public class InputManager : Singleton<InputManager>
                     interactable.OnClick();
                 }
             }
+
+            if (!GameManager.Instance.canDraw) return;
+            OnDrawEnd?.Invoke();
+            Debug.Log("Draw End");
         }
 
-        if (Keyboard.current.rKey.wasPressedThisFrame)
+        // Right Click Drag Logic for Camera Look
+        if (Mouse.current.rightButton.isPressed)
         {
-            Debug.Log("r Key pressed!");
-            GameManager.Instance.ChangeView();
+            // Read the delta (how much the mouse moved this frame)
+            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+            Debug.Log("Right CLick Held: " + mouseDelta);
+            OnLookRotate?.Invoke(mouseDelta);
         }
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            Debug.Log("e Key pressed!");
             onEKey?.Invoke();
         }
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
-            Debug.Log("t Key pressed!");
             GameManager.Instance.SetState(GameState.CompletedTutorial, true);
         }
 
         if (Keyboard.current.cKey.wasPressedThisFrame)
         {
-            Debug.Log("c Key pressed!");
             OnDrawClear?.Invoke();
         }
 
@@ -79,22 +91,5 @@ public class InputManager : Singleton<InputManager>
         {
             OnDeleteAIDatabase?.Invoke();
         }
-
-
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {   
-            OnDrawStart?.Invoke(mousePosition);
-            Debug.Log("Draw Start");
-        }
-        else if (Mouse.current.leftButton.isPressed)
-        {
-            OnDrawHold?.Invoke(mousePosition);
-        }
-        else if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            OnDrawEnd?.Invoke();
-            Debug.Log("Draw End");
-        }
-
     }
 }

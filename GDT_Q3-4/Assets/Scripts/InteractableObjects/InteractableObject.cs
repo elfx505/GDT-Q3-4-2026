@@ -48,6 +48,16 @@ public class InteractableObject : MonoBehaviour, IInteractable
         _hasBeenInteracted = true;
     }
 
+    public virtual void OnHoverEnter()
+    {
+        // TO-DO: Add On Hover Visual Change for Interactable Objects
+    }
+
+    public virtual void OnHoverExit()
+    {
+        // TO-DO: Reset On Hover Visual Change for Interactable Objects
+    }
+
 
     protected virtual void PerformAction()
     {
