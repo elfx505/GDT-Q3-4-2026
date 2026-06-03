@@ -39,7 +39,13 @@ public class GameManager : Singleton<GameManager>
     {
         if (targetAnchor == null) return;
 
+        if (currentAnchor != null)
+        {
+            currentAnchor.ToggleActiveState(true);
+        }
+
         currentAnchor = targetAnchor;
+        currentAnchor.ToggleActiveState(false);
         
         // Tell the Camera Transition script to do the blink & move (position only)
         CameraManager.Instance.MoveCameraToAnchor(targetAnchor.transform);

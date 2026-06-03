@@ -11709,6 +11709,77 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1530239130}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1282504770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1282504773}
+  - component: {fileID: 1282504772}
+  - component: {fileID: 1282504771}
+  m_Layer: 0
+  m_Name: Office Whiteboard Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1282504771
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282504770}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: -3.46, y: 2.76, z: 0.7}
+  m_Center: {x: 0.67, y: -0.33067322, z: 1.67}
+--- !u!114 &1282504772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282504770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072f5b91a617a4549819dd93c3cac9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraAnchor
+  isRepeatable: 1
+  itemInteractions: []
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1282504773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282504770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.575, y: 1.5886049, z: 2.279}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1284452832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19750,6 +19821,7 @@ SceneRoots:
   - {fileID: 94558992}
   - {fileID: 2096267659}
   - {fileID: 1837273392}
+  - {fileID: 1282504773}
   - {fileID: 1550121380}
   - {fileID: 228676386}
   - {fileID: 1484477609}
@@ -19760,9 +19832,9 @@ SceneRoots:
   - {fileID: 654393127}
   - {fileID: 1926475981}
   - {fileID: 326451898}
+  - {fileID: 1530239130}
   - {fileID: 457717859}
   - {fileID: 1946890854}
-  - {fileID: 1530239130}
   - {fileID: 560580799}
   - {fileID: 624834739}
   - {fileID: 798114478}
