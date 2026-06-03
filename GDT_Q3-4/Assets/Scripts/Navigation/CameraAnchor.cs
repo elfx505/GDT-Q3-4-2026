@@ -5,6 +5,7 @@ public class CameraAnchor : InteractableObject
 {   
     
     [SerializeField] private Collider anchorCollider;
+    public CameraAnchor infiniteStairwellCameraAnchor;
     
     private void Awake()
     {
@@ -15,6 +16,13 @@ public class CameraAnchor : InteractableObject
         {
             Debug.LogWarning($"[CameraAnchor] {gameObject.name} is missing a Collider!");
         }
+
+        if (gameObject.CompareTag("LoopAnchor") && infiniteStairwellCameraAnchor == null)
+        {
+            Debug.LogWarning($"[CameraAnchor] Infinite Stairwell Destination Anchor is not assigned!");
+        }
+
+
     }
 
     public void ToggleActiveState(bool isActive)
@@ -30,6 +38,22 @@ public class CameraAnchor : InteractableObject
     {
         base.PerformAction();
         
-        GameManager.Instance.MoveToAnchor(this);
+        if (gameObject.CompareTag("LoopAnchor"))
+        {   
+            GameManager.Instance.MoveToAnchor(infiniteStairwellCameraAnchor);
+        }
+        else
+        {
+            GameManager.Instance.MoveToAnchor(this);
+        }
+
+        if (gameObject.CompareTag("DrawAnchor"))
+        {
+            GameManager.Instance.canDraw = true;
+        }
+        else
+        {
+            GameManager.Instance.canDraw = false;
+        }
     }
 }

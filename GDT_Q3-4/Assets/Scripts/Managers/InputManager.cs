@@ -63,7 +63,6 @@ public class InputManager : Singleton<InputManager>
         {
             // Read the delta (how much the mouse moved this frame)
             Vector2 mouseDelta = Mouse.current.delta.ReadValue();
-            Debug.Log("Right CLick Held: " + mouseDelta);
             OnLookRotate?.Invoke(mouseDelta);
         }
 

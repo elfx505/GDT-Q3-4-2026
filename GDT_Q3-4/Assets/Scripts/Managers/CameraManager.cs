@@ -23,6 +23,7 @@ public class CameraManager : Singleton<CameraManager>
     private float currentPitch;
     private float currentYaw;
 
+
     private void Start()
     {
         if (InputManager.Instance != null)
@@ -33,6 +34,8 @@ public class CameraManager : Singleton<CameraManager>
         {
             Debug.LogError("InputManager Instance is still null in Start!");
         }
+
+        mainCamera.transform.rotation = Quaternion.Euler(9.5f, 70f, 0f);
     }
 
     private void OnDestroy()
