@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DraggableButton : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class DraggableButton : MonoBehaviour
     private Camera cam;
     private Vector3 startPos;
     private Slot currentSlot;
+
+    public AudioClip clickSFX;
 
     void Awake()
     {
@@ -24,21 +26,34 @@ public class DraggableButton : MonoBehaviour
 
     void OnMouseDown()
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(cam.transform.position.z - transform.position.z);
-        mousePos = cam.ScreenToWorldPoint(mousePos);
-        offset = transform.position - mousePos;
+        AudioManager.Instance.PlaySFX(clickSFX, 1f, Random.Range(0.9f, 1.1f));
 
-        // Free current slot when picked up
-        if (currentSlot != null)
+        if (PuzzleManager.sequenceMode) 
         {
-            currentSlot.currentButton = null;
-            currentSlot = null;
+            PuzzleManager.Instance.PressButton(currentSlot.index);
+        } else 
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = Mathf.Abs(cam.transform.position.z - transform.position.z);
+            mousePos = cam.ScreenToWorldPoint(mousePos);
+            offset = transform.position - mousePos;
+
+            // Free current slot when picked up
+            if (currentSlot != null)
+            {
+                currentSlot.currentButton = null;
+                currentSlot = null;
+            }
+            PuzzleManager.Instance.CheckWin();
         }
     }
 
     void OnMouseDrag()
     {
+        if (PuzzleManager.sequenceMode) 
+        {
+            return;
+        }
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Mathf.Abs(cam.transform.position.z - transform.position.z);
         mousePos = cam.ScreenToWorldPoint(mousePos);
@@ -47,6 +62,10 @@ public class DraggableButton : MonoBehaviour
 
     void OnMouseUp()
     {
+        if (PuzzleManager.sequenceMode) 
+        {
+            return;
+        }
         CheckDrop();
     }
 

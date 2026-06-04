@@ -12,6 +12,7 @@ public class ConstraintUI : MonoBehaviour
     void Start()
     {
         text = GetComponent<TextMeshPro>();
+        text.color = Color.gray;
         UpdateText();
     }
 
