@@ -5,7 +5,7 @@ using System;
 public class InputManager : Singleton<InputManager>
 {
     Vector2 mousePosition;
-    RaycastHit raycastHit2D;
+    RaycastHit raycastHit3D;
     public static event Action onEKey;
 
     // Whiteboard specific input actions
@@ -19,13 +19,50 @@ public class InputManager : Singleton<InputManager>
     // Event for Camera Look
     public event Action<Vector2> OnLookRotate;
 
+    private IInteractable currentHoveredInteractable;
+
     void Update()
     {
         if (Mouse.current == null) return;
 
         mousePosition = Mouse.current.position.ReadValue();
 
-        // Left Click Logic (Raycasting for Interactables)
+        // Continuous Ray Hover Check
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(ray, out raycastHit3D))
+        {
+            IInteractable interactable = raycastHit3D.collider.GetComponent<IInteractable>();
+
+            // Did the object we are looking at change?
+            if (interactable != currentHoveredInteractable)
+            {
+                // Tell the old object we left it
+                if (currentHoveredInteractable != null)
+                {
+                    currentHoveredInteractable.OnHoverExit();
+                }
+
+                // Update to the new object
+                currentHoveredInteractable = interactable;
+
+                // Tell the new object we entered it
+                if (currentHoveredInteractable != null)
+                {
+                    currentHoveredInteractable.OnHoverEnter();
+                }
+            }
+        }
+        else
+        {
+            // The raycast hit nothing. If we were hovering over something, clear it.
+            if (currentHoveredInteractable != null)
+            {
+                currentHoveredInteractable.OnHoverExit();
+                currentHoveredInteractable = null;
+            }
+        }
+
+        // Left Click Logic
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {  
             if (!GameManager.Instance.canDraw) return;
@@ -39,18 +76,10 @@ public class InputManager : Singleton<InputManager>
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            
-            if (Physics.Raycast(ray, out raycastHit2D))
+            // We already know what we are hovering over from the code above
+            if (currentHoveredInteractable != null)
             {
-                Transform clickObj = raycastHit2D.collider.transform;
-
-                // Check if the clicked object is interactable
-                IInteractable interactable = raycastHit2D.collider.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    interactable.OnClick();
-                }
+                currentHoveredInteractable.OnClick();
             }
 
             if (!GameManager.Instance.canDraw) return;

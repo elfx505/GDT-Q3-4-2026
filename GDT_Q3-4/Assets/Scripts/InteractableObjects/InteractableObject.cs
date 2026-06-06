@@ -10,8 +10,45 @@ public class InteractableObject : MonoBehaviour, IInteractable
     [SerializeField] private List<ItemInteraction> itemInteractions;
     private bool _hasBeenInteracted = false;
 
+    [SerializeField] private Outline outline;
+
     // For plugging in sounds/particles inside Inspector
     [SerializeField] private UnityEvent onInteract;
+
+// The Reset method is called automatically in the Unity Editor when the script is added
+#if UNITY_EDITOR
+    private void Reset()
+    {
+        // Check if the Outline component already exists to avoid duplicates
+        Outline outline = GetComponent<Outline>();
+        
+        if (outline == null)
+        {
+            // 2. Add the component if it's missing
+            outline = gameObject.AddComponent<Outline>();
+        }
+
+        // Apply default settings
+        outline.OutlineMode = Outline.Mode.OutlineAll;
+        outline.OutlineColor = Color.white;
+        outline.OutlineWidth = 5f; 
+
+        // Disable it by default so it only turns on during hover
+        outline.enabled = false; 
+        
+    }
+#endif
+
+    private void Awake()
+    {
+        outline = gameObject.GetComponent<Outline>();
+
+        if (outline == null)
+        {
+            Debug.LogWarning($"Missing Outline Component for {gameObject.name}!");
+        }
+
+    }
 
     public virtual void OnClick()
     {
@@ -50,12 +87,18 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     public virtual void OnHoverEnter()
     {
-        // TO-DO: Add On Hover Visual Change for Interactable Objects
+        // Hover Visual indicator via outline asset by Chris Nolet
+        if (outline == null) return;
+
+        outline.enabled = true;
     }
 
     public virtual void OnHoverExit()
     {
-        // TO-DO: Reset On Hover Visual Change for Interactable Objects
+        // Hover Visual indicator via outline asset by Chris Nolet
+        if (outline == null) return;
+
+        outline.enabled = false;
     }
 
 
