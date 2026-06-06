@@ -8,18 +8,12 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField] Transform slotParent;
     [SerializeField] GameObject slotPrefab;
-    [SerializeField] public GameObject panelToToggle;
+    public GameObject panelToToggle;
 
     private List<GameObject> createdSlots = new List<GameObject>();
 
     // hidden at first
     void Awake()
-    {
-        panelToToggle.SetActive(false);
-    }
-
-
-    void Start()
     {
         if (panelToToggle != null)
         {
@@ -27,17 +21,16 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("panelToToggle is not assigned in Inspector!");
+            Debug.LogWarning("[InventoryUI] panelToToggle is not assigned in Inspector!");
         }
+    
     }
 
-    void Update()
+    public void ToggleInventory()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (InventoryManager.Instance.heldItem == null)
-            {
-                if (panelToToggle != null)
+        if (InventoryManager.Instance.heldItem != null) return;
+
+        if (panelToToggle != null)
                 {
                     bool shouldShow = !panelToToggle.activeSelf;
                     panelToToggle.SetActive(shouldShow);
@@ -48,11 +41,33 @@ public class InventoryUI : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("panelToToggle is null - assign it in Inspector!");
+                    Debug.LogError("[InventoryUI] panelToToggle is null - assign it in Inspector!");
                 }
-            }
-        }
     }
+
+
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         if (InventoryManager.Instance.heldItem == null)
+    //         {
+    //             if (panelToToggle != null)
+    //             {
+    //                 bool shouldShow = !panelToToggle.activeSelf;
+    //                 panelToToggle.SetActive(shouldShow);
+    //                 Debug.Log("Inventory toggled to: " + shouldShow);
+
+    //                 if (shouldShow)
+    //                     Refresh();
+    //             }
+    //             else
+    //             {
+    //                 Debug.LogError("panelToToggle is null - assign it in Inspector!");
+    //             }
+    //         }
+    //     }
+    // }
 
     public void Refresh()
     {
