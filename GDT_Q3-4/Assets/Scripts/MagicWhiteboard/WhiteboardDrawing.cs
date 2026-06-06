@@ -27,7 +27,7 @@ public class WhiteboardDrawing : MonoBehaviour
     private GestureDatabase activeDatabase = new GestureDatabase();
 
     [SerializeField] private String currentSymbolLabel = "Triangle";
-
+    [SerializeField] private bool isDrawingOnThisBoard = false;
     private void Start()
     {   
         recognizer = new DollarRecognizer();
@@ -68,6 +68,21 @@ public class WhiteboardDrawing : MonoBehaviour
 
     private void HandleDrawStart(Vector2 mousePosition)
     {
+        // Check if the mouse is actually pointing at THIS specific whiteboard
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.collider.gameObject != this.gameObject)
+            {
+                return;
+            }
+            
+            isDrawingOnThisBoard = true;        }
+        else
+        {
+            return;
+        } 
+        
         strokeData.Clear();
         RecordPoint(mousePosition);
 
@@ -80,6 +95,8 @@ public class WhiteboardDrawing : MonoBehaviour
 
     private void HandleDrawHold(Vector2 mousePosition)
     {
+        if (!isDrawingOnThisBoard) return;
+        
         if (currentBrush != null)
         {
             currentBrush.transform.position = GetHiddenCameraWorldPosition(mousePosition);
@@ -93,8 +110,11 @@ public class WhiteboardDrawing : MonoBehaviour
 
     private void HandleDrawEnd()
     {
-        Debug.Log($"Stroke finished! Captured {strokeData.Count} points.");
         
+        if (!isDrawingOnThisBoard) return;
+
+        isDrawingOnThisBoard = false; // Reset Flag
+
         currentBrush = null; 
 
         if (strokeData.Count > strokeDataMinThreshold) 
