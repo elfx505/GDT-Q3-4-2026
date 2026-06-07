@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     private Dictionary<GameState, bool> gameStates = new Dictionary<GameState, bool>();
     public static event Action<GameState> onGameStateChange;
     public bool canDraw;
+    public bool gameIsPaused;
 
     protected override void Awake()
     {

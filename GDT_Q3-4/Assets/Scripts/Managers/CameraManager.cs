@@ -35,6 +35,8 @@ public class CameraManager : Singleton<CameraManager>
             Debug.LogError("InputManager Instance is still null in Start!");
         }
 
+        PauseMenuManager.onLookSensitivityChanged += SetLookSensitivity;
+
         mainCamera.transform.rotation = Quaternion.Euler(9.5f, 70f, 0f);
     }
 
@@ -44,6 +46,8 @@ public class CameraManager : Singleton<CameraManager>
         {
             InputManager.Instance.OnLookRotate -= HandleCameraLook;
         }
+
+        PauseMenuManager.onLookSensitivityChanged -= SetLookSensitivity;
     }
 
     private void HandleCameraLook(Vector2 delta)
@@ -96,4 +100,15 @@ public class CameraManager : Singleton<CameraManager>
         overlayColor.a = endAlpha;
         blinkOverlay.color = overlayColor;
     }
+
+    public float GetLookSensitivity()
+    {
+        return lookSensitivity;
+    }
+
+    public void SetLookSensitivity(float newSensitivity)
+    {
+        lookSensitivity = newSensitivity;
+    }
+
 }

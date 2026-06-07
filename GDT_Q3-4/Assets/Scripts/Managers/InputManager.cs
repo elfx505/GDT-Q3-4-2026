@@ -6,7 +6,8 @@ public class InputManager : Singleton<InputManager>
 {
     Vector2 mousePosition;
     RaycastHit raycastHit3D;
-    public static event Action onEKey;
+    public event Action onEKey;
+    public event Action onEscape;
 
     // Whiteboard specific input actions
     public event Action<Vector2> OnDrawStart;
@@ -118,6 +119,12 @@ public class InputManager : Singleton<InputManager>
         if (Keyboard.current.dKey.wasPressedThisFrame)
         {
             OnDeleteAIDatabase?.Invoke();
+        }
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            onEscape?.Invoke();
+            Debug.Log("Escape Pressed this frame!");
         }
     }
 }
