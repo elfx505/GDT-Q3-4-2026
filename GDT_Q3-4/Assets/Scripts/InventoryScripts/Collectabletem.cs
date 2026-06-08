@@ -1,10 +1,12 @@
 using UnityEngine;
 
-public class CollectibleItem : MonoBehaviour
+public class CollectibleItem : InteractableObject
 {
     public ItemSO itemData;
-    void OnMouseDown()
+    protected override void PerformAction()
     {
+        base.PerformAction();
+        
         if (itemData == null) return;
         InventoryManager.Instance.AddItem(itemData);
         gameObject.SetActive(false);
