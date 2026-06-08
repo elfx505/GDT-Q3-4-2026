@@ -13,6 +13,7 @@ public class Door : InteractableObject
 
     protected override void PerformAction()
     {
+        base.PerformAction();
 
         if (anchorA == null || anchorB == null)
         {
@@ -22,12 +23,6 @@ public class Door : InteractableObject
 
         if (doorUnlocked)
         {
-            if (triggersGameState)
-            {
-                // 2. Tell the GameManager to update the state using the Inspector values
-                GameManager.Instance.SetState(stateToChange, targetStateValue);
-            }
-            
             float distanceToA = Vector3.Distance(Camera.main.transform.position, anchorA.transform.position);
             float distanceToB = Vector3.Distance(Camera.main.transform.position, anchorB.transform.position);
 
