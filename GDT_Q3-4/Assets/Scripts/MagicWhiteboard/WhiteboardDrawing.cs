@@ -230,49 +230,56 @@ public class WhiteboardDrawing : MonoBehaviour
         }
     }
 
-    private string GetSaveFilePath()
+
+    private string GetGesturesFilePath()
     {
-        // Application.persistentDataPath is a special folder Unity guarantees will always exist and be writable on PC, Mac, iOS, and Android.
-        return Application.persistentDataPath + "/AI_Gestures.json";
+        // Application.streamingAssetsPath automatically points to the correct 
+        // StreamingAssets folder in BOTH the Unity Editor and the Built Game.
+        return Path.Combine(Application.streamingAssetsPath, "AI_Gestures.json");
     }
 
     public void SaveGesturesToDisk()
     {
-        // Convert our ENTIRE active master list to a text string
         string json = JsonUtility.ToJson(activeDatabase, true);
         
-        File.WriteAllText(GetSaveFilePath(), json);
-        Debug.Log($"Saved {activeDatabase.allGestures.Count} total gestures to: " + GetSaveFilePath());
+        // Ensure the StreamingAssets directory exists before saving (mostly for Editor safety)
+        string directory = Path.GetDirectoryName(GetGesturesFilePath());
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        File.WriteAllText(GetGesturesFilePath(), json);
+        Debug.Log($"Saved gestures to: {GetGesturesFilePath()}");
     }
 
     public void LoadGesturesFromDisk()
     {
-        string filePath = GetSaveFilePath();
+        string filePath = GetGesturesFilePath();
 
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
-            
-            // Load the entire saved list into our active database
             activeDatabase = JsonUtility.FromJson<GestureDatabase>(json);
 
-            // Feed all the loaded gestures into the AI's brain
-            foreach (SavedGesture gesture in activeDatabase.allGestures)
+            if (activeDatabase != null && activeDatabase.allGestures != null)
             {
-                recognizer.SavePattern(gesture.gestureName, gesture.points);
+                foreach (SavedGesture gesture in activeDatabase.allGestures)
+                {
+                    recognizer.SavePattern(gesture.gestureName, gesture.points);
+                }
+                Debug.Log($"Loaded {activeDatabase.allGestures.Count} gestures from StreamingAssets!");
             }
-            
-            Debug.Log($"Loaded {activeDatabase.allGestures.Count} gestures from disk!");
         }
         else
         {
-            Debug.Log("No saved gestures found. AI is starting with an empty brain.");
+            Debug.LogWarning($"No gesture file found at {filePath}. AI is starting empty.");
         }
     }
 
     public void DeleteAllSavedGestures()
     {
-        string filePath = GetSaveFilePath();
+        string filePath = GetGesturesFilePath();
 
         // Delete the physical file from the hard drive
         if (File.Exists(filePath))

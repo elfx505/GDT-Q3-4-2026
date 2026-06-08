@@ -29516,7 +29516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a1125724bc4b444b6c6a2fd631b1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  startingAnchor: {fileID: 1388499776}
+  startingAnchor: {fileID: 1837273397}
   startingProfile: {fileID: 11400000, guid: c11d0cafb0f5340458019782bba5c2c4, type: 2}
   canDraw: 0
   gameIsPaused: 0
