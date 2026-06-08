@@ -1,15 +1,21 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class GameTextController : MonoBehaviour
+public class GameTextController  : MonoBehaviour
 {
     public GameObject panel;
     public TextMeshProUGUI textUI;
-
+    public List<string> stateText;
+    public List<GameState> keys;
     private Queue<string> messageQueue = new Queue<string>();
+   
     private bool isShowing = false;
+
 
     private void OnEnable()
     {
@@ -29,35 +35,24 @@ public class GameTextController : MonoBehaviour
         }
     }
 
+    private List<string> sections(string s) {
+        string[] delimiters = {"[S]"};
+        List<string> dialogueList = s
+                    .Split(delimiters, StringSplitOptions.None)
+                    .ToList();
+        return dialogueList;
+    }
+
+
     private void HandleGameStateChange(GameState key)
     {
-        switch (key)
+        for (int i = 0; i < keys.Count; i ++)
         {
-            case GameState.GameStart:
-                StartSequence(new List<string>
-                {
-                    "\n Click to continue...",
-                    "You: \n Another day in the cursed company.",
-                    "You: \n I need to take a bathroom break."
-                });
+            if (key == keys[i])
+            {
+                StartSequence(sections(stateText[i]));
                 break;
-
-            case GameState.Water:
-                StartSequence(new List<string>
-                {
-                    "You: \n What the ...",
-                    "You: \n I need something that can absorb water. ",
-                    "\n (Press E to open inventory)"
-                });
-                break;
-
-            case GameState.SeeBoss:
-                StartSequence(new List<string>
-                {
-                    "Boss: \n Well, well, well!",
-                    "Boss: \n I\'ve been waiting for you. Please, take your seat. "
-                });
-                break;
+            }
         }
     }
 
