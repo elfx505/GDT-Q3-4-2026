@@ -111,4 +111,12 @@ public class CameraManager : Singleton<CameraManager>
         lookSensitivity = newSensitivity;
     }
 
+    public void SetRotation(Quaternion newRotation)
+    {
+        if (mainCamera != null)
+        {
+            mainCamera.transform.rotation = newRotation;
+        }
+    }
+
 }

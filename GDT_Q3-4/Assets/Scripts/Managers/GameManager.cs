@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     public bool canDraw;
     public bool gameIsPaused;
     public bool perspectiveIsLocked = false;
+    public GameObject backButton; // Set In Inspector
 
     protected override void Awake()
     {
@@ -34,6 +35,15 @@ public class GameManager : Singleton<GameManager>
         else
         {
             Debug.LogWarning("[GameManager] Starting Anchor not set!");
+        }
+        
+        if (backButton != null)
+        {
+            backButton.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager] Back Button not set!");
         }
     }
 
@@ -75,4 +85,11 @@ public class GameManager : Singleton<GameManager>
     {
         return gameStates.ContainsKey(key) && gameStates[key];
     }
+
+    public void TogglePerspectiveLock()
+    {
+        perspectiveIsLocked = !perspectiveIsLocked;
+        backButton.SetActive(perspectiveIsLocked);
+    }
+
 }
