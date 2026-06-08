@@ -20,7 +20,7 @@ public class WhiteboardDrawing : MonoBehaviour
     public List<Vector2> strokeData = new List<Vector2>();
     private DollarRecognizer recognizer;
     private int strokeDataMinThreshold = 10;
-    [SerializeField] private float minScoreThreshold = 2f;
+    [SerializeField] private float minScoreThreshold = 3f;
 
     private GameObject currentBrush;
     private List<GameObject> oldStrokes = new List<GameObject>();
@@ -132,20 +132,17 @@ public class WhiteboardDrawing : MonoBehaviour
                     // Use a switch statement to trigger different puzzle logic based on the symbol!
                     switch (result.Match.Name)
                     {
-                        case "Triangle":
-                            Debug.Log("SUCCESS: You unlocked the Triangle door!");
-                            // GameManager.Instance.UnlockTriangleDoor();
+                        case "Key":
+                            Debug.Log("SUCCESS: Key Drawn");
+                            // Enable Key from GameManager
                             break;
                         
-                        case "Square":
-                            Debug.Log("SUCCESS: You activated the Square elevator!");
-                            // GameManager.Instance.ActivateSquareElevator();
+                        case "Door":
+                            if (!GameManager.Instance.GetState(GameState.JanitorDoorUnlocked)) return;
+                            Debug.Log("SUCCESS: Door Drawn");
+                            // Enable Door From GameManager
                             break;
                         
-                        case "Circle":
-                            Debug.Log("SUCCESS: You cast the Circle spell!");
-                            break;
-
                         default:
                             Debug.Log($"You drew a valid shape ({result.Match.Name}), but no game logic is hooked up for it yet.");
                             break;

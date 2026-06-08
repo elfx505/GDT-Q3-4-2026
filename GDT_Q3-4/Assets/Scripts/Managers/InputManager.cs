@@ -102,15 +102,6 @@ public class InputManager : Singleton<InputManager>
             onEKey?.Invoke();
         }
 
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            GameManager.Instance.SetState(GameState.CompletedTutorial, true);
-        }
-
-        if (Keyboard.current.cKey.wasPressedThisFrame)
-        {
-            OnDrawClear?.Invoke();
-        }
 
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {

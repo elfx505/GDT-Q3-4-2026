@@ -23,7 +23,6 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         InitializeGameStatesFromProfile();
-        SetState(GameState.GameStart, true);
     }
 
     private void Start()

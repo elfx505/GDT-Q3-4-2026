@@ -12,6 +12,5 @@ public class Water : InteractableObject
     public void CleanUpWater()
     {
         Debug.Log("Cleaned up water!");
-        GameManager.Instance.SetState(GameState.CompletedTutorial, true);
     }
 }
