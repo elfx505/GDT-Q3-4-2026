@@ -51,10 +51,6 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log("Used " + heldItem.itemName + " at " + pos);
-            // StopHolding();
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
             StopHolding();
         }
     }

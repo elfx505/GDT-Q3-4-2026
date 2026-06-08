@@ -15,6 +15,12 @@ public class InventoryUI : MonoBehaviour
     // hidden at first
     void Awake()
     {
+
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
         if (panelToToggle != null)
         {
             panelToToggle.SetActive(false);

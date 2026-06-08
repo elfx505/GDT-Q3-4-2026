@@ -11,8 +11,15 @@ public class ItemViewer : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        viewerPanel.SetActive(false);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        if (viewerPanel != null)
+            viewerPanel.SetActive(false);
+        else
+            Debug.LogError("viewerPanel is NOT assigned!");
     }
 
     public void ShowItem(ItemSO item)
@@ -32,10 +39,12 @@ public class ItemViewer : MonoBehaviour
 
     private void Update()
     {
-        // Close with Q key (same as dropping held item)
-        if (viewerPanel.activeSelf && Input.GetKeyDown(KeyCode.Q))
+        if (viewerPanel != null && viewerPanel.activeSelf)
         {
-            Close();
+            if (Input.GetMouseButtonDown(0)) // left click anywhere
+            {
+                Close();
+            }
         }
     }
 }
