@@ -90,7 +90,8 @@ public class InputManager : Singleton<InputManager>
 
         // Right Click Drag Logic for Camera Look
         if (Mouse.current.rightButton.isPressed)
-        {
+        {   
+            if(GameManager.Instance.perspectiveIsLocked) return;
             // Read the delta (how much the mouse moved this frame)
             Vector2 mouseDelta = Mouse.current.delta.ReadValue();
             OnLookRotate?.Invoke(mouseDelta);

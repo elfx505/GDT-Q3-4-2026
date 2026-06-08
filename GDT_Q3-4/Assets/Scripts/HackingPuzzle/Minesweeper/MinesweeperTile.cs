@@ -62,7 +62,7 @@ public class MinesweeperTile : MonoBehaviour
     {   
         if (isPaused) return;
 
-        Debug.Log($"{tileType} Tile cleared at ({tileX}, {tileY})!");
+        // Debug.Log($"{tileType} Tile cleared at ({tileX}, {tileY})!");
 
         if (isFlagged) return; // Can't clear flagged tiles
 
@@ -82,7 +82,7 @@ public class MinesweeperTile : MonoBehaviour
    {
         if (isPaused) return;
         
-        Debug.Log($"Tile at ({tileX}, {tileY}) flagged/unflagged!");
+        // Debug.Log($"Tile at ({tileX}, {tileY}) flagged/unflagged!");
 
         ToggleFlag();
 

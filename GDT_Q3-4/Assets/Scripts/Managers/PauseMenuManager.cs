@@ -51,10 +51,8 @@ public class PauseMenuManager : MonoBehaviour
         if (InputManager.Instance != null)
         {
             InputManager.Instance.onEscape -= TogglePause;
-        } else
-        {
-            Debug.LogWarning("[PauseMenuManagerl] InputManager.Instance is null!");
-        }
+        } 
+
     }
 
     private void Resume()

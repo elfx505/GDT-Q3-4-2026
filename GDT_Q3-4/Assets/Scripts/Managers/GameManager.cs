@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     public static event Action<GameState> onGameStateChange;
     public bool canDraw;
     public bool gameIsPaused;
+    public bool perspectiveIsLocked = false;
 
     protected override void Awake()
     {
