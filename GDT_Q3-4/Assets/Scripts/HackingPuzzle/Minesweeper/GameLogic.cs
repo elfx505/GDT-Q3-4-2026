@@ -227,6 +227,9 @@ public class GameLogic : Singleton<GameLogic>
                     {
                         // If it's a number (or a bomb), just clear that specific tile.
                         neighborTile.ClearTile();
+
+                        CheckGameState(nx, ny); // Explicitly check if the chord just revealed a bomb
+                        
                     }
                 }
             }
