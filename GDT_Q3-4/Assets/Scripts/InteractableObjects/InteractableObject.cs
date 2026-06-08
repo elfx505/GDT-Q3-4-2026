@@ -15,6 +15,12 @@ public class InteractableObject : MonoBehaviour, IInteractable
     // For plugging in sounds/particles inside Inspector
     [SerializeField] private UnityEvent onInteract;
 
+    [Header("Game State Trigger (Optional)")]
+    [Tooltip("Check this if going through this door should change a GameState.")]
+    [SerializeField] protected bool triggersGameState = false;
+    [SerializeField] protected GameState stateToChange;
+    [SerializeField] protected bool targetStateValue = true;
+
 // The Reset method is called automatically in the Unity Editor when the script is added
 #if UNITY_EDITOR
     private void Reset()
@@ -105,5 +111,11 @@ public class InteractableObject : MonoBehaviour, IInteractable
     protected virtual void PerformAction()
     {
         // Default behavior for interactable objects
+        if (triggersGameState)
+            {
+                // Tell the GameManager to update the state using the Inspector values
+                GameManager.Instance.SetState(stateToChange, targetStateValue);
+            }
+
     }
 }
