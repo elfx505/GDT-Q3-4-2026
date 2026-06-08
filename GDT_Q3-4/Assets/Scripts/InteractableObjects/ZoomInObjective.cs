@@ -1,15 +1,16 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ZoomInObjective : InteractableObject
 {   
     [SerializeField] private GameObject lockedCameraPerspective;   
     private Collider hitboxCollider;
     [SerializeField] private CameraAnchor previousAnchor; // Set In Inspector
+    [SerializeField] private List<Collider> optionalColliders = new List<Collider>(); // In Case other colliders are in the way
 
 
     private void Start()
     {
-        BackButton.onBackButton += GoToPreviousAnchor;
         
         if (previousAnchor == null)
         {
@@ -28,6 +29,9 @@ public class ZoomInObjective : InteractableObject
     {
         base.PerformAction();
 
+        // SUBSCRIBE ONLY WHEN ZOOMING IN
+        BackButton.onBackButton += GoToPreviousAnchor;
+
         CameraManager.Instance.MoveCameraToAnchor(lockedCameraPerspective.transform);
 
         CameraManager.Instance.SetRotation(lockedCameraPerspective.transform.rotation);
@@ -36,14 +40,32 @@ public class ZoomInObjective : InteractableObject
 
         hitboxCollider.enabled = false;
 
+        foreach(Collider collider in optionalColliders)
+        {
+            if (collider == null) continue;
+
+            collider.enabled = false;
+        }
+
     }
 
     private void GoToPreviousAnchor()
-    {
+    {   
+        // UNSUBSCRIBE IMMEDIATELY WHEN BACKING OUT
+        BackButton.onBackButton -= GoToPreviousAnchor;
+
         GameManager.Instance.MoveToAnchor(previousAnchor);
         GameManager.Instance.TogglePerspectiveLock();
 
         hitboxCollider.enabled = true;
+
+        foreach(Collider collider in optionalColliders)
+        {
+            if (collider == null) continue;
+
+            collider.enabled = true;
+        }
+       
     }
 
 

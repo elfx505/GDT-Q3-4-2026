@@ -21,24 +21,24 @@ public class Door : InteractableObject
             return;
         }
 
-        if (doorUnlocked)
-        {
-            float distanceToA = Vector3.Distance(Camera.main.transform.position, anchorA.transform.position);
-            float distanceToB = Vector3.Distance(Camera.main.transform.position, anchorB.transform.position);
-
-            if (distanceToA < distanceToB)
-            {
-                GameManager.Instance.MoveToAnchor(anchorB);
-            }
-            else
-            {
-                GameManager.Instance.MoveToAnchor(anchorA);
-            }
-        }
-        else
+        if (!doorUnlocked)
         {
             Debug.Log("The door is locked.");
+            return;
         }
+
+        // Determine which anchor is closer to the camera
+        float distanceToA = Vector3.Distance(Camera.main.transform.position, anchorA.transform.position);
+        float distanceToB = Vector3.Distance(Camera.main.transform.position, anchorB.transform.position);
+
+        // Set the target to the furthest one (the one we want to move to)
+        CameraAnchor targetAnchor = (distanceToA < distanceToB) ? anchorB : anchorA;
+
+        // Execute the move
+        GameManager.Instance.MoveToAnchor(targetAnchor);
+
+        // Check the if it is a draw anchor
+        GameManager.Instance.canDraw = targetAnchor.isDrawAnchor;
     }
     
     public void UnlockDoor()

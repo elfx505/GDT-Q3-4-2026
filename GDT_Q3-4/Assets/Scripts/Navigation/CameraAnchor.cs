@@ -16,7 +16,8 @@ public class CameraAnchor : InteractableObject
 
     private Vector3 startPos;
     private Coroutine bobCoroutine;
-    
+
+    public bool isDrawAnchor;
     private void Awake()
     {
         
@@ -71,7 +72,7 @@ public class CameraAnchor : InteractableObject
             GameManager.Instance.MoveToAnchor(this);
         }
 
-        if (gameObject.CompareTag("DrawAnchor"))
+        if (isDrawAnchor)
         {
             GameManager.Instance.canDraw = true;
         }
