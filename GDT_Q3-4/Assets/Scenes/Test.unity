@@ -79627,7 +79627,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
       propertyPath: 'stateText.Array.data[0]'
-      value: Hello [S]World
+      value: 'Hmm thats weird. I thought I charged my keyboard overnight but its
+        already dead[S] I should have a charger in my desk '
       objectReference: {fileID: 0}
     - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
       propertyPath: 'stateText.Array.data[1]'

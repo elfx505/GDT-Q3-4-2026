@@ -50,12 +50,12 @@ public class GameTextController : MonoBehaviour
         }
     }
 
-    private List<string> sections(string s) 
+    private List<string> sections(string s)
     {
         if (string.IsNullOrEmpty(s)) return new List<string>();
 
-        string[] delimiters = {"[S]"};
-        
+        string[] delimiters = { "[S]", "[s]" };
+
         // FIX: Added 'RemoveEmptyEntries' to automatically delete accidental 
         // blank spaces, double [S][S] tags, or trailing delimiters.
         List<string> dialogueList = s

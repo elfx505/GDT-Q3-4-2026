@@ -41,98 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4198340128718227991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87eb592dda039c64db7ea7ea56e3d910, type: 3}
+  m_Script: {fileID: 11500000, guid: 31aa8db393854b04eaf10a053383a798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutsceneManager
   backgroundImage: {fileID: 113491966091156456}
-  dialogueText: {fileID: 7198515936596408097}
-  dialoguePanel: {fileID: 1065940994068193300}
+  dialogueText: {fileID: 0}
+  dialoguePanel: {fileID: 0}
   cutsceneData:
-    orderedEvents:
-    - backgroundSprite: {fileID: 21300000, guid: 12bbbe7b6323c496287d886738fed53c, type: 3}
-      displayDuration: 2
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: ee792782a2cecbc41a8ef2610f26aba9, type: 3}
-      displayDuration: 0.67
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1024ace9286ec5144b6e8566c97e931e, type: 3}
-      displayDuration: 0.67
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 53f4dfe4f08a0544a8ab2487b325f59c, type: 3}
-      displayDuration: 0.67
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.5
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 12bbbe7b6323c496287d886738fed53c, type: 3}
-      displayDuration: 1
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: ee792782a2cecbc41a8ef2610f26aba9, type: 3}
-      displayDuration: 0.33
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1024ace9286ec5144b6e8566c97e931e, type: 3}
-      displayDuration: 0.33
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 53f4dfe4f08a0544a8ab2487b325f59c, type: 3}
-      displayDuration: 0.33
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 1b9527e4ab9837247accfedc2f5fbc91, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 275c2077d482e7645b1bcbfb044fbbcc, type: 3}
-      displayDuration: 0.25
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: 12bbbe7b6323c496287d886738fed53c, type: 3}
-      displayDuration: 1
-      dialogueText: 
-    - backgroundSprite: {fileID: 21300000, guid: f9d0843ebf8123847b86b21e04cd9f49, type: 3}
-      displayDuration: 0.5
-      dialogueText: 123
-    - backgroundSprite: {fileID: 21300000, guid: 12bbbe7b6323c496287d886738fed53c, type: 3}
-      displayDuration: 0.5
-      dialogueText: 456
+    orderedEvents: []
 --- !u!1 &4741236269616853750
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,22 +517,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66bdd46b366abb84dab310ef8ec504e1, type: 3}
---- !u!1 &1065940994068193300 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2286079033223998891, guid: 66bdd46b366abb84dab310ef8ec504e1, type: 3}
-  m_PrefabInstance: {fileID: 1257405255641910719}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7198515936596408097 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8256636822825728670, guid: 66bdd46b366abb84dab310ef8ec504e1, type: 3}
-  m_PrefabInstance: {fileID: 1257405255641910719}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &8925800275428204005 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7687050158731006042, guid: 66bdd46b366abb84dab310ef8ec504e1, type: 3}
