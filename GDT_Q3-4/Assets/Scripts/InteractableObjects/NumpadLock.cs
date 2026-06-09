@@ -46,6 +46,8 @@ public class NumpadLock : MonoBehaviour
         if (currentCombination.SequenceEqual(correctCombination))
         {
             Debug.Log("Correct Combination");
+
+            GameManager.Instance.SetState(GameState.JanitorDoorUnlocked, true);
         } else
         {
             ClearInput();

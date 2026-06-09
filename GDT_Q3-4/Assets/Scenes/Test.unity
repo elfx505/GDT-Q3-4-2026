@@ -516,9 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   startingNote: {fileID: 11400000, guid: b2625e3397d227442bdb1a1bfb3d870e, type: 2}
-  items:
-  - {fileID: 11400000, guid: d9f935fdbec46cf48ae83f2381bbd59f, type: 2}
-  - {fileID: 11400000, guid: 05e51ba7ea56e8d40b5970c82ab47771, type: 2}
+  items: []
   heldItem: {fileID: 0}
 --- !u!4 &13845306
 Transform:
@@ -4417,6 +4415,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8134259782673470675, guid: 938cec61813001745a270aedeacdeca7, type: 3}
   m_PrefabInstance: {fileID: 153305703}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &161464657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+  m_PrefabInstance: {fileID: 751718624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &162039616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6216,6 +6219,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -6732,6 +6736,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -8449,6 +8454,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &359062539
 PrefabInstance:
@@ -10453,6 +10459,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1 &446688728
 GameObject:
@@ -11084,6 +11091,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -12890,6 +12898,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorA: {fileID: 1495473850}
   anchorB: {fileID: 1223690878}
   doorUnlocked: 1
@@ -13374,6 +13383,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   lockedCameraPerspective: {fileID: 1260443255}
   previousAnchor: {fileID: 836160348}
   optionalColliders:
@@ -13694,6 +13704,10 @@ PrefabInstance:
       propertyPath: dialoguePanel
       value: 
       objectReference: {fileID: 98076226}
+    - target: {fileID: 765248705575708420, guid: 8fe2d66f6189dea41a03135f13097087, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1936242160779383542, guid: 8fe2d66f6189dea41a03135f13097087, type: 3}
       propertyPath: m_margin.y
       value: 562.9128
@@ -14902,6 +14916,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &691552265
 PrefabInstance:
@@ -15973,6 +15988,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 770285730}
   visualIndicatorSprite: {fileID: 0}
@@ -16032,6 +16048,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -16482,6 +16499,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &746339980
 PrefabInstance:
@@ -16698,6 +16716,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorA: {fileID: 836160348}
   anchorB: {fileID: 1282504772}
   doorUnlocked: 1
@@ -16707,7 +16726,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2001293895}
+    m_TransformParent: {fileID: 1071727416}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0502b58642f4d477a802264223a513c7, type: 3}
       propertyPath: m_LocalScale.x
@@ -16767,18 +16786,97 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0502b58642f4d477a802264223a513c7, type: 3}
       propertyPath: m_Name
-      value: Phone_removable_handle
+      value: Desk Phone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 751718629}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 751718628}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 751718630}
+    - targetCorrespondingSourceObject: {fileID: -9133724836110428621, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869599556}
+    - targetCorrespondingSourceObject: {fileID: -9133724836110428621, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869599555}
+    - targetCorrespondingSourceObject: {fileID: -9133724836110428621, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869599554}
   m_SourcePrefab: {fileID: 100100000, guid: 0502b58642f4d477a802264223a513c7, type: 3}
 --- !u!4 &751718625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0502b58642f4d477a802264223a513c7, type: 3}
   m_PrefabInstance: {fileID: 751718624}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &751718628
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161464657}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.003983552, y: 0.003982501, z: 0.0008291316}
+  m_Center: {x: -0.0013879902, y: 0.0017706684, z: 0.00043819245}
+--- !u!114 &751718629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161464657}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &751718630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161464657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84227d9620e60e428ba6ea49f305d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoomInObjective
+  isRepeatable: 1
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  lockedCameraPerspective: {fileID: 1931065552}
+  previousAnchor: {fileID: 1837273397}
+  optionalColliders: []
 --- !u!1 &752547494
 GameObject:
   m_ObjectHideFlags: 0
@@ -17115,6 +17213,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -17306,6 +17405,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -17391,6 +17491,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorA: {fileID: 1185433831}
   anchorB: {fileID: 727684683}
   doorUnlocked: 1
@@ -18320,6 +18421,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -18707,6 +18809,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -19004,6 +19107,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   whiteboard: {fileID: 1997990795}
 --- !u!1 &857704629
 GameObject:
@@ -19714,6 +19818,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   lockedCameraPerspective: {fileID: 1779651728}
   previousAnchor: {fileID: 818302586}
   optionalColliders: []
@@ -20702,6 +20807,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &952157634
 PrefabInstance:
@@ -20846,6 +20952,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6135990047342785760, guid: 19d5409e0a7bbc14e90a75f93f1240c1, type: 3}
   m_PrefabInstance: {fileID: 961849838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &962959711 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
+  m_PrefabInstance: {fileID: 1730563680}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &966670808
 PrefabInstance:
@@ -21349,6 +21460,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &999091666
 PrefabInstance:
@@ -21621,6 +21733,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -22296,6 +22409,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   whiteboard: {fileID: 1497910338}
 --- !u!1 &1048962777
 GameObject:
@@ -22861,6 +22975,8 @@ Transform:
   - {fileID: 875144195}
   - {fileID: 1362936016}
   - {fileID: 855498069}
+  - {fileID: 1730563681}
+  - {fileID: 751718625}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1074415994
@@ -26061,6 +26177,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -26553,6 +26670,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -27453,6 +27571,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -27697,6 +27816,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -28313,6 +28433,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &1321199569
 PrefabInstance:
@@ -29667,6 +29788,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorA: {fileID: 1185433831}
   anchorB: {fileID: 1499575751}
   doorUnlocked: 1
@@ -30195,6 +30317,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -32374,6 +32497,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -32700,6 +32824,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -32913,6 +33038,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -33628,6 +33754,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -33757,9 +33884,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   startingAnchor: {fileID: 1837273397}
   startingProfile: {fileID: 11400000, guid: c11d0cafb0f5340458019782bba5c2c4, type: 2}
+  debugStatesList: []
   canDraw: 0
   gameIsPaused: 0
   perspectiveIsLocked: 0
+  textOnScreen: 0
   backButton: {fileID: 937314050}
 --- !u!4 &1560174852
 Transform:
@@ -35753,6 +35882,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &1651304200
 PrefabInstance:
@@ -36334,15 +36464,87 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
       propertyPath: keys.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[1]'
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[2]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[3]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[4]'
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[5]'
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[6]'
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[7]'
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[8]'
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[9]'
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[10]'
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[11]'
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[12]'
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[13]'
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[14]'
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[15]'
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[16]'
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'keys.Array.data[17]'
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
       propertyPath: stateText.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
       propertyPath: 'stateText.Array.data[0]'
-      value: Hello
+      value: Hello [S]World
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498063425211695598, guid: 38727edf7fbbfe44cbc2566e5e152a31, type: 3}
+      propertyPath: 'stateText.Array.data[1]'
+      value: World
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36877,7 +37079,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2001293895}
+    m_TransformParent: {fileID: 1071727416}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
       propertyPath: m_LocalScale.x
@@ -36941,18 +37143,86 @@ PrefabInstance:
       objectReference: {fileID: 2100020, guid: 18cd780e6948a554a850b2d047ebf8fb, type: 3}
     - target: {fileID: 919132149155446097, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
       propertyPath: m_Name
-      value: rat trap_must-credit
+      value: Rat Trap (must-credit)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1730563686}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1730563685}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1730563684}
   m_SourcePrefab: {fileID: 100100000, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
 --- !u!4 &1730563681 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 99ecb22c1eafc462f8263d3bd1947b81, type: 3}
   m_PrefabInstance: {fileID: 1730563680}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1730563684
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962959711}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.07997725, y: 0.04038085, z: 0.0044204146}
+  m_Center: {x: -3.2281475e-10, y: 0.010190421, z: -0.0020086877}
+--- !u!114 &1730563685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962959711}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1730563686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962959711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1cf51991e8d6774d883943a7df549bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectibleItem
+  isRepeatable: 0
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  itemData: {fileID: 11400000, guid: 863c75b2594830b4fac5cc0eeb54d413, type: 2}
 --- !u!1001 &1732106960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38486,6 +38756,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorA: {fileID: 1005700650}
   anchorB: {fileID: 763161024}
   doorUnlocked: 1
@@ -39084,6 +39355,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorA: {fileID: 228676387}
   anchorB: {fileID: 1484477610}
   doorUnlocked: 1
@@ -39255,6 +39527,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -39322,6 +39595,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1 &1819464130 stripped
 GameObject:
@@ -39367,6 +39641,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &1821444706
 PrefabInstance:
@@ -40068,6 +40343,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorCollider: {fileID: 0}
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
@@ -40438,6 +40714,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8134259782673470675, guid: 938cec61813001745a270aedeacdeca7, type: 3}
   m_PrefabInstance: {fileID: 1866505062}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1869599550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -9133724836110428621, guid: 0502b58642f4d477a802264223a513c7, type: 3}
+  m_PrefabInstance: {fileID: 751718624}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1869599554
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869599550}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0019238618, y: 0.001871323, z: 0.00035399356}
+  m_Center: {x: 0.00011063086, y: 0.0001368281, z: -0.0002368146}
+--- !u!114 &1869599555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869599550}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1869599556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869599550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b61352c65a20348aaceb135908228a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Phone
+  isRepeatable: 1
+  itemInteractions:
+  - requiredItem: {fileID: 11400000, guid: 863c75b2594830b4fac5cc0eeb54d413, type: 2}
+    onSuccess:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1869599556}
+          m_TargetAssemblyTypeName: Phone, Assembly-CSharp
+          m_MethodName: UnlockDial
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
 --- !u!1001 &1872446838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40962,6 +41317,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1001 &1886963707
 PrefabInstance:
@@ -42411,6 +42767,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927836170}
   m_Mesh: {fileID: 4300002, guid: a684bd23a208a8f4a94c79a3a943395c, type: 3}
+--- !u!1 &1931065552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1931065553}
+  m_Layer: 0
+  m_Name: Desk Phone Locked Perspective
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1931065553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931065552}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.4964001, y: 0.32275194, z: -0.20561564, w: 0.77919215}
+  m_LocalPosition: {x: -2.788, y: 1.4254, z: -2.5894}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 65, y: 45, z: 0}
 --- !u!1001 &1932108174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43005,6 +43392,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   numpadLock: {fileID: 0}
 --- !u!1 &1956093922
 GameObject:
@@ -44019,10 +44407,8 @@ Transform:
   - {fileID: 1872956020}
   - {fileID: 809118820}
   - {fileID: 967924533}
-  - {fileID: 1730563681}
   - {fileID: 617804155}
   - {fileID: 1045887620}
-  - {fileID: 751718625}
   - {fileID: 2027387933}
   - {fileID: 1120602802}
   - {fileID: 820268496}
@@ -44412,6 +44798,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  unlockingGameState: 0
   anchorA: {fileID: 228676387}
   anchorB: {fileID: 1550121381}
   doorUnlocked: 1
@@ -46483,6 +46870,7 @@ SceneRoots:
   - {fileID: 446688729}
   - {fileID: 1779651729}
   - {fileID: 1260443256}
+  - {fileID: 1931065553}
   - {fileID: 2096267659}
   - {fileID: 1837273392}
   - {fileID: 1282504773}

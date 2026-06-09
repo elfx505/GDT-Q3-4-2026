@@ -15,6 +15,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
     // For plugging in sounds/particles inside Inspector
     [SerializeField] private UnityEvent onInteract;
 
+    [SerializeField] private GameState unlockingGameState;
+
 // The Reset method is called automatically in the Unity Editor when the script is added
 #if UNITY_EDITOR
     private void Reset()
@@ -60,7 +62,9 @@ public class InteractableObject : MonoBehaviour, IInteractable
         {
             foreach (var interaction in itemInteractions)
             {
-                if (interaction.requiredItem == heldItem)
+                Debug.Log($"Comparing Held Item: {heldItem.name} vs Required Item: {interaction.requiredItem.name}");
+                
+                if (interaction.requiredItem.name == heldItem.name)
                 {
                     Debug.Log($"Used {heldItem.itemName} on {name}");
                     interaction.onSuccess?.Invoke();
@@ -103,7 +107,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
 
     protected virtual void PerformAction()
-    {
+    {   
         // Default behavior for interactable objects
+        if (!GameManager.Instance.GetState(unlockingGameState)) return;
     }
 }

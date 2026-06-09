@@ -2,6 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// For Debugging (View Game State Data in Inspector)
+[Serializable]
+public struct GameStateData
+{
+    public GameState state;
+    public bool isActive;
+}
+
+
 public class GameManager : Singleton<GameManager>
 {
     [Header("Camera System")]
@@ -12,17 +21,22 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Game State")]
     public GameStateProfile startingProfile;
+
+    [Header("Debug")]
+    [SerializeField] private List<GameStateData> debugStatesList = new List<GameStateData>();
     private Dictionary<GameState, bool> gameStates = new Dictionary<GameState, bool>();
     public static event Action<GameState> onGameStateChange;
     public bool canDraw;
     public bool gameIsPaused;
     public bool perspectiveIsLocked = false;
+    public bool textOnScreen = false;
     public GameObject backButton; // Set In Inspector
 
     protected override void Awake()
     {
         base.Awake();
         InitializeGameStatesFromProfile();
+        SetState(GameState.IntroSequenceDone, true);
     }
 
     private void Start()
@@ -77,6 +91,7 @@ public class GameManager : Singleton<GameManager>
     public void SetState(GameState key, bool value)
     {
         gameStates[key] = value;
+        UpdateDebugList(); // Update the list whenever the state changes
         onGameStateChange?.Invoke(key);
     }
 
@@ -90,5 +105,15 @@ public class GameManager : Singleton<GameManager>
         perspectiveIsLocked = !perspectiveIsLocked;
         backButton.SetActive(perspectiveIsLocked);
     }
+
+    private void UpdateDebugList()
+    {
+        debugStatesList.Clear();
+        foreach (var kvp in gameStates)
+        {
+            debugStatesList.Add(new GameStateData { state = kvp.Key, isActive = kvp.Value });
+        }
+    }
+
 
 }

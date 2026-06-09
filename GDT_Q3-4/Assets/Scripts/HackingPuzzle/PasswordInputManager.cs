@@ -112,6 +112,8 @@ public class PasswordInputManager : MonoBehaviour
 
             // Reachable only if all Input is Valid
             Debug.Log("Correct Password Entered! Opening Shutters..."); // Temp
+
+            GameManager.Instance.SetState(GameState.MinesweeperDone, true);
         }
     }
     

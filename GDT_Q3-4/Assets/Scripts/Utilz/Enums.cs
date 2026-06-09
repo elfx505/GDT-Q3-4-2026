@@ -1,10 +1,11 @@
 public enum ItemType
 {
+    Note,
     Key,
     RatTrap,
     Marker,
     Screwdriver,
-    Sponge,
+    GasCanister,
 }
 
 public enum GameState

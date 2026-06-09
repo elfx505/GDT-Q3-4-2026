@@ -98,6 +98,8 @@ public class GameTextController : MonoBehaviour
         panel.SetActive(true);
         isShowing = true;
 
+        GameManager.Instance.textOnScreen = true;
+
         // Display the very first message immediately
         ShowNextMessage();
     }
@@ -120,5 +122,15 @@ public class GameTextController : MonoBehaviour
         panel.SetActive(false);
         isShowing = false;
         textUI.text = ""; // Clear the UI string to reset cleanly
+
+        // Start the delay
+        StartCoroutine(ResetTextFlag());
+    }
+
+    private IEnumerator ResetTextFlag()
+    {
+        // Wait for the current frame to completely finish drawing
+        yield return new WaitForEndOfFrame();
+        GameManager.Instance.textOnScreen = false;
     }
 }

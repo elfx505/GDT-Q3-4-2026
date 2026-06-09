@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ScrewdriverSO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Screwdriver
-  itemType: 3
+  itemType: 4
   icon: {fileID: 21300000, guid: f59542040dc5448459691fb41515f463, type: 3}
   onetime: 1
+  isViewable: 0
+  viewSprite: {fileID: 0}

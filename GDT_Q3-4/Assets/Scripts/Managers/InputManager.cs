@@ -26,6 +26,20 @@ public class InputManager : Singleton<InputManager>
     {
         if (Mouse.current == null) return;
 
+        // Stop processing world inputs if dialogue is showing
+        if (GameManager.Instance.textOnScreen)
+        {
+            // If we were hovering over an object when the text popped up, 
+            // force it to stop hovering so it doesn't stay highlighted behind the UI.
+            if (currentHoveredInteractable != null)
+            {
+                currentHoveredInteractable.OnHoverExit();
+                currentHoveredInteractable = null;
+            }
+            
+            return; // Exit early, ignoring all raycasts, clicks, and keys below
+        }
+        // ----------------------
         mousePosition = Mouse.current.position.ReadValue();
 
         // Continuous Ray Hover Check
@@ -76,7 +90,7 @@ public class InputManager : Singleton<InputManager>
             OnDrawHold?.Invoke(mousePosition);
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
+        {   
             // We already know what we are hovering over from the code above
             if (currentHoveredInteractable != null)
             {
