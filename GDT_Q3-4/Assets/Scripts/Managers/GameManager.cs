@@ -32,11 +32,13 @@ public class GameManager : Singleton<GameManager>
     public bool textOnScreen = false;
     public GameObject backButton; // Set In Inspector
 
+    public static GameManager instance;
+
     protected override void Awake()
     {
         base.Awake();
+        instance = this;
         InitializeGameStatesFromProfile();
-        SetState(GameState.IntroSequenceDone, true);
     }
 
     private void Start()

@@ -135,5 +135,6 @@ public class CutsceneManager : MonoBehaviour
         transform.parent.gameObject.SetActive(false); 
     
         // 4. Trigger whatever happens next in your game here (e.g., enable player movement)
+        GameManager.instance.SetState(GameState.IntroSequenceDone, true);
     }
 }
