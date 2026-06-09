@@ -6233,7 +6233,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
-  isHallwayAnchor: 1
+  isHallwayAnchor: 0
 --- !u!65 &228676388
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11194,7 +11194,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
-  isHallwayAnchor: 0
+  isHallwayAnchor: 1
 --- !u!4 &479177962
 Transform:
   m_ObjectHideFlags: 0
