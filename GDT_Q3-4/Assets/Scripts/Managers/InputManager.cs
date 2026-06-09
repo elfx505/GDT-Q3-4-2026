@@ -14,7 +14,6 @@ public class InputManager : Singleton<InputManager>
     public event Action<Vector2> OnDrawStart;
     public event Action<Vector2> OnDrawHold;
     public event Action OnDrawEnd;
-    public event Action OnDrawClear;
     public event Action OnTrainAI;
     public event Action OnDeleteAIDatabase;
 

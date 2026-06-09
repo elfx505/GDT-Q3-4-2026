@@ -40,7 +40,6 @@ public class WhiteboardDrawing : MonoBehaviour
             InputManager.Instance.OnDrawHold += HandleDrawHold;
             InputManager.Instance.OnDrawEnd += HandleDrawEnd;
 
-            InputManager.Instance.OnDrawClear += ClearWhiteboard; // Temp until final implementation with clear button
             InputManager.Instance.OnTrainAI += DebugSaveCurrentStroke; // Temp used for saving patterns to be copied
             InputManager.Instance.OnDeleteAIDatabase += DeleteAllSavedGestures;
         }
@@ -58,7 +57,6 @@ public class WhiteboardDrawing : MonoBehaviour
             InputManager.Instance.OnDrawHold -= HandleDrawHold;
             InputManager.Instance.OnDrawEnd -= HandleDrawEnd;
 
-            InputManager.Instance.OnDrawClear -= ClearWhiteboard; // Temp until final implementation with clear button
             InputManager.Instance.OnTrainAI -= DebugSaveCurrentStroke; // Temp used for saving patterns to be copied
             InputManager.Instance.OnDeleteAIDatabase -= DeleteAllSavedGestures;
         }

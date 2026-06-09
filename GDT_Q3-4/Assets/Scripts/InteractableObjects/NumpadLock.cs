@@ -26,7 +26,7 @@ public class NumpadLock : MonoBehaviour
 
     public void RegisterInput(int value)
     {
-        if (currentCombination.Count >= 4) return;
+        if (currentCombination.Count >= maxCombinationSize) return;
 
         currentCombination.Add(value);
         UpdateText();

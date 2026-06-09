@@ -1376,11 +1376,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2001293895}
+    m_TransformParent: {fileID: 1071727416}
     m_Modifications:
     - target: {fileID: 1215395421967941289, guid: 3028bdafdc13c1c4a911990395bbbce8, type: 3}
       propertyPath: m_Name
-      value: Fuel Tank
+      value: Gasoline Canister
       objectReference: {fileID: 0}
     - target: {fileID: 1987814901560157203, guid: 3028bdafdc13c1c4a911990395bbbce8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1425,7 +1425,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1215395421967941289, guid: 3028bdafdc13c1c4a911990395bbbce8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030085484}
+    - targetCorrespondingSourceObject: {fileID: 1215395421967941289, guid: 3028bdafdc13c1c4a911990395bbbce8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030085483}
   m_SourcePrefab: {fileID: 100100000, guid: 3028bdafdc13c1c4a911990395bbbce8, type: 3}
 --- !u!4 &55655799 stripped
 Transform:
@@ -9052,6 +9058,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4072147679325643251, guid: 24766e9a067e64784b1fc3f607abdc60, type: 3}
   m_PrefabInstance: {fileID: 380765291}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &385879266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1579833377869410434, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+  m_PrefabInstance: {fileID: 617804154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &385879270
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385879266}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.032051783, y: 0.03205178, z: 0.032051776}
+  m_Center: {x: 0.000016250646, y: 0.0019227082, z: -0.004580392}
+--- !u!114 &385879271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385879266}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &385879272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385879266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b770736b753b4a1468d2e8e95aae3174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GasolineHole
+  isRepeatable: 1
+  itemInteractions:
+  - requiredItem: {fileID: 11400000, guid: f358419150e3d7847b577bb28a27dda3, type: 2}
+    onSuccess:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 385879272}
+          m_TargetAssemblyTypeName: GasolineHole, Assembly-CSharp
+          m_MethodName: PrintPaper
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 10
 --- !u!1 &386840332
 GameObject:
   m_ObjectHideFlags: 0
@@ -13932,12 +14017,20 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2001293895}
+    m_TransformParent: {fileID: 1071727416}
     m_Modifications:
     - target: {fileID: 2611851900717465543, guid: 3f092aade62644576983527a4667e6b3, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100028, guid: 18cd780e6948a554a850b2d047ebf8fb, type: 3}
+    - target: {fileID: 3779652221418767528, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 149.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 3779652221418767528, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 149.99997
+      objectReference: {fileID: 0}
     - target: {fileID: 3779652221418767528, guid: 3f092aade62644576983527a4667e6b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.686
@@ -13980,7 +14073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4557595574410337810, guid: 3f092aade62644576983527a4667e6b3, type: 3}
       propertyPath: m_Name
-      value: office_printer
+      value: Defective Printer
       objectReference: {fileID: 0}
     - target: {fileID: 7934996317583401227, guid: 3f092aade62644576983527a4667e6b3, type: 3}
       propertyPath: m_IsActive
@@ -13993,7 +14086,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1579833377869410434, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 385879272}
+    - targetCorrespondingSourceObject: {fileID: 1579833377869410434, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 385879271}
+    - targetCorrespondingSourceObject: {fileID: 1579833377869410434, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 385879270}
   m_SourcePrefab: {fileID: 100100000, guid: 3f092aade62644576983527a4667e6b3, type: 3}
 --- !u!4 &617804155 stripped
 Transform:
@@ -64821,6 +64923,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1030085479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1215395421967941289, guid: 3028bdafdc13c1c4a911990395bbbce8, type: 3}
+  m_PrefabInstance: {fileID: 55655798}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1030085483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030085479}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1030085484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030085479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1cf51991e8d6774d883943a7df549bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectibleItem
+  isRepeatable: 0
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  itemData: {fileID: 11400000, guid: f358419150e3d7847b577bb28a27dda3, type: 2}
 --- !u!1001 &1042546771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65702,6 +65847,8 @@ Transform:
   - {fileID: 751718625}
   - {fileID: 1898431673}
   - {fileID: 2050620521}
+  - {fileID: 617804155}
+  - {fileID: 55655799}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1074415994
@@ -87512,7 +87659,6 @@ Transform:
   - {fileID: 1872956020}
   - {fileID: 809118820}
   - {fileID: 967924533}
-  - {fileID: 617804155}
   - {fileID: 1045887620}
   - {fileID: 2027387933}
   - {fileID: 1120602802}
@@ -87604,7 +87750,6 @@ Transform:
   - {fileID: 1042546772}
   - {fileID: 541246770}
   - {fileID: 564964618}
-  - {fileID: 55655799}
   - {fileID: 200450388}
   - {fileID: 1048044319}
   - {fileID: 715202523}
