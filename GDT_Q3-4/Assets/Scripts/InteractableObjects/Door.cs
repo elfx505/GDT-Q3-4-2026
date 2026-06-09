@@ -10,6 +10,7 @@ public class Door : InteractableObject
 
     [Header("Door Status")]
     [SerializeField] private bool doorUnlocked = true;
+    [SerializeField] private bool isJanitorDoor;
 
     protected override void PerformAction()
     {
@@ -39,6 +40,12 @@ public class Door : InteractableObject
 
         // Check the if it is a draw anchor
         GameManager.Instance.canDraw = targetAnchor.isDrawAnchor;
+
+        if (isJanitorDoor)
+        {
+            GameManager.Instance.SetState(GameState.InsideJanitorOffice, true);
+            unlockingGameState = GameState.JanitorDoorUnlocked;
+        }
     }
     
     public void UnlockDoor()

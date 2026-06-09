@@ -15,7 +15,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
     // For plugging in sounds/particles inside Inspector
     [SerializeField] private UnityEvent onInteract;
 
-    [SerializeField] private GameState unlockingGameState;
+    [SerializeField] protected GameState unlockingGameState;
 
 // The Reset method is called automatically in the Unity Editor when the script is added
 #if UNITY_EDITOR

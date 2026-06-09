@@ -13005,6 +13005,7 @@ MonoBehaviour:
   anchorA: {fileID: 1495473850}
   anchorB: {fileID: 1223690878}
   doorUnlocked: 1
+  isJanitorDoor: 0
 --- !u!1 &584289350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5539159680153548231, guid: 21b5e1c569440aa4cbbf1d0541e1a908, type: 3}
@@ -13496,7 +13497,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
-  unlockingGameState: 0
+  unlockingGameState: 13
   lockedCameraPerspective: {fileID: 1260443255}
   previousAnchor: {fileID: 836160348}
   optionalColliders:
@@ -16870,10 +16871,11 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
-  unlockingGameState: 0
+  unlockingGameState: 11
   anchorA: {fileID: 836160348}
   anchorB: {fileID: 1282504772}
   doorUnlocked: 1
+  isJanitorDoor: 1
 --- !u!1001 &751718624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17654,6 +17656,7 @@ MonoBehaviour:
   anchorA: {fileID: 1185433831}
   anchorB: {fileID: 727684683}
   doorUnlocked: 1
+  isJanitorDoor: 0
 --- !u!65 &773475229
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72892,6 +72895,7 @@ MonoBehaviour:
   anchorA: {fileID: 1185433831}
   anchorB: {fileID: 1499575751}
   doorUnlocked: 1
+  isJanitorDoor: 0
 --- !u!1 &1368339496
 GameObject:
   m_ObjectHideFlags: 0
@@ -81911,6 +81915,7 @@ MonoBehaviour:
   anchorA: {fileID: 1005700650}
   anchorB: {fileID: 763161024}
   doorUnlocked: 1
+  isJanitorDoor: 0
 --- !u!1001 &1789777105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82510,6 +82515,7 @@ MonoBehaviour:
   anchorA: {fileID: 228676387}
   anchorB: {fileID: 1484477610}
   doorUnlocked: 1
+  isJanitorDoor: 0
 --- !u!1 &1806098887
 GameObject:
   m_ObjectHideFlags: 0
@@ -88050,6 +88056,7 @@ MonoBehaviour:
   anchorA: {fileID: 228676387}
   anchorB: {fileID: 1550121381}
   doorUnlocked: 1
+  isJanitorDoor: 0
 --- !u!1001 &2013305819
 PrefabInstance:
   m_ObjectHideFlags: 0
