@@ -10,11 +10,12 @@ public class Phone : InteractableObject
 
        if (!canDial) return;
 
-       GameManager.Instance.SetState(GameState.RatTrapPlaced, true); 
+       GameManager.Instance.SetState(GameState.NumberDialed, true); 
     }
 
     public void UnlockDial()
-    {
+    {   
+        GameManager.Instance.SetState(GameState.RatTrapPlaced, true);
         canDial = true;
     }
 }
