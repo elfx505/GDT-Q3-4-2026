@@ -130,15 +130,15 @@ public class InputManager : Singleton<InputManager>
         }
 
 
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            OnTrainAI?.Invoke();
-        }
+        // if (Keyboard.current.aKey.wasPressedThisFrame)
+        // {
+        //     OnTrainAI?.Invoke();
+        // }
 
-        if (Keyboard.current.dKey.wasPressedThisFrame)
-        {
-            OnDeleteAIDatabase?.Invoke();
-        }
+        // if (Keyboard.current.dKey.wasPressedThisFrame)
+        // {
+        //     OnDeleteAIDatabase?.Invoke();
+        // }
 
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {

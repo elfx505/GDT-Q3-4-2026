@@ -34,6 +34,9 @@ public class GameManager : Singleton<GameManager>
 
     public static GameManager instance;
 
+    [SerializeField] private GameObject key;
+    [SerializeField] private GameObject hiddenDoor;
+
     protected override void Awake()
     {
         base.Awake();
@@ -60,6 +63,34 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogWarning("[GameManager] Back Button not set!");
         }
+
+        if (key != null)
+        {
+            key.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager] Key not set!");
+        }
+        
+        if (hiddenDoor != null)
+        {
+            hiddenDoor.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager] hiddenDoor not set!");
+        }
+    }
+
+    public void EnableKey()
+    {
+        key.SetActive(true);
+    }
+    
+    public void EnableHiddenDoor()
+    {
+        hiddenDoor.SetActive(true);
     }
 
     public void MoveToAnchor(CameraAnchor targetAnchor)

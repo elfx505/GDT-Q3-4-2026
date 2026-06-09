@@ -133,12 +133,14 @@ public class WhiteboardDrawing : MonoBehaviour
                         case "Key":
                             Debug.Log("SUCCESS: Key Drawn");
                             // Enable Key from GameManager
+                            GameManager.Instance.EnableKey();
                             break;
                         
                         case "Door":
                             if (!GameManager.Instance.GetState(GameState.JanitorDoorUnlocked)) return;
                             Debug.Log("SUCCESS: Door Drawn");
                             // Enable Door From GameManager
+                            GameManager.Instance.EnableHiddenDoor();
                             break;
                         
                         default:
