@@ -18,6 +18,7 @@ public class CameraAnchor : InteractableObject
     private Coroutine bobCoroutine;
 
     public bool isDrawAnchor;
+    [SerializeField] private bool isHallwayAnchor;
     private void Awake()
     {
         
@@ -48,6 +49,30 @@ public class CameraAnchor : InteractableObject
 
         visualIndicatorSprite.enabled = false;
 
+        if (isHallwayAnchor)
+        {
+            ToggleActiveState(false); 
+        }
+        
+
+    }
+
+    private void Start()
+    {
+        GameManager.onGameStateChange += TryEnableHallwayAnchorCollider;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.onGameStateChange -= TryEnableHallwayAnchorCollider;
+    }
+
+    private void TryEnableHallwayAnchorCollider(GameState gameState)
+    {
+        if (gameState == GameState.JanitorDoorUnlocked)
+        {
+            ToggleActiveState(true);
+        }
     }
 
     public void ToggleActiveState(bool isActive)

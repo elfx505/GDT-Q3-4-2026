@@ -6233,6 +6233,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 1
 --- !u!65 &228676388
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6750,6 +6751,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &273016709
 Transform:
   m_ObjectHideFlags: 0
@@ -11164,7 +11166,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 3.32, z: 2}
+  m_Size: {x: 2, y: 3.32, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &479177961
 MonoBehaviour:
@@ -11192,6 +11194,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &479177962
 Transform:
   m_ObjectHideFlags: 0
@@ -16151,6 +16154,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &726082171
 Transform:
   m_ObjectHideFlags: 0
@@ -16211,6 +16215,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!65 &727684684
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17377,6 +17382,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &763161025
 Transform:
   m_ObjectHideFlags: 0
@@ -17574,6 +17580,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!65 &770285731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18591,6 +18598,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &818302587
 Transform:
   m_ObjectHideFlags: 0
@@ -18979,6 +18987,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!65 &836160349
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64566,6 +64575,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &1005700651
 Transform:
   m_ObjectHideFlags: 0
@@ -69262,6 +69272,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!65 &1185433832
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69755,6 +69766,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &1223690879
 Transform:
   m_ObjectHideFlags: 0
@@ -70682,6 +70694,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &1270457070
 Transform:
   m_ObjectHideFlags: 0
@@ -70927,6 +70940,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 1
+  isHallwayAnchor: 0
 --- !u!4 &1282504773
 Transform:
   m_ObjectHideFlags: 0
@@ -73432,6 +73446,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 1
+  isHallwayAnchor: 0
 --- !u!4 &1388499777
 Transform:
   m_ObjectHideFlags: 0
@@ -75612,6 +75627,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!65 &1484477611
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75939,6 +75955,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &1495473851
 Transform:
   m_ObjectHideFlags: 0
@@ -76153,6 +76170,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &1499575752
 Transform:
   m_ObjectHideFlags: 0
@@ -76893,6 +76911,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!65 &1550121382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -77013,7 +77032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a1125724bc4b444b6c6a2fd631b1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  startingAnchor: {fileID: 1484477610}
+  startingAnchor: {fileID: 1837273397}
   startingProfile: {fileID: 11400000, guid: c11d0cafb0f5340458019782bba5c2c4, type: 2}
   debugStatesList: []
   canDraw: 0
@@ -82692,6 +82711,7 @@ MonoBehaviour:
   speed: 2
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!4 &1817320353
 Transform:
   m_ObjectHideFlags: 0
@@ -83507,6 +83527,7 @@ MonoBehaviour:
   speed: 1
   height: 0.25
   isDrawAnchor: 0
+  isHallwayAnchor: 0
 --- !u!33 &1837273399
 MeshFilter:
   m_ObjectHideFlags: 0
