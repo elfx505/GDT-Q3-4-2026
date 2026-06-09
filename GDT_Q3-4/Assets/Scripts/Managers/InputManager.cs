@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.EventSystems;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -91,10 +92,23 @@ public class InputManager : Singleton<InputManager>
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {   
-            // We already know what we are hovering over from the code above
+            // 2. ADD THIS SHIELD: If we released the mouse over a UI element, ignore the world entirely!
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
             if (currentHoveredInteractable != null)
             {
+                // We clicked an object! Let the object handle the held item.
                 currentHoveredInteractable.OnClick();
+            }
+            else 
+            {
+                // We clicked on empty air. 
+                // If we are holding an item, stop holding it.
+                if (InventoryManager.Instance.heldItem != null)
+                {
+                    Debug.Log("Clicked on nothing. Dropping item.");
+                    InventoryManager.Instance.StopHolding();
+                }
             }
 
             if (!GameManager.Instance.canDraw) return;

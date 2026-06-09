@@ -10,6 +10,8 @@ public class HeldItemFollower : MonoBehaviour
     {
         myImage = GetComponent<Image>();
         myRectTransform = GetComponent<RectTransform>();
+
+        myImage.raycastTarget = false;
     }
 
     void Update()

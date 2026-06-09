@@ -62,26 +62,39 @@ public class InteractableObject : MonoBehaviour, IInteractable
         {
             foreach (var interaction in itemInteractions)
             {
-                Debug.Log($"Comparing Held Item: {heldItem.name} vs Required Item: {interaction.requiredItem.name}");
-                
+                // Bulletproof string comparison
                 if (interaction.requiredItem.name == heldItem.name)
                 {
-                    Debug.Log($"Used {heldItem.itemName} on {name}");
+                    Debug.Log($"Successfully used {heldItem.itemName} on {name}");
                     interaction.onSuccess?.Invoke();
 
+                    // Consume the item if it's a one-time use
                     if (heldItem.onetime)
+                    {
                         InventoryManager.Instance.StopHolding();
+                    }
 
                     _hasBeenInteracted = true;
-                    return;
+                    return; // Exit out, we are done!
                 }
             }
 
-            Debug.Log("That's not the correct item.");
-            return;
+            // If it loops through all interactions and doesn't find a match:
+            Debug.Log($"Tried to use {heldItem.name}, but that's not the correct item.");
+            return; 
         }
 
+        // If we made it here, the player's hand is empty. Do normal click.
         Debug.Log($"Default click on: {name}");
+
+        // --- THE GATEKEEPER ---
+        // If we have an unlocking state assigned, and that state is false, STOP here.
+        if (!GameManager.Instance.GetState(unlockingGameState))
+        {
+            Debug.Log($"{name} is currently locked.");
+            return; 
+        }
+        // ----------------------
 
         PerformAction();
         onInteract?.Invoke();
@@ -109,6 +122,5 @@ public class InteractableObject : MonoBehaviour, IInteractable
     protected virtual void PerformAction()
     {   
         // Default behavior for interactable objects
-        if (!GameManager.Instance.GetState(unlockingGameState)) return;
     }
 }

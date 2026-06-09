@@ -16873,7 +16873,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
-  unlockingGameState: 0
+  unlockingGameState: 4
   lockedCameraPerspective: {fileID: 1931065552}
   previousAnchor: {fileID: 1837273397}
   optionalColliders: []

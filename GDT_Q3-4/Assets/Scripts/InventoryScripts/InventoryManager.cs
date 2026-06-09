@@ -12,7 +12,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (startingNote != null)
         {
-            InventoryManager.Instance.AddItem(startingNote);
+            AddItem(startingNote); 
         }
     }
 
@@ -20,12 +20,11 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (items.Contains(item))
         {
-            Debug.Log("Dduplicates " + item.itemName);
+            Debug.Log("Duplicate: " + item.itemName);
             return;
         }
         items.Add(item);
-        if (InventoryUI.Instance != null)
-            InventoryUI.Instance.Refresh();
+        
         if (InventoryUI.Instance != null)
         {
             Debug.Log("Added " + item.itemName);
@@ -36,22 +35,11 @@ public class InventoryManager : Singleton<InventoryManager>
     public void StartHolding(ItemSO item)
     {
         heldItem = item;
-        if (InventoryUI.Instance != null)
-            InventoryUI.Instance.panelToToggle.SetActive(false); // close inv
+        
     }
 
     public void StopHolding()
     {
         heldItem = null;
-    }
-
-    void Update()
-    {
-        if (heldItem != null && Input.GetMouseButtonDown(0)) // left click
-        {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("Used " + heldItem.itemName + " at " + pos);
-            StopHolding();
-        }
     }
 }

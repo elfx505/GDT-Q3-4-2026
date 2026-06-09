@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -152,6 +153,16 @@ public class InventoryUI : MonoBehaviour
             InventoryManager.Instance.StartHolding(item);   // Normal hold behavior
         }
         Refresh();
-        if (panelToToggle != null) panelToToggle.SetActive(false);
+        if (panelToToggle != null) 
+        {
+            StartCoroutine(ClosePanelDelay());
+        }
+    }
+
+    private IEnumerator ClosePanelDelay()
+    {
+        // Wait for the InputManager to finish its checks for this frame
+        yield return new WaitForEndOfFrame();
+        panelToToggle.SetActive(false);
     }
 }

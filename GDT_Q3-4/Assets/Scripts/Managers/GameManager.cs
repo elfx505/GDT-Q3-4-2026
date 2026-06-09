@@ -115,5 +115,33 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    // Allows for changing game state values from inspector
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        // 1. We only want to sync these changes if the game is actually running
+        if (!Application.isPlaying) return;
+
+        // 2. Loop through the list you are looking at in the Inspector
+        foreach (var data in debugStatesList)
+        {
+            // 3. Does the dictionary have this state?
+            if (gameStates.ContainsKey(data.state))
+            {
+                // 4. Did you just click the checkbox in the Inspector to change it?
+                if (gameStates[data.state] != data.isActive)
+                {
+                    // Update the real dictionary!
+                    gameStates[data.state] = data.isActive;
+                    
+                    // Fire the event manually so your dialogue, doors, etc., react instantly!
+                    onGameStateChange?.Invoke(data.state);
+                    
+                    Debug.Log($"[GameManager] {data.state} forcibly changed to {data.isActive} via Inspector!");
+                }
+            }
+        }
+    }
+#endif
 
 }
