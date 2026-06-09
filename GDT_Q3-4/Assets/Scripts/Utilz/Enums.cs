@@ -7,6 +7,9 @@ public enum ItemType
     Screwdriver,
     GasCanister,
     Wrench,
+    DefectivePrinterPaper,
+    ResignationPaper,
+
 }
 
 public enum GameState
