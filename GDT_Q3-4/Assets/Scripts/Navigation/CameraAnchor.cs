@@ -19,6 +19,8 @@ public class CameraAnchor : InteractableObject
 
     public bool isDrawAnchor;
     [SerializeField] private bool isHallwayAnchor;
+    [SerializeField] private bool isDeskAnchor;
+    private bool hasReturnedToDeskFromBathroom;
     private void Awake()
     {
         
@@ -104,6 +106,13 @@ public class CameraAnchor : InteractableObject
         else
         {
             GameManager.Instance.canDraw = false;
+        }
+
+        if (!GameManager.Instance.GetState(GameState.SinkRepaired)) return;
+        if (isDeskAnchor && !hasReturnedToDeskFromBathroom)
+        {
+            hasReturnedToDeskFromBathroom = true;
+            GameManager.Instance.SetState(GameState.ReturnedToDesk, true);
         }
     }
 

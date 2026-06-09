@@ -26,6 +26,12 @@ public class ItemViewer : MonoBehaviour
     {
         if (item == null) return;
 
+        // --- GAME STATE TRIGGER ---
+        if (item.name == "Note") 
+        {
+            GameManager.Instance.SetState(GameState.ReadNote, true);
+        }
+
         bigImage.sprite = item.viewSprite != null ? item.viewSprite : item.icon;
 
         viewerPanel.SetActive(true);

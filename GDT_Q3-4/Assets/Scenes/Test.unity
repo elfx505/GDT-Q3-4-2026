@@ -6158,6 +6158,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!65 &228676388
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6676,6 +6677,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &273016709
 Transform:
   m_ObjectHideFlags: 0
@@ -11119,6 +11121,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 1
+  isDeskAnchor: 0
 --- !u!4 &479177962
 Transform:
   m_ObjectHideFlags: 0
@@ -15998,6 +16001,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &726082171
 Transform:
   m_ObjectHideFlags: 0
@@ -16059,6 +16063,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!65 &727684684
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17226,6 +17231,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &763161025
 Transform:
   m_ObjectHideFlags: 0
@@ -17424,6 +17430,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!65 &770285731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18442,6 +18449,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &818302587
 Transform:
   m_ObjectHideFlags: 0
@@ -18831,6 +18839,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!65 &836160349
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20047,7 +20056,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
-  unlockingGameState: 2
+  unlockingGameState: 0
   itemData: {fileID: 11400000, guid: 8117e9aa2bb178948aab6b4f4356eb3a, type: 2}
 --- !u!114 &883622418
 MonoBehaviour:
@@ -64419,6 +64428,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1005700651
 Transform:
   m_ObjectHideFlags: 0
@@ -69116,6 +69126,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!65 &1185433832
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69704,6 +69715,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1223690879
 Transform:
   m_ObjectHideFlags: 0
@@ -70632,6 +70644,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1270457070
 Transform:
   m_ObjectHideFlags: 0
@@ -70878,6 +70891,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 1
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1282504773
 Transform:
   m_ObjectHideFlags: 0
@@ -73384,6 +73398,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 1
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1388499777
 Transform:
   m_ObjectHideFlags: 0
@@ -75570,6 +75585,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!65 &1484477611
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75898,6 +75914,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1495473851
 Transform:
   m_ObjectHideFlags: 0
@@ -76113,6 +76130,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1499575752
 Transform:
   m_ObjectHideFlags: 0
@@ -76849,6 +76867,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!65 &1550121382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -82708,6 +82727,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 0
 --- !u!4 &1817320353
 Transform:
   m_ObjectHideFlags: 0
@@ -83524,6 +83544,7 @@ MonoBehaviour:
   height: 0.25
   isDrawAnchor: 0
   isHallwayAnchor: 0
+  isDeskAnchor: 1
 --- !u!33 &1837273399
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -88817,7 +88838,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
-  unlockingGameState: 0
+  unlockingGameState: 1
   water: {fileID: 1458929534}
 --- !u!65 &2050620527
 BoxCollider:
