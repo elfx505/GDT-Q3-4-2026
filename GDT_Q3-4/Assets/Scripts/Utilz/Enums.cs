@@ -6,6 +6,7 @@ public enum ItemType
     Marker,
     Screwdriver,
     GasCanister,
+    Wrench,
 }
 
 public enum GameState
