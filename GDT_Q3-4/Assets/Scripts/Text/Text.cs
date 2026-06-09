@@ -130,7 +130,7 @@ public class GameTextController : MonoBehaviour
     private IEnumerator ResetTextFlag()
     {
         // Wait for the current frame to completely finish drawing
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.5f);
         GameManager.Instance.textOnScreen = false;
     }
 }
