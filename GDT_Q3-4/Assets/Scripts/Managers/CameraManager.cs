@@ -18,6 +18,7 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField] private float lookSensitivity = 0.2f;
     [SerializeField] private float minPitch = -60f; // Look up limit
     [SerializeField] private float maxPitch = 60f;  // Look down limit
+    private bool isLooInitialized = false;
 
     private bool isTransitioning = false;
     private float currentPitch;
@@ -54,8 +55,12 @@ public class CameraManager : Singleton<CameraManager>
     private void HandleCameraLook(Vector2 delta)
     {
         if (isTransitioning) return;
-        currentPitch = mainCamera.transform.eulerAngles.x;
-        currentYaw = mainCamera.transform.eulerAngles.y;
+        if (!isLooInitialized)
+        {
+            currentYaw = mainCamera.transform.eulerAngles.y;
+            currentPitch = mainCamera.transform.eulerAngles.x;
+            isLooInitialized = true;
+        }
         currentYaw += delta.x * lookSensitivity;
         currentPitch -= delta.y * lookSensitivity;
 
