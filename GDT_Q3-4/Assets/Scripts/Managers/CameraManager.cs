@@ -7,10 +7,10 @@ public class CameraManager : Singleton<CameraManager>
     [Header("References")]
     [Tooltip("The main camera that will be moving.")]
     [SerializeField] private Camera mainCamera;
-    
+
     [Tooltip("The black UI image used for the blink effect.")]
-    [SerializeField] private Image blinkOverlay; 
-    
+    [SerializeField] private Image blinkOverlay;
+
     [Header("Blink Settings")]
     [SerializeField] private float blinkDuration = 0.15f;
 
@@ -38,6 +38,7 @@ public class CameraManager : Singleton<CameraManager>
         PauseMenuManager.onLookSensitivityChanged += SetLookSensitivity;
 
         mainCamera.transform.rotation = Quaternion.Euler(9.5f, 70f, 0f);
+
     }
 
     private void OnDestroy()
@@ -52,10 +53,11 @@ public class CameraManager : Singleton<CameraManager>
 
     private void HandleCameraLook(Vector2 delta)
     {
-        if (isTransitioning) return; 
-
+        if (isTransitioning) return;
+        currentPitch = mainCamera.transform.eulerAngles.x;
+        currentYaw = mainCamera.transform.eulerAngles.y;
         currentYaw += delta.x * lookSensitivity;
-        currentPitch -= delta.y * lookSensitivity; 
+        currentPitch -= delta.y * lookSensitivity;
 
         currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
         mainCamera.transform.eulerAngles = new Vector3(currentPitch, currentYaw, 0f);
@@ -63,7 +65,7 @@ public class CameraManager : Singleton<CameraManager>
 
     public void MoveCameraToAnchor(Transform targetAnchor)
     {
-        if (isTransitioning) return; 
+        if (isTransitioning) return;
 
         StartCoroutine(BlinkAndMoveRoutine(targetAnchor));
     }
@@ -94,7 +96,7 @@ public class CameraManager : Singleton<CameraManager>
             elapsedTime += Time.deltaTime;
             overlayColor.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / blinkDuration);
             blinkOverlay.color = overlayColor;
-            yield return null; 
+            yield return null;
         }
 
         overlayColor.a = endAlpha;
