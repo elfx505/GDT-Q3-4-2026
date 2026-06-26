@@ -6,29 +6,31 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class GameTextController : MonoBehaviour
+public class GameTextController : Singleton<GameTextController>
 {
     [Header("UI Components")]
-    public GameObject panel;
-    public TextMeshProUGUI textUI;
+    // this is to make screen tinted white??
+    [SerializeField] private GameObject panelText;
+    [SerializeField] private GameObject panelBackground;
+    [SerializeField] private TextMeshProUGUI textUI;
 
     [Header("State Dialogues Mapping")]
-    [TextArea(3, 5)] public List<string> stateText;
+    [TextArea(3, 5)]
+    public List<string> stateText;
     public List<GameState> keys;
 
     private Queue<string> messageQueue = new Queue<string>();
     private bool isShowing = false;
+    public bool IsShowing => isShowing;
 
 
     // ADD THIS METHOD:
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // Force the panel to hide itself when the game first launches
-        if (panel != null)
-        {
-            panel.SetActive(false);
-        }
-        isShowing = false;
+        SetComponentVisibility(false);
+        // dialoguePanel.SetActive(false);
     }
 
     private void OnEnable()
@@ -39,6 +41,14 @@ public class GameTextController : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onGameStateChange -= HandleGameStateChange;
+    }
+
+    private void SetComponentVisibility(bool value)
+    {
+        isShowing = value;
+        panelBackground.SetActive(value);
+        panelText.SetActive(value);
+
     }
 
     private void Update()
@@ -83,8 +93,15 @@ public class GameTextController : MonoBehaviour
         }
     }
 
+    public void HandleDialogue(string text)
+    {
+        StartSequence(sections(text));
+    }
+
     public void StartSequence(List<string> messages)
     {
+        // dialoguePanel.SetActive(true);
+
         // Safety check: if no valid messages were extracted, don't even open the panel
         if (messages == null || messages.Count == 0) return;
 
@@ -95,8 +112,7 @@ public class GameTextController : MonoBehaviour
             messageQueue.Enqueue(msg);
         }
 
-        panel.SetActive(true);
-        isShowing = true;
+        SetComponentVisibility(true);
 
         GameManager.Instance.textOnScreen = true;
 
@@ -119,9 +135,9 @@ public class GameTextController : MonoBehaviour
 
     private void EndSequence()
     {
-        panel.SetActive(false);
-        isShowing = false;
+        SetComponentVisibility(false);
         textUI.text = ""; // Clear the UI string to reset cleanly
+        // dialoguePanel.SetActive(false);
 
         // Start the delay
         StartCoroutine(ResetTextFlag());

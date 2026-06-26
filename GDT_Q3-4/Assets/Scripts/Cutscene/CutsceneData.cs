@@ -22,3 +22,14 @@ public class CutsceneData
     // The main list we use to structure the cutscene
     public List<CutsceneEvent> orderedEvents;
 }
+
+
+public class CutsceneContext
+{
+    public Camera MainCamera;
+
+    public CutsceneContext(Camera camera)
+    {
+        MainCamera = camera;
+    }
+}
