@@ -36,7 +36,7 @@ public class InputManager : Singleton<InputManager>
                 currentHoveredInteractable.OnHoverExit();
                 currentHoveredInteractable = null;
             }
-            
+
             return; // Exit early, ignoring all raycasts, clicks, and keys below
         }
         // ----------------------
@@ -79,18 +79,18 @@ public class InputManager : Singleton<InputManager>
 
         // Left Click Logic
         if (Mouse.current.leftButton.wasPressedThisFrame)
-        {  
+        {
             if (!GameManager.Instance.canDraw) return;
             OnDrawStart?.Invoke(mousePosition);
             Debug.Log("Draw Start");
         }
         else if (Mouse.current.leftButton.isPressed)
-        {   
+        {
             if (!GameManager.Instance.canDraw) return;
             OnDrawHold?.Invoke(mousePosition);
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {   
+        {
             // 2. ADD THIS SHIELD: If we released the mouse over a UI element, ignore the world entirely!
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
@@ -99,7 +99,7 @@ public class InputManager : Singleton<InputManager>
                 // We clicked an object! Let the object handle the held item.
                 currentHoveredInteractable.OnClick();
             }
-            else 
+            else
             {
                 // We clicked on empty air. 
                 // If we are holding an item, stop holding it.
@@ -117,8 +117,9 @@ public class InputManager : Singleton<InputManager>
 
         // Right Click Drag Logic for Camera Look
         if (Mouse.current.rightButton.isPressed)
-        {   
-            if(GameManager.Instance.perspectiveIsLocked) return;
+        {
+            if (GameManager.Instance.perspectiveIsLocked) return;
+            if (GameManager.Instance.cameraFocused) return;
             // Read the delta (how much the mouse moved this frame)
             Vector2 mouseDelta = Mouse.current.delta.ReadValue();
             OnLookRotate?.Invoke(mouseDelta);

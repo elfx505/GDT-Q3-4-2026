@@ -6,6 +6,8 @@ public class H_CutsceneManager : Singleton<H_CutsceneManager>
 {
     // public static H_CutsceneManager Instance;
     [SerializeField] private Cutscene cutsceneTest;
+    [SerializeField] private List<Transform> targets;
+    CutsceneContext context;
 
     private bool _isPlaying;
 
@@ -17,6 +19,9 @@ public class H_CutsceneManager : Singleton<H_CutsceneManager>
         {
             PlayCutscene(cutsceneTest);
         }
+        context =
+            new CutsceneContext(Camera.main, targets);
+
     }
 
     public void PlayCutscene(Cutscene cutscene)
@@ -36,8 +41,7 @@ public class H_CutsceneManager : Singleton<H_CutsceneManager>
 
         Debug.Log($"Starting cutscene: {cutscene.cutsceneID}");
 
-        CutsceneContext context =
-            new CutsceneContext(Camera.main);
+
 
         List<Coroutine> runningParallelActions = new();
 

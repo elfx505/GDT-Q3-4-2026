@@ -18,11 +18,14 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField] private float lookSensitivity = 0.2f;
     [SerializeField] private float minPitch = -60f; // Look up limit
     [SerializeField] private float maxPitch = 60f;  // Look down limit
-    private bool isLooInitialized = false;
+
+    private float focusRotationSpeed = 10f;
+    private bool isLookInitialized = false;
 
     private bool isTransitioning = false;
     private float currentPitch;
     private float currentYaw;
+    private Transform focusTarget;
 
 
     private void Start()
@@ -38,8 +41,25 @@ public class CameraManager : Singleton<CameraManager>
 
         PauseMenuManager.onLookSensitivityChanged += SetLookSensitivity;
 
-        mainCamera.transform.rotation = Quaternion.Euler(9.5f, 70f, 0f);
+        // mainCamera.transform.rotation = Quaternion.Euler(9.5f, 70f, 0f);
 
+    }
+
+    private void Update()
+    {
+        if (focusTarget)
+        {
+
+            Vector3 direction = (focusTarget.position - mainCamera.transform.position).normalized;
+            // context.MainCamera.transform.LookAt(focusTarget);
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            mainCamera.transform.rotation = Quaternion.Slerp(
+                mainCamera.transform.rotation,
+                targetRotation,
+                focusRotationSpeed * Time.deltaTime
+            );
+        }
     }
 
     private void OnDestroy()
@@ -52,14 +72,29 @@ public class CameraManager : Singleton<CameraManager>
         PauseMenuManager.onLookSensitivityChanged -= SetLookSensitivity;
     }
 
+    public void SetCameraTarget(Transform target, float speed)
+    {
+        focusTarget = target;
+        focusRotationSpeed = speed;
+        if (target == null)
+        {
+            Vector3 euler = mainCamera.transform.eulerAngles;
+
+            currentYaw = euler.y;
+
+            currentPitch = euler.x;
+            if (currentPitch > 180f) currentPitch -= 360f;
+        }
+    }
+
     private void HandleCameraLook(Vector2 delta)
     {
         if (isTransitioning) return;
-        if (!isLooInitialized)
+        if (!isLookInitialized)
         {
             currentYaw = mainCamera.transform.eulerAngles.y;
             currentPitch = mainCamera.transform.eulerAngles.x;
-            isLooInitialized = true;
+            isLookInitialized = true;
         }
         currentYaw += delta.x * lookSensitivity;
         currentPitch -= delta.y * lookSensitivity;

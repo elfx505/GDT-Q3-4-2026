@@ -7,50 +7,16 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Cutscenes/Actions/Image With Dialogue")]
 public class ImageDialogueActionSO : CutsceneActionSO
 {
-    // public List<Sprite> image = new();
-
-    // public List<float> displayDuration = new();
-
-    // [TextArea]
-    // public List<string> dialogue;
-
     public List<ImageDialogueData> data = new();
 
     public override IEnumerator Play(CutsceneContext context)
     {
-        // if (image.Count <= 0 || displayDuration.Count <= 0 || dialogue.Count <= 0)
-        // {
-        //     yield break;
-        // }
+
         if (data.Count <= 0)
         {
             yield break;
         }
-        // for (int i = 0; i < image.Count; i++)
-        // {
 
-        //     CutsceneUI.Instance.ShowImage(image[i]);
-
-        //     yield return new WaitForSeconds(displayDuration[i]);
-
-        //     if (!string.IsNullOrWhiteSpace(dialogue[i]))
-        //     {
-        //         GameTextController.Instance.HandleDialogue(dialogue[i]);
-
-        //         // bool clicked = false;
-
-        //         // while (!clicked)
-        //         // {
-        //         //     if (Input.GetMouseButtonDown(0))
-        //         //         clicked = true;
-
-        //         //     yield return null;
-        //         // }
-        //         yield return new WaitUntil(() =>
-        //             !GameManager.Instance.textOnScreen);
-        //     }
-
-        // }
         for (int i = 0; i < data.Count; i++)
         {
             if (data[i].image)

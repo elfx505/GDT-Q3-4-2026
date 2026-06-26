@@ -15,9 +15,9 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("Camera System")]
     [SerializeField] private CameraAnchor startingAnchor;
-    
+
     private CameraAnchor currentAnchor;
-    public CameraAnchor CurrentAnchor => currentAnchor; 
+    public CameraAnchor CurrentAnchor => currentAnchor;
 
     [Header("Game State")]
     public GameStateProfile startingProfile;
@@ -29,6 +29,7 @@ public class GameManager : Singleton<GameManager>
     public bool canDraw;
     public bool gameIsPaused;
     public bool perspectiveIsLocked = false;
+    public bool cameraFocused = false;
     public bool textOnScreen = false;
     public GameObject backButton; // Set In Inspector
 
@@ -54,7 +55,7 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogWarning("[GameManager] Starting Anchor not set!");
         }
-        
+
         if (backButton != null)
         {
             backButton.SetActive(false);
@@ -72,7 +73,7 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogWarning("[GameManager] Key not set!");
         }
-        
+
         if (hiddenDoor != null)
         {
             hiddenDoor.SetActive(false);
@@ -87,7 +88,7 @@ public class GameManager : Singleton<GameManager>
     {
         key.SetActive(true);
     }
-    
+
     public void EnableHiddenDoor()
     {
         hiddenDoor.SetActive(true);
@@ -104,7 +105,7 @@ public class GameManager : Singleton<GameManager>
 
         currentAnchor = targetAnchor;
         currentAnchor.ToggleActiveState(false);
-        
+
         // Tell the Camera Transition script to do the blink & move (position only)
         CameraManager.Instance.MoveCameraToAnchor(targetAnchor.transform);
     }
@@ -138,6 +139,10 @@ public class GameManager : Singleton<GameManager>
         perspectiveIsLocked = !perspectiveIsLocked;
         backButton.SetActive(perspectiveIsLocked);
     }
+    public void ToggleCameraFocused()
+    {
+        cameraFocused = !cameraFocused;
+    }
 
     private void UpdateDebugList()
     {
@@ -166,10 +171,10 @@ public class GameManager : Singleton<GameManager>
                 {
                     // Update the real dictionary!
                     gameStates[data.state] = data.isActive;
-                    
+
                     // Fire the event manually so your dialogue, doors, etc., react instantly!
                     onGameStateChange?.Invoke(data.state);
-                    
+
                     Debug.Log($"[GameManager] {data.state} forcibly changed to {data.isActive} via Inspector!");
                 }
             }
