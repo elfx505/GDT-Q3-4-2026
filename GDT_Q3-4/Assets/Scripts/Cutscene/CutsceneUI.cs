@@ -45,6 +45,18 @@ public class CutsceneUI : Singleton<CutsceneUI>
         backgroundImage.gameObject.SetActive(true);
     }
 
+    public void ShowCinematicBars()
+    {
+        cinematicBotomPanel.SetActive(true);
+        cinematicTopPanel.SetActive(true);
+    }
+
+    public void HideCinematicBars()
+    {
+        cinematicBotomPanel.SetActive(false);
+        cinematicTopPanel.SetActive(false);
+    }
+
     public void HideImage()
     {
         cutsceneImage.gameObject.SetActive(false);

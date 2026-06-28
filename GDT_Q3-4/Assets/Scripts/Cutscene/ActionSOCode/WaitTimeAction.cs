@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cutscenes/Actions/Wait For Seconds")]
-public class WaitTimeActionSO : CutsceneActionSO
+
+public class WaitTimeAction : CutsceneAction
 {
     [SerializeField] private float waitSeconds;
 

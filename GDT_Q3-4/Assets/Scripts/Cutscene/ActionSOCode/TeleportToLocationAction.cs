@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Cutscenes/Actions/Teleport To Location")]
-public class TeleportToLocationActionSO : CutsceneActionSO
+public class TeleportToLocationActionSO : CutsceneAction
 {
     [SerializeField] private GameObject targetPosition;
     [SerializeField] private GameObject objectToMove;

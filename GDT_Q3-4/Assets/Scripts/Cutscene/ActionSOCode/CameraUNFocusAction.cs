@@ -1,14 +1,18 @@
 using System.Collections;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Cutscenes/Actions/Camera UNfocus")]
-public class CameraUNFocusActionSO : CutsceneActionSO
+
+
+public class CameraUNFocusAction : CutsceneAction
 {
 
     public override IEnumerator Play(CutsceneContext context)
     {
+        CameraManager.Instance.SetCameraTarget(null, 0f);
+
+        CutsceneUI.Instance.HideCinematicBars();
+
         GameManager.Instance.ToggleCameraFocused();
 
-        CameraManager.Instance.SetCameraTarget(null, 0f);
         yield break;
     }
 }

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cutscenes/Actions/Traverse Locations")]
 
-public class TraverseLocationsActionSO : CutsceneActionSO
+public class TraverseLocationsAction : CutsceneAction
 {
     [Header("Movement")]
     [SerializeField] private List<Transform> locations;

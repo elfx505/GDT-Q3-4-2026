@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(menuName = "Cutscenes/Actions/Image With Dialogue")]
-public class ImageDialogueActionSO : CutsceneActionSO
+public class ImageDialogueActionSO : CutsceneAction
 {
     public List<ImageDialogueData> data = new();
 

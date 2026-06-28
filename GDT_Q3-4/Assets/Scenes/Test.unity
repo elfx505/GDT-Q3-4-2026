@@ -87283,6 +87283,7 @@ MonoBehaviour:
   canDraw: 0
   gameIsPaused: 0
   perspectiveIsLocked: 0
+  cameraFocused: 0
   textOnScreen: 0
   backButton: {fileID: 937314050}
   key: {fileID: 415023849}

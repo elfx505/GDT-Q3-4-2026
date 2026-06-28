@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cutscenes/Cutscene")]
-public class Cutscene : ScriptableObject
+public class Cutscene : MonoBehaviour
 {
     public string cutsceneID;
 
-    public List<CutsceneActionSO> actions = new();
+    public List<CutsceneAction> actions = new();
 }

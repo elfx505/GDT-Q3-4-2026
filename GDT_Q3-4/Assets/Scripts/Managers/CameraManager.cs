@@ -72,18 +72,23 @@ public class CameraManager : Singleton<CameraManager>
         PauseMenuManager.onLookSensitivityChanged -= SetLookSensitivity;
     }
 
+    public void RecalibrateCamera()
+    {
+        Vector3 euler = mainCamera.transform.eulerAngles;
+
+        currentYaw = euler.y;
+
+        currentPitch = euler.x;
+        if (currentPitch > 180f) currentPitch -= 360f;
+    }
+
     public void SetCameraTarget(Transform target, float speed)
     {
         focusTarget = target;
         focusRotationSpeed = speed;
         if (target == null)
         {
-            Vector3 euler = mainCamera.transform.eulerAngles;
-
-            currentYaw = euler.y;
-
-            currentPitch = euler.x;
-            if (currentPitch > 180f) currentPitch -= 360f;
+            RecalibrateCamera();
         }
     }
 

@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class ZoomInObjective : InteractableObject
-{   
-    [SerializeField] private GameObject lockedCameraPerspective;   
+{
+    [SerializeField] private GameObject lockedCameraPerspective;
     private Collider hitboxCollider;
     [SerializeField] private CameraAnchor previousAnchor; // Set In Inspector
     [SerializeField] private List<Collider> optionalColliders = new List<Collider>(); // In Case other colliders are in the way
@@ -11,7 +11,7 @@ public class ZoomInObjective : InteractableObject
 
     private void Start()
     {
-        
+
         if (previousAnchor == null)
         {
             Debug.LogWarning($"[ZoomInObjective] {gameObject.name}: previousAnchor not set!");
@@ -40,7 +40,7 @@ public class ZoomInObjective : InteractableObject
 
         hitboxCollider.enabled = false;
 
-        foreach(Collider collider in optionalColliders)
+        foreach (Collider collider in optionalColliders)
         {
             if (collider == null) continue;
 
@@ -50,24 +50,25 @@ public class ZoomInObjective : InteractableObject
     }
 
     private void GoToPreviousAnchor()
-    {   
+    {
         // UNSUBSCRIBE IMMEDIATELY WHEN BACKING OUT
         BackButton.onBackButton -= GoToPreviousAnchor;
 
         GameManager.Instance.MoveToAnchor(previousAnchor);
         GameManager.Instance.TogglePerspectiveLock();
+        CameraManager.Instance.RecalibrateCamera();
 
         hitboxCollider.enabled = true;
 
-        foreach(Collider collider in optionalColliders)
+        foreach (Collider collider in optionalColliders)
         {
             if (collider == null) continue;
 
             collider.enabled = true;
         }
-       
+
     }
 
 
-    
+
 }

@@ -27,24 +27,9 @@ public class CutsceneData
 public class CutsceneContext
 {
     public Camera MainCamera;
-    public List<Transform> focusTargets;
-    private int currentFocusTarget = 0;
 
-    public CutsceneContext(Camera camera, List<Transform> targets)
+    public CutsceneContext(Camera camera)
     {
         MainCamera = camera;
-        focusTargets = targets;
-    }
-
-    public Transform GetCurrentFocusTarget()
-    {
-        if (currentFocusTarget < focusTargets.Count)
-        {
-            Transform result = focusTargets[currentFocusTarget];
-            currentFocusTarget++;
-            return result;
-        }
-        Debug.LogError("Missing focus target");
-        return null;
     }
 }

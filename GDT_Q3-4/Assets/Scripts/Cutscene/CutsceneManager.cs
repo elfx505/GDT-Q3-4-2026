@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class H_CutsceneManager : Singleton<H_CutsceneManager>
+public class CutsceneManager : Singleton<CutsceneManager>
 {
     // public static H_CutsceneManager Instance;
     [SerializeField] private Cutscene cutsceneTest;
-    [SerializeField] private List<Transform> targets;
     CutsceneContext context;
 
     private bool _isPlaying;
@@ -20,7 +19,7 @@ public class H_CutsceneManager : Singleton<H_CutsceneManager>
             PlayCutscene(cutsceneTest);
         }
         context =
-            new CutsceneContext(Camera.main, targets);
+            new CutsceneContext(Camera.main);
 
     }
 
@@ -45,7 +44,7 @@ public class H_CutsceneManager : Singleton<H_CutsceneManager>
 
         List<Coroutine> runningParallelActions = new();
 
-        foreach (CutsceneActionSO action in cutscene.actions)
+        foreach (CutsceneAction action in cutscene.actions)
         {
             if (action == null)
                 continue;
