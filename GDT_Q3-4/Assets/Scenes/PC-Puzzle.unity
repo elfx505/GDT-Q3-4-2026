@@ -1525,6 +1525,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6149cce2a5055ee4d889568320c11956, type: 3}
   - {fileID: 21300000, guid: f0d38961ae7158f418d495fed48dc6fd, type: 3}
   - {fileID: 21300000, guid: e811a42beca52134787e5d5c799f5dfc, type: 3}
+  minScrollValue: 0
+  maxScrollValue: 999
+  isCountdownCounter: 0
 --- !u!1 &669785786
 GameObject:
   m_ObjectHideFlags: 0
@@ -5722,6 +5725,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6149cce2a5055ee4d889568320c11956, type: 3}
   - {fileID: 21300000, guid: f0d38961ae7158f418d495fed48dc6fd, type: 3}
   - {fileID: 21300000, guid: e811a42beca52134787e5d5c799f5dfc, type: 3}
+  minScrollValue: 0
+  maxScrollValue: 999
+  isCountdownCounter: 1
 --- !u!224 &2047581612
 RectTransform:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class GameLogic : Singleton<GameLogic>
     [Header("Countdown Settings")]
     private int currentTime = 0; 
     private Coroutine countdownCoroutine; // Holds the reference to our running timer
-    [SerializeField] int countdownTime = 30;
+    public int countdownTime = 30;
     System.Random random = new();
 
     // Cache the directional arrays at the class level so they are only created once
@@ -93,8 +93,8 @@ public class GameLogic : Singleton<GameLogic>
         ClearTileGroup(random_row, random_col);
         int totalMines = RemainingMines;
 
-        currentTime = 0;
-        countdownCounter.UpdateCounter(currentTime); // Reset UI to 000
+        countdownCounter.UpdateCounter(countdownTime); 
+
         countdownCoroutine = StartCoroutine(TimerRoutine());
     }
 
@@ -350,8 +350,7 @@ public class GameLogic : Singleton<GameLogic>
 
         restartButton.ChangeSprite(MinesweeperGameState.NORMAL);
 
-        currentTime = 0;
-        countdownCounter.UpdateCounter(currentTime); // Reset UI to 000
+        countdownCounter.UpdateCounter(countdownTime); 
         countdownCoroutine = StartCoroutine(TimerRoutine());
 
     }
@@ -422,26 +421,24 @@ public class GameLogic : Singleton<GameLogic>
 
     private IEnumerator TimerRoutine()
     {
-        while (currentTime <= countdownTime)
-        {   
-            int timeRemaining = countdownTime - currentTime;
-            if (countdownCounter != null)
-            {
-                countdownCounter.UpdateCounter(timeRemaining);
-            }
-
-            if (timeRemaining == 0)
-            {
-                LoseGame();       
-            }
-
+        while (countdownCounter != null && countdownCounter.CurrentValue > 0)
+        { 
             // Wait exactly 1 real-time second
             yield return new WaitForSeconds(1f);
 
-            // Increment the time and update the UI
-            currentTime++;
+            // Read the exact time currently displayed on the UI 
+            int timeRemaining = countdownCounter.CurrentValue;
 
-            
+            timeRemaining--;
+
+            countdownCounter.UpdateCounter(timeRemaining);
+
+            // Check for game over
+            if (timeRemaining <= 0)
+            {
+                LoseGame();
+                break; // Exit the loop so it stops ticking
+            }
         }
     }
 
