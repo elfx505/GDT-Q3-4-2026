@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using System.Threading.Tasks;
 
 public class GameLogic : Singleton<GameLogic>
 {
@@ -12,6 +13,7 @@ public class GameLogic : Singleton<GameLogic>
 
     private int rows = 9;
     private int cols = 15;
+    private int mines = 40;
 
     private int[,] gameGrid;
     private MinesweeperTile[,] tileGrid = new MinesweeperTile[9, 15];
@@ -19,6 +21,15 @@ public class GameLogic : Singleton<GameLogic>
     public RestartButton restartButton;
     public int clearedTileCount;
     private int nonBombCount;
+    private MinesweeperGenerator minesweeperGenerator;
+    System.Random random = new();
+
+    // Cache the directional arrays at the class level so they are only created once
+    private readonly int[] dx = { -1, -1, -1,  0, 0,  1, 1, 1 };
+    private readonly int[] dy = { -1,  0,  1, -1, 1, -1, 0, 1 };
+
+    // Cache a single list to hold neighbors. Capacity is locked to 8.
+    private List<MinesweeperTile> cachedNeighbors = new List<MinesweeperTile>(8);
 
     public enum MinesweeperGameState
     {
@@ -51,47 +62,100 @@ public class GameLogic : Singleton<GameLogic>
     {   
         base.Awake();
 
+        minesweeperGenerator = new MinesweeperGenerator(cols, rows, mines);
+
         clearedTileCount = 0;
+        nonBombCount = (rows * cols) - mines;
         
-        // Hardcoded for now, might change later
-        gameGrid = new int[,] 
-        {
-            {9, 1, 1, 1, 1, 1, 2, 9, 1, 0, 0, 0, 2, 9, 2}, // Initial Tile: (0, 10)
-            {1, 2, 2, 9, 1, 1, 9, 3, 2, 0, 1, 2, 4, 9, 2},
-            {2, 3, 9, 4, 3, 2, 2, 9, 2, 2, 2, 9, 9, 3, 2},
-            {9, 9, 4, 9, 9, 2, 2, 3, 9, 2, 9, 5, 5, 9, 2},
-            {4, 9, 3, 4, 9, 3, 1, 9, 2, 2, 3, 9, 9, 3, 9},
-            {9, 2, 1, 2, 9, 2, 1, 1, 2, 1, 4, 9, 5, 3, 1},
-            {2, 2, 1, 2, 2, 1, 0, 0, 1, 9, 3, 9, 9, 1, 0},
-            {9, 2, 3, 9, 3, 2, 1, 2, 3, 4, 4, 3, 3, 3, 2},
-            {2, 9, 3, 9, 9, 2, 9, 2, 9, 9, 9, 1, 1, 9, 9}
-        };
+    }
 
-        // Count bombs
-        for (int i = 0; i < 9; i++)
-        {
-            for (int j = 0; j < 15; j++)
-            {
-                if (gameGrid[i, j] != 9) nonBombCount++;
-            }
-        }
+    private async void Start()
+    {
+        int random_row = random.Next(0, rows);
+        int random_col = random.Next(0, cols);
 
+        await GenerateBoard(random_col, random_row);
+
+        // Clear Initial Tile
+        ClearTileGroup(random_row, random_col);
     }
 
 
-    void Start()
+    public async Task GenerateBoard(int startX, int startY)
     {
-        // Take game board info and instantiate a "Tile" Object on the canvas for each
-        // Each Tile object contains the information of the type of tile they are and the clearable group of tiles they have on click
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 15; j++)
+        if (minesweeperGenerator == null)
+        {
+            Debug.LogWarning("Minesweeper Generator not instantiated!");
+            return;
+        }
+
+        // --- BACKGROUND THREAD START ---
+        // Push the heavy brute-force generation to a background thread.
+        // Unity will continue running smoothly at 60+ FPS while this calculates.
+        bool[] boolGrid = await Task.Run(() => 
+        {
+            // Give it a high attempt limit (e.g., 2000) because 40 mines is tough!
+            return minesweeperGenerator.GenerateSolvableBoard(startX, startY, 2000);
+        });
+        // --- BACKGROUND THREAD END ---
+
+        // We are now safely back on the main Unity thread!
+        gameGrid = TranslateBoolGrid(boolGrid, cols, rows);
+
+        for (int i = 0; i < rows; i++) 
+        {
+            for (int j = 0; j < cols; j++)
             {
                 CreateTile(gameGrid[i, j], i, j);
             }
         }
+    }
 
-        // Clear Initial Tile (0, 10)
-        ClearTileGroup(0, 10);
+    private int[,] TranslateBoolGrid(bool[] boolGrid, int width, int height)
+    {
+        // Initialize as [rows, cols] to match your dummyGrid and tileGrid
+        int[,] grid = new int[height, width];
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                int index = y * width + x;
+
+                if (boolGrid[index])
+                {
+                    // Assign using [y, x] to match [row, col]
+                    grid[y, x] = 9; 
+                }
+                else
+                {
+                    int mineCount = 0;
+                    for (int dy = -1; dy <= 1; dy++)
+                    {
+                        for (int dx = -1; dx <= 1; dx++)
+                        {
+                            int neighborX = x + dx;
+                            int neighborY = y + dy;
+
+                            if (neighborX >= 0 && neighborX < width && 
+                                neighborY >= 0 && neighborY < height)
+                            {
+                                int neighborIndex = neighborY * width + neighborX;
+                                if (boolGrid[neighborIndex])
+                                {
+                                    mineCount++;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Assign using [y, x] to match [row, col]
+                    grid[y, x] = mineCount; 
+                }
+            }
+        }
+
+        return grid;
     }
 
 
@@ -117,9 +181,37 @@ public class GameLogic : Singleton<GameLogic>
         
     }
 
+    /// <summary>
+    /// Fast, zero-allocation method to grab valid neighbors.
+    /// WARNING: Do not store the returned list in a variable that lasts longer than a single frame, 
+    /// as it gets overwritten on the next call!
+    /// </summary>
+    public List<MinesweeperTile> GetNeighbors(int cx, int cy)
+    {
+        // Wipe the previous results instantly without destroying the memory block
+        cachedNeighbors.Clear(); 
+
+        for (int i = 0; i < 8; i++)
+        {
+            int nx = cx + dx[i];
+            int ny = cy + dy[i];
+
+            // Boundary check: ensure we don't look outside the grid
+            if (nx >= 0 && nx < rows && ny >= 0 && ny < cols)
+            {
+                // Only add it if the tile actually exists (safety check for async loading)
+                if (tileGrid[nx, ny] != null)
+                {
+                    cachedNeighbors.Add(tileGrid[nx, ny]);
+                }
+            }
+        }
+
+        return cachedNeighbors;
+    }
+
     private void ClearTileGroup(int startX, int startY)
     {   
-
         // Return empty if out of bounds or if the clicked tile is a bomb (9)
         if (startX < 0 || startX >= rows || startY < 0 || startY >= cols || gameGrid[startX, startY] == 9)
         {
@@ -128,10 +220,6 @@ public class GameLogic : Singleton<GameLogic>
 
         var visited = new bool[rows, cols];
         var queue = new Queue<(int x, int y)>();
-
-        // 8-way directional arrays (Up, Down, Left, Right, and Diagonals)
-        int[] dx = { -1, -1, -1,  0, 0,  1, 1, 1 };
-        int[] dy = { -1,  0,  1, -1, 1, -1, 0, 1 };
 
         queue.Enqueue((startX, startY));
         visited[startX, startY] = true;
@@ -147,25 +235,22 @@ public class GameLogic : Singleton<GameLogic>
             // We reveal it, but we DO NOT explore its neighbors.
             if (gameGrid[cx, cy] != 0) 
             {   
-                tileGrid[cx, cy].ClearTile(); 
                 continue;
             }
 
-            // If the tile is exactly 0, explore all 8 adjacent neighbors
-            for (int i = 0; i < 8; i++)
-            {
-                int nx = cx + dx[i];
-                int ny = cy + dy[i];
+            // If the tile is exactly 0, fetch and explore valid neighbors
+            List<MinesweeperTile> neighbors = GetNeighbors(cx, cy);
 
-                // Check grid boundaries
-                if (nx >= 0 && nx < rows && ny >= 0 && ny < cols)
+            foreach (MinesweeperTile neighbor in neighbors)
+            {
+                int nx = neighbor.tileX;
+                int ny = neighbor.tileY;
+
+                // If we haven't visited it yet, and it's not a bomb
+                if (!visited[nx, ny] && gameGrid[nx, ny] != 9)
                 {
-                    // If we haven't visited it yet, and it's not a bomb
-                    if (!visited[nx, ny] && gameGrid[nx, ny] != 9)
-                    {
-                        visited[nx, ny] = true;
-                        queue.Enqueue((nx, ny));
-                    }
+                    visited[nx, ny] = true;
+                    queue.Enqueue((nx, ny));
                 }
             }
         }
@@ -182,73 +267,67 @@ public class GameLogic : Singleton<GameLogic>
         // Chording is only valid on already cleared, numbered tiles (1-8)
         if (!clickedTile.isCleared || tileValue == 0 || tileValue >= 9) return;
 
-        // 8-way directional arrays
-        int[] dx = { -1, -1, -1,  0, 0,  1, 1, 1 };
-        int[] dy = { -1,  0,  1, -1, 1, -1, 0, 1 };
-
+        List<MinesweeperTile> neighbors = GetNeighbors(startX, startY);
         int flagCount = 0;
 
-        // Count the flagged neighbors
-        for (int i = 0; i < 8; i++)
+        // 1. Count the flagged neighbors
+        foreach (MinesweeperTile neighbor in neighbors)
         {
-            int nx = startX + dx[i];
-            int ny = startY + dy[i];
-
-            if (nx >= 0 && nx < rows && ny >= 0 && ny < cols)
-            {
-                if (tileGrid[nx, ny].isFlagged)
-                {
-                    flagCount++;
-                }
-            }
+            if (neighbor.isFlagged) flagCount++;
         }
 
-        // If the number of flags matches the tile's number, reveal the rest
+        // 2. If the number of flags matches the tile's number, reveal the rest
         if (flagCount == tileValue)
         {
-            for (int i = 0; i < 8; i++)
+            // CRITICAL: We must store the coordinates we want to clear FIRST.
+            // If we call ClearTileGroup while looping, it will overwrite the GetNeighbors cache!
+            List<Vector2Int> tilesToClear = new List<Vector2Int>();
+
+            foreach (MinesweeperTile neighbor in neighbors)
             {
-                int nx = startX + dx[i];
-                int ny = startY + dy[i];
-
-                if (nx >= 0 && nx < rows && ny >= 0 && ny < cols)
+                if (!neighbor.isFlagged && !neighbor.isCleared)
                 {
-                    MinesweeperTile neighborTile = tileGrid[nx, ny];
+                    tilesToClear.Add(new Vector2Int(neighbor.tileX, neighbor.tileY));
+                }
+            }
 
-                    // Skip tiles that are already handled
-                    if (neighborTile.isFlagged || neighborTile.isCleared) continue;
-
-                    // If the neighbor is a 0, trigger the flood fill
-                    if (gameGrid[nx, ny] == 0)
-                    {
-                        ClearTileGroup(nx, ny);
-                    }
-                    else
-                    {
-                        // If it's a number (or a bomb), just clear that specific tile.
-                        neighborTile.ClearTile();
-
-                        CheckGameState(nx, ny); // Explicitly check if the chord just revealed a bomb
-                        
-                    }
+            // 3. Now it is safe to actually clear them
+            foreach (Vector2Int coord in tilesToClear)
+            {
+                if (gameGrid[coord.x, coord.y] == 0)
+                {
+                    // Trigger the flood fill
+                    ClearTileGroup(coord.x, coord.y);
+                }
+                else
+                {
+                    // If it's a number (or a bomb), just clear that specific tile.
+                    tileGrid[coord.x, coord.y].ClearTile();
+                    CheckGameState(coord.x, coord.y); 
                 }
             }
         }
     }
 
-    public void RestartGame()
-    {
-        clearedTileCount = 0;       
-
+    public async void RestartGame()
+    {   
         foreach (MinesweeperTile tile in tileGrid)
         {
-            tile.ResetTile();
+            if (tile != null) Destroy(tile.gameObject);
         }
+
+        clearedTileCount = 0;       
+
+        int random_row = random.Next(0, rows);
+        int random_col = random.Next(0, cols);
+
+        await GenerateBoard(random_col, random_row);
+
+        // Clear Initial Tile
+        ClearTileGroup(random_row, random_col);
 
         restartButton.ChangeSprite(MinesweeperGameState.NORMAL);
 
-        // Clear Initial Tile (0, 10)
-        ClearTileGroup(0, 10);
     }
 
     private void CheckGameState(int tileX, int tileY)
@@ -265,7 +344,7 @@ public class GameLogic : Singleton<GameLogic>
             // Change Reset Button Sprite
             restartButton.ChangeSprite(MinesweeperGameState.LOSE);
 
-        }       
+        } 
 
         // Check if Cleared tiles == non-bomb tiles
         if (nonBombCount == clearedTileCount)
@@ -273,11 +352,34 @@ public class GameLogic : Singleton<GameLogic>
             // Pause Tile Inputs
             foreach (MinesweeperTile tile in tileGrid)
             {
+                if (tile.tileType == 9 && !tile.isFlagged)
+                {
+                    tile.ToggleFlag();
+                }
                 tile.PauseTileInput();
             }
 
             // Change Reset Button Sprite
             restartButton.ChangeSprite(MinesweeperGameState.WIN);
+        }
+    }
+
+    public int RemainingMines 
+    {
+        get 
+        {
+            int flagCount = 0;
+            
+            // C# can foreach through a 2D array effortlessly
+            foreach (MinesweeperTile tile in tileGrid)
+            {
+                if (tile != null && tile.isFlagged)
+                {
+                    flagCount++;
+                }
+            }
+
+            return mines - flagCount;
         }
     }
 

@@ -95,6 +95,18 @@ MonoBehaviour:
   onRightClick:
     m_PersistentCalls:
       m_Calls: []
+  onLeftDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onLeftUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7176170708210309646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,8 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce66e454913fa24483f0df94502df0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinesweeperTile
+  tileType: 0
+  tileX: 0
+  tileY: 0
   isFlagged: 0
   isCleared: 0
+  isPaused: 0
   tileSprites:
   - {fileID: 21300000, guid: 1c98c3e6e9d617c4d9ef268a917444b3, type: 3}
   - {fileID: 21300000, guid: fc7d15b12134d2745ab2eedb95470e9c, type: 3}
@@ -122,3 +138,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae721eaa54475df47bc8affda5c86a69, type: 3}
   flaggedSprite: {fileID: 21300000, guid: 002a79761b9b5a444bd255781efa48f4, type: 3}
   normalTileSprite: {fileID: 21300000, guid: f9f8c4fe0dfaab1488cca9dfbe193978, type: 3}
+  depressedSprite: {fileID: 21300000, guid: 1c98c3e6e9d617c4d9ef268a917444b3, type: 3}

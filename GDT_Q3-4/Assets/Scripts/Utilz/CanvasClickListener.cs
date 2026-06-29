@@ -3,25 +3,47 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;       
 
 
-public class CanvasClickListener : MonoBehaviour, IPointerClickHandler
+public class CanvasClickListener : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
     [Header("Custom Click Events")]
-    // Assign functions in the Inspector
     public UnityEvent onLeftClick;
     public UnityEvent onRightClick;
 
-    // Required by the IPointerClickHandler interface
+    public UnityEvent onLeftDown;
+    public UnityEvent onLeftUp;
+    public UnityEvent onRightUp;
+    
+    public UnityEvent onPointerExit;
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Check which mouse button was pressed
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            onLeftClick?.Invoke(); // Trigger any functions assigned in the Inspector
+            onLeftClick?.Invoke(); 
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             onRightClick?.Invoke();
         }
-        
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+            onLeftDown?.Invoke();
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+            onLeftUp?.Invoke();
+        else if (eventData.button == PointerEventData.InputButton.Right)
+            onRightUp?.Invoke();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // Triggers regardless of which mouse button was being held
+        onPointerExit?.Invoke(); 
     }
 }

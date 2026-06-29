@@ -15,14 +15,15 @@ public class MinesweeperTile : MonoBehaviour
     private Image currentImage;
     private CanvasClickListener clickListener;
     public int tileType;
-    private int tileX;
-    private int tileY;
+    public int tileX;
+    public int tileY;
     public bool isFlagged = false;
     public bool isCleared = false;
     public bool isPaused = false;
     public Sprite[] tileSprites;
     [SerializeField] private Sprite flaggedSprite;
     [SerializeField] private Sprite normalTileSprite;
+    [SerializeField] private Sprite depressedSprite; // 0-tile sprite
 
     public static event Action<int, int> OnTileCleared;
     public static event Action<int, int> OnTileChorded;
@@ -42,9 +43,14 @@ public class MinesweeperTile : MonoBehaviour
         clickListener = gameObject.GetComponent<CanvasClickListener>();
         currentImage = gameObject.GetComponent<Image>();
 
-        // Setup the button listener internally
+        // Setup the button listeners internally
         clickListener.onLeftClick.AddListener(OnButtonClicked);
-        clickListener.onRightClick.AddListener(OnButtonRightClicked);
+        
+        clickListener.onLeftDown.AddListener(OnButtonDown);
+        clickListener.onPointerExit.AddListener(OnPointerExitListener);
+
+        clickListener.onLeftUp.AddListener(OnButtonReleased);
+        clickListener.onRightUp.AddListener(OnButtonRightReleased);
     }
 
     public void ResetTile()
@@ -56,13 +62,57 @@ public class MinesweeperTile : MonoBehaviour
         isPaused = false;
 
     }
+
+    private void OnButtonDown()
+    {
+        if (isPaused) return;
+
+        if (!isCleared && !isFlagged)
+        {
+            // Holding click on a normal unrevealed tile
+            SetDepressedState(true);
+        }
+        else if (isCleared && tileType > 0 && tileType < 9)
+        {
+            // Holding click on a revealed number (Chording)
+            List<MinesweeperTile> neighbors = GameLogic.Instance.GetNeighbors(tileX, tileY);
+            foreach (MinesweeperTile neighbor in neighbors)
+            {
+                neighbor.SetDepressedState(true);
+            }
+        }
+    }
+
+    private void OnPointerExitListener()
+    {
+        // Cancel the visual depression if the mouse leaves the tile while holding click
+        if (isPaused) return;
+        ClearDepressedStates();
+    }
+
+    private void ClearDepressedStates()
+    {
+        if (!isCleared)
+        {
+            SetDepressedState(false);
+        }
+        else if (isCleared && tileType > 0 && tileType < 9)
+        {
+            List<MinesweeperTile> neighbors = GameLogic.Instance.GetNeighbors(tileX, tileY);
+            foreach (MinesweeperTile neighbor in neighbors)
+            {
+                neighbor.SetDepressedState(false);
+            }
+        }
+    }
     
     
-    private void OnButtonClicked()
+    private void OnButtonReleased()
     {   
         if (isPaused) return;
 
         // Debug.Log($"{tileType} Tile cleared at ({tileX}, {tileY})!");
+        ClearDepressedStates();
 
         if (isFlagged) return; // Can't clear flagged tiles
 
@@ -78,8 +128,8 @@ public class MinesweeperTile : MonoBehaviour
 
     }
 
-    private void OnButtonRightClicked()
-   {
+    private void OnButtonRightReleased()
+    {
         if (isPaused) return;
         
         // Debug.Log($"Tile at ({tileX}, {tileY}) flagged/unflagged!");
@@ -87,6 +137,11 @@ public class MinesweeperTile : MonoBehaviour
         ToggleFlag();
 
     } 
+
+    private void OnButtonClicked()
+    {
+        
+    }
 
     public void ClearTile()
     {   
@@ -99,7 +154,7 @@ public class MinesweeperTile : MonoBehaviour
         currentImage.sprite = revealedSprite;
     }
 
-    private void ToggleFlag()
+    public void ToggleFlag()
     {   
         if (isCleared) return;
 
@@ -110,11 +165,21 @@ public class MinesweeperTile : MonoBehaviour
         // Change Sprite to Flagged or Normal based on isFlagged boolean
         currentImage.sprite = isFlagged? flaggedSprite : normalTileSprite;
 
+
+        Debug.Log("Remaining Mines: " + GameLogic.Instance.RemainingMines);
     }
 
     public void PauseTileInput()
     {
         isPaused = true;
+    }
+
+    public void SetDepressedState(bool isDepressed)
+    {
+        // Safety check: We NEVER want to depress a tile that is already cleared or flagged
+        if (isCleared || isFlagged) return;
+
+        currentImage.sprite = isDepressed ? depressedSprite : normalTileSprite;
     }
     
 
