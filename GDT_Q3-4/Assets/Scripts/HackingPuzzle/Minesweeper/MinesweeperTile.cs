@@ -165,7 +165,6 @@ public class MinesweeperTile : MonoBehaviour
         // Change Sprite to Flagged or Normal based on isFlagged boolean
         currentImage.sprite = isFlagged? flaggedSprite : normalTileSprite;
 
-
         Debug.Log("Remaining Mines: " + GameLogic.Instance.RemainingMines);
     }
 

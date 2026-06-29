@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using System.Threading.Tasks;
+using System.Collections;
 
 public class GameLogic : Singleton<GameLogic>
 {
@@ -13,7 +14,7 @@ public class GameLogic : Singleton<GameLogic>
 
     private int rows = 9;
     private int cols = 15;
-    private int mines = 40;
+    [SerializeField] private int mines = 35;
 
     private int[,] gameGrid;
     private MinesweeperTile[,] tileGrid = new MinesweeperTile[9, 15];
@@ -22,6 +23,13 @@ public class GameLogic : Singleton<GameLogic>
     public int clearedTileCount;
     private int nonBombCount;
     private MinesweeperGenerator minesweeperGenerator;
+
+    [SerializeField] private MinesweeperCounter mineCounter;
+    [SerializeField] private MinesweeperCounter countdownCounter;
+    [Header("Countdown Settings")]
+    private int currentTime = 0; 
+    private Coroutine countdownCoroutine; // Holds the reference to our running timer
+    [SerializeField] int countdownTime = 30;
     System.Random random = new();
 
     // Cache the directional arrays at the class level so they are only created once
@@ -66,11 +74,16 @@ public class GameLogic : Singleton<GameLogic>
 
         clearedTileCount = 0;
         nonBombCount = (rows * cols) - mines;
-        
+
     }
 
     private async void Start()
-    {
+    {   
+        if (mineCounter == null || countdownCounter == null)
+        {
+            Debug.LogWarning("[GameLogic] (Minesweeper) Counter not set!");
+        }
+
         int random_row = random.Next(0, rows);
         int random_col = random.Next(0, cols);
 
@@ -78,6 +91,11 @@ public class GameLogic : Singleton<GameLogic>
 
         // Clear Initial Tile
         ClearTileGroup(random_row, random_col);
+        int totalMines = RemainingMines;
+
+        currentTime = 0;
+        countdownCounter.UpdateCounter(currentTime); // Reset UI to 000
+        countdownCoroutine = StartCoroutine(TimerRoutine());
     }
 
 
@@ -311,6 +329,8 @@ public class GameLogic : Singleton<GameLogic>
 
     public async void RestartGame()
     {   
+        if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
+
         foreach (MinesweeperTile tile in tileGrid)
         {
             if (tile != null) Destroy(tile.gameObject);
@@ -326,7 +346,13 @@ public class GameLogic : Singleton<GameLogic>
         // Clear Initial Tile
         ClearTileGroup(random_row, random_col);
 
+        int totalMines = RemainingMines;
+
         restartButton.ChangeSprite(MinesweeperGameState.NORMAL);
+
+        currentTime = 0;
+        countdownCounter.UpdateCounter(currentTime); // Reset UI to 000
+        countdownCoroutine = StartCoroutine(TimerRoutine());
 
     }
 
@@ -334,21 +360,16 @@ public class GameLogic : Singleton<GameLogic>
     {   
         // Check if a bomb has been cleared, i.e. game over
         if (tileGrid[tileX, tileY].tileType == 9)
-       {
-            // Pause Tile Inputs
-            foreach (MinesweeperTile tile in tileGrid)
-            {
-                tile.PauseTileInput();
-            }
-
-            // Change Reset Button Sprite
-            restartButton.ChangeSprite(MinesweeperGameState.LOSE);
-
+       {    
+            LoseGame();
         } 
 
         // Check if Cleared tiles == non-bomb tiles
         if (nonBombCount == clearedTileCount)
-        {
+        {   
+
+            if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
+
             // Pause Tile Inputs
             foreach (MinesweeperTile tile in tileGrid)
             {
@@ -362,6 +383,19 @@ public class GameLogic : Singleton<GameLogic>
             // Change Reset Button Sprite
             restartButton.ChangeSprite(MinesweeperGameState.WIN);
         }
+    }
+
+    private void LoseGame()
+    {
+        if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
+            // Pause Tile Inputs
+            foreach (MinesweeperTile tile in tileGrid)
+            {
+                tile.PauseTileInput();
+            }
+
+            // Change Reset Button Sprite
+            restartButton.ChangeSprite(MinesweeperGameState.LOSE);
     }
 
     public int RemainingMines 
@@ -379,7 +413,35 @@ public class GameLogic : Singleton<GameLogic>
                 }
             }
 
-            return mines - flagCount;
+            int remainingMines = mines - flagCount;
+            mineCounter.UpdateCounter(remainingMines);
+
+            return remainingMines;
+        }
+    }
+
+    private IEnumerator TimerRoutine()
+    {
+        while (currentTime <= countdownTime)
+        {   
+            int timeRemaining = countdownTime - currentTime;
+            if (countdownCounter != null)
+            {
+                countdownCounter.UpdateCounter(timeRemaining);
+            }
+
+            if (timeRemaining == 0)
+            {
+                LoseGame();       
+            }
+
+            // Wait exactly 1 real-time second
+            yield return new WaitForSeconds(1f);
+
+            // Increment the time and update the UI
+            currentTime++;
+
+            
         }
     }
 
