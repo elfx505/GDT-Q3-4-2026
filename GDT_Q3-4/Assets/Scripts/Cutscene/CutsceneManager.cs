@@ -1,11 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public struct GameStateCutscene
+{
+    public GameState state;
+    public Cutscene cutscene;
+}
 
 public class CutsceneManager : Singleton<CutsceneManager>
 {
     // public static H_CutsceneManager Instance;
     [SerializeField] private Cutscene cutsceneTest;
+    [SerializeField] private List<GameStateCutscene> gameStateCutscenes = new();
     CutsceneContext context;
 
     private bool _isPlaying;
@@ -20,7 +29,24 @@ public class CutsceneManager : Singleton<CutsceneManager>
         }
         context =
             new CutsceneContext(Camera.main);
+        GameManager.onGameStateChange += StateTriggeredCutscene;
+    }
 
+    private void OnDestroy()
+    {
+        GameManager.onGameStateChange -= StateTriggeredCutscene;
+    }
+
+    private void StateTriggeredCutscene(GameState state)
+    {
+        foreach (GameStateCutscene gameStateCutscene in gameStateCutscenes)
+        {
+            if (gameStateCutscene.state == state && GameManager.Instance.GetState(state))
+            {
+                PlayCutscene(gameStateCutscene.cutscene);
+                break;
+            }
+        }
     }
 
     public void PlayCutscene(Cutscene cutscene)

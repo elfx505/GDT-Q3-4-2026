@@ -11,7 +11,7 @@ public class CameraFocusAction : CutsceneAction
         CutsceneUI.Instance.ShowCinematicBars();
 
         CameraManager.Instance.SetCameraTarget(focusTarget, rotationSpeed);
-
+        Debug.Log("FOCUSING CAMERA");
         GameManager.Instance.ToggleCameraFocused();
 
         yield break;

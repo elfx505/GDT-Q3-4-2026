@@ -10,6 +10,7 @@ public class CameraUNFocusAction : CutsceneAction
         CameraManager.Instance.SetCameraTarget(null, 0f);
 
         CutsceneUI.Instance.HideCinematicBars();
+        Debug.Log("UN-FOCUSING CAMERA");
 
         GameManager.Instance.ToggleCameraFocused();
 

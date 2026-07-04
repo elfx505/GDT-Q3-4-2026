@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Compilation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -97,13 +98,12 @@ public class CameraManager : Singleton<CameraManager>
         if (isTransitioning) return;
         if (!isLookInitialized)
         {
-            currentYaw = mainCamera.transform.eulerAngles.y;
-            currentPitch = mainCamera.transform.eulerAngles.x;
+            RecalibrateCamera();
             isLookInitialized = true;
         }
         currentYaw += delta.x * lookSensitivity;
         currentPitch -= delta.y * lookSensitivity;
-
+        float preClamp = currentPitch;
         currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
         mainCamera.transform.eulerAngles = new Vector3(currentPitch, currentYaw, 0f);
     }

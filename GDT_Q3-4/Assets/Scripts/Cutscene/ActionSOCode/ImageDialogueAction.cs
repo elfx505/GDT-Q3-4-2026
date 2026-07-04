@@ -10,6 +10,7 @@ public class ImageDialogueActionSO : CutsceneAction
 
     public override IEnumerator Play(CutsceneContext context)
     {
+        Debug.Log("SHOWING IMAGES");
 
         if (data.Count <= 0)
         {

@@ -17,6 +17,8 @@ public class TraverseLocationsAction : CutsceneAction
 
     public override IEnumerator Play(CutsceneContext context)
     {
+        Debug.Log("TRAVERSING LOCATIONS");
+
         foreach (Transform location in locations)
         {
             Vector3 targetPos3D = location.position;
