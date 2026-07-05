@@ -3,16 +3,16 @@ using System.Collections;
 
 /// Represents a single location the player can stand in.
 public class CameraAnchor : InteractableObject
-{   
-    
+{
+
     [SerializeField] private Collider anchorCollider;
     public CameraAnchor infiniteStairwellCameraAnchor;
     [SerializeField] private SpriteRenderer visualIndicatorSprite;
     [SerializeField] private Transform childObjTransform; // Contains visual indicator sprite component
-
+    public bool useAnchorRotation;
     [Header("Visual Indicator Bobbing Animation Params")]
-    [SerializeField] private float speed = 2f;    
-    [SerializeField] private float height = 0.5f; 
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float height = 0.5f;
 
     private Vector3 startPos;
     private Coroutine bobCoroutine;
@@ -23,9 +23,9 @@ public class CameraAnchor : InteractableObject
     private bool hasReturnedToDeskFromBathroom;
     private void Awake()
     {
-        
+
         anchorCollider = GetComponent<Collider>();
-        
+
         if (anchorCollider == null)
         {
             Debug.LogWarning($"[CameraAnchor] {gameObject.name} is missing a Collider!");
@@ -53,9 +53,9 @@ public class CameraAnchor : InteractableObject
 
         if (isHallwayAnchor)
         {
-            ToggleActiveState(false); 
+            ToggleActiveState(false);
         }
-        
+
 
     }
 
@@ -89,9 +89,9 @@ public class CameraAnchor : InteractableObject
     protected override void PerformAction()
     {
         base.PerformAction();
-        
+
         if (gameObject.CompareTag("LoopAnchor"))
-        {   
+        {
             GameManager.Instance.MoveToAnchor(infiniteStairwellCameraAnchor);
         }
         else
@@ -118,9 +118,9 @@ public class CameraAnchor : InteractableObject
 
     public override void OnHoverEnter()
     {
-       if (childObjTransform == null) return;
-       StartBobbing(); 
-        
+        if (childObjTransform == null) return;
+        StartBobbing();
+
         if (visualIndicatorSprite == null) return;
         visualIndicatorSprite.enabled = true;
 
@@ -163,7 +163,7 @@ public class CameraAnchor : InteractableObject
             childObjTransform.localPosition = new Vector3(startPos.x, newY, startPos.z);
 
             // Pause this loop here, and resume it on the next frame
-            yield return null; 
+            yield return null;
         }
     }
 }

@@ -108,14 +108,13 @@ public class CameraManager : Singleton<CameraManager>
         mainCamera.transform.eulerAngles = new Vector3(currentPitch, currentYaw, 0f);
     }
 
-    public void MoveCameraToAnchor(Transform targetAnchor)
+    public void MoveCameraToAnchor(Transform targetAnchor, bool useAnchorRotation = false)
     {
         if (isTransitioning) return;
-
-        StartCoroutine(BlinkAndMoveRoutine(targetAnchor));
+        StartCoroutine(BlinkAndMoveRoutine(targetAnchor, useAnchorRotation));
     }
 
-    private IEnumerator BlinkAndMoveRoutine(Transform targetAnchor)
+    private IEnumerator BlinkAndMoveRoutine(Transform targetAnchor, bool useAnchorRotation)
     {
         isTransitioning = true;
 
@@ -123,6 +122,11 @@ public class CameraManager : Singleton<CameraManager>
 
         // ONLY change position. Let rotation (and our currentPitch/currentYaw) stay exactly as they are!
         mainCamera.transform.position = targetAnchor.position;
+        // if(targetAnchor.)
+        if (useAnchorRotation)
+        {
+            mainCamera.transform.rotation = targetAnchor.rotation;
+        }
 
         yield return new WaitForSeconds(0.05f);
 

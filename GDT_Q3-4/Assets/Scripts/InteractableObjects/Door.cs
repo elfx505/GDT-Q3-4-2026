@@ -15,7 +15,7 @@ public class Door : InteractableObject
     protected override void PerformAction()
     {
         base.PerformAction();
-
+        if (!isRepeatable && hasBeenInteracted) return;
         if (anchorA == null || anchorB == null)
         {
             Debug.LogWarning($"[Door] Missing anchor assignments on {gameObject.name}!");
@@ -46,8 +46,12 @@ public class Door : InteractableObject
             GameManager.Instance.SetState(GameState.InsideJanitorOffice, true);
             unlockingGameState = GameState.JanitorDoorUnlocked;
         }
+        if (!isRepeatable)
+        {
+            Destroy(GetComponent<Outline>());
+        }
     }
-    
+
     public void UnlockDoor()
     {
         doorUnlocked = true;

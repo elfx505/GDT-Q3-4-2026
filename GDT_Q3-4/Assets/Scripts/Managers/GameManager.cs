@@ -107,7 +107,7 @@ public class GameManager : Singleton<GameManager>
         currentAnchor.ToggleActiveState(false);
 
         // Tell the Camera Transition script to do the blink & move (position only)
-        CameraManager.Instance.MoveCameraToAnchor(targetAnchor.transform);
+        CameraManager.Instance.MoveCameraToAnchor(targetAnchor.transform, targetAnchor.useAnchorRotation);
     }
 
     private void InitializeGameStatesFromProfile()

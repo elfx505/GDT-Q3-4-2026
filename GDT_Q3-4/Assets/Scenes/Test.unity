@@ -6241,6 +6241,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -7293,6 +7294,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -12341,15 +12343,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1738194414}
+    m_TransformParent: {fileID: 1071727416}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
       propertyPath: m_LocalScale.x
-      value: 100.00004
+      value: 100.000046
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
       propertyPath: m_LocalScale.z
-      value: 100.00004
+      value: 100.000046
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12422,7 +12424,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448582627}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448582626}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448582630}
   m_SourcePrefab: {fileID: 100100000, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
 --- !u!4 &418879541 stripped
 Transform:
@@ -12491,6 +12502,170 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6519894241379486527, guid: 730de0a1c06a2b640bc3a93d2dd8eab5, type: 3}
   m_PrefabInstance: {fileID: 421322496}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &421437064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 421437065}
+  - component: {fileID: 421437068}
+  - component: {fileID: 421437067}
+  - component: {fileID: 421437066}
+  m_Layer: 0
+  m_Name: Visual Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &421437065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421437064}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.19999999, y: 0.29999998, z: 0.39999998}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 821435987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &421437066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421437064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cae17f6fa4d226418099092e77f33af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BillboardSprite
+--- !u!331 &421437067
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421437064}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 0}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
+--- !u!212 &421437068
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421437064}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 07e0bcaf0ef0186498c324f6a8adea0e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.12, y: 5.12}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1001 &424482329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13729,6 +13904,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -14915,7 +15091,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -20074,6 +20250,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 770285730}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -20198,6 +20375,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -21683,6 +21861,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -21811,6 +21990,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -23409,6 +23589,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -23490,6 +23671,90 @@ Transform:
   - {fileID: 283503363}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &821435984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821435987}
+  - component: {fileID: 821435985}
+  - component: {fileID: 821435986}
+  m_Layer: 0
+  m_Name: Upper Floor Elevator Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &821435985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821435984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072f5b91a617a4549819dd93c3cac9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraAnchor
+  isRepeatable: 1
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  anchorCollider: {fileID: 0}
+  infiniteStairwellCameraAnchor: {fileID: 0}
+  visualIndicatorSprite: {fileID: 0}
+  childObjTransform: {fileID: 0}
+  useAnchorRotation: 1
+  speed: 2
+  height: 0.25
+  isDrawAnchor: 0
+  isHallwayAnchor: 0
+  isDeskAnchor: 0
+--- !u!65 &821435986
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821435984}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.496045, y: 2.474052, z: 1.7090856}
+  m_Center: {x: 0.09139001, y: -0.2721933, z: 0.14545727}
+--- !u!4 &821435987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821435984}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 14.111, y: 1.61, z: 3.433}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 421437065}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &823482697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23839,6 +24104,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -70555,6 +70821,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -72517,6 +72784,7 @@ Transform:
   - {fileID: 1045887620}
   - {fileID: 55655799}
   - {fileID: 415023847}
+  - {fileID: 418879541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1073143663
@@ -76531,6 +76799,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -77931,6 +78200,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -78803,6 +79073,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -79338,6 +79609,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 1
@@ -82744,6 +83016,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 1
@@ -84052,6 +84325,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6567498105378413408, guid: afec55e422c9143aa86f382b681fc7c6, type: 3}
   m_PrefabInstance: {fileID: 1447063328}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1448582625 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e3fd7230fe6a24cff8495d7f59915443, type: 3}
+  m_PrefabInstance: {fileID: 418879540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1448582626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448582625}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1448582627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448582625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75a02a94d0cad94094b0296afc09dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Door
+  isRepeatable: 0
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  anchorA: {fileID: 479177961}
+  anchorB: {fileID: 821435985}
+  doorUnlocked: 1
+  isJanitorDoor: 0
+--- !u!65 &1448582630
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448582625}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.01858056, y: 0.026216429, z: 0.0037746627}
+  m_Center: {x: 0.0039105294, y: -0.00350872, z: -0.00061619055}
 --- !u!1 &1450917855
 GameObject:
   m_ObjectHideFlags: 0
@@ -85428,6 +85768,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -85586,6 +85927,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -85802,6 +86144,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -87222,6 +87565,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -87277,9 +87621,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a1125724bc4b444b6c6a2fd631b1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  startingAnchor: {fileID: 1837273397}
+  startingAnchor: {fileID: 821435985}
   startingProfile: {fileID: 11400000, guid: c11d0cafb0f5340458019782bba5c2c4, type: 2}
-  debugStatesList: []
+  debugStatesList:
+  - state: 0
+    isActive: 0
   canDraw: 0
   gameIsPaused: 0
   perspectiveIsLocked: 0
@@ -92167,7 +92513,6 @@ Transform:
   - {fileID: 1536119025}
   - {fileID: 505105392}
   - {fileID: 445141893}
-  - {fileID: 418879541}
   - {fileID: 710795670}
   - {fileID: 896936999}
   - {fileID: 764804364}
@@ -93587,9 +93932,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameLogic
   contentPanel: {fileID: 1906483796}
+  mines: 35
   tilePrefab: {fileID: 6614992688677218449, guid: 4e931f9f060b98641bd372e27887b967, type: 3}
   restartButton: {fileID: 129211132}
   clearedTileCount: 0
+  mineCounter: {fileID: 0}
+  countdownCounter: {fileID: 0}
+  countdownTime: 30
 --- !u!4 &1802506232
 Transform:
   m_ObjectHideFlags: 0
@@ -94167,6 +94516,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 2
   height: 0.25
   isDrawAnchor: 0
@@ -95391,6 +95741,7 @@ MonoBehaviour:
   infiniteStairwellCameraAnchor: {fileID: 0}
   visualIndicatorSprite: {fileID: 0}
   childObjTransform: {fileID: 0}
+  useAnchorRotation: 0
   speed: 1
   height: 0.25
   isDrawAnchor: 0
@@ -99698,6 +100049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::H_CutsceneManager
   cutsceneTest: {fileID: 11400000, guid: 6b3e0d5f5ea9141f7b76c9dc7a0f7c32, type: 2}
+  gameStateCutscenes: []
 --- !u!4 &1974552764
 Transform:
   m_ObjectHideFlags: 0
@@ -104229,6 +104581,7 @@ SceneRoots:
   - {fileID: 1005700651}
   - {fileID: 1499575752}
   - {fileID: 479177962}
+  - {fileID: 821435987}
   - {fileID: 763161025}
   - {fileID: 1223690879}
   - {fileID: 273016709}

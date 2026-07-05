@@ -5,25 +5,25 @@ using UnityEngine.Events;
 public class InteractableObject : MonoBehaviour, IInteractable
 {
     [Header("Settings")]
-    [SerializeField] private bool isRepeatable = true;
+    [SerializeField] protected bool isRepeatable = true;
     [Header("Item Interactions")]
     [SerializeField] private List<ItemInteraction> itemInteractions;
-    private bool _hasBeenInteracted = false;
+    protected bool hasBeenInteracted = false;
 
-    [SerializeField] private Outline outline;
+    [SerializeField] protected Outline outline;
 
     // For plugging in sounds/particles inside Inspector
     [SerializeField] private UnityEvent onInteract;
 
     [SerializeField] protected GameState unlockingGameState;
 
-// The Reset method is called automatically in the Unity Editor when the script is added
+    // The Reset method is called automatically in the Unity Editor when the script is added
 #if UNITY_EDITOR
     private void Reset()
     {
         // Check if the Outline component already exists to avoid duplicates
         Outline outline = GetComponent<Outline>();
-        
+
         if (outline == null)
         {
             // 2. Add the component if it's missing
@@ -33,11 +33,11 @@ public class InteractableObject : MonoBehaviour, IInteractable
         // Apply default settings
         outline.OutlineMode = Outline.Mode.OutlineAll;
         outline.OutlineColor = Color.white;
-        outline.OutlineWidth = 5f; 
+        outline.OutlineWidth = 5f;
 
         // Disable it by default so it only turns on during hover
-        outline.enabled = false; 
-        
+        outline.enabled = false;
+
     }
 #endif
 
@@ -54,7 +54,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     public virtual void OnClick()
     {
-        if (!isRepeatable && _hasBeenInteracted) return;
+        if (!isRepeatable && hasBeenInteracted) return;
 
         ItemSO heldItem = InventoryManager.Instance.heldItem;
 
@@ -74,14 +74,14 @@ public class InteractableObject : MonoBehaviour, IInteractable
                         InventoryManager.Instance.StopHolding();
                     }
 
-                    _hasBeenInteracted = true;
+                    hasBeenInteracted = true;
                     return; // Exit out, we are done!
                 }
             }
 
             // If it loops through all interactions and doesn't find a match:
             Debug.Log($"Tried to use {heldItem.name}, but that's not the correct item.");
-            return; 
+            return;
         }
 
         // If we made it here, the player's hand is empty. Do normal click.
@@ -92,14 +92,14 @@ public class InteractableObject : MonoBehaviour, IInteractable
         if (!GameManager.Instance.GetState(unlockingGameState))
         {
             Debug.Log($"{name} is currently locked.");
-            return; 
+            return;
         }
         // ----------------------
 
         PerformAction();
         onInteract?.Invoke();
 
-        _hasBeenInteracted = true;
+        hasBeenInteracted = true;
     }
 
     public virtual void OnHoverEnter()
@@ -120,7 +120,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
 
     protected virtual void PerformAction()
-    {   
+    {
         // Default behavior for interactable objects
     }
 }
