@@ -30,6 +30,7 @@ public class GameLogic : Singleton<GameLogic>
     private int currentTime = 0; 
     private Coroutine countdownCoroutine; // Holds the reference to our running timer
     public int countdownTime = 30;
+    private bool isGameActive = false;
     System.Random random = new();
 
     // Cache the directional arrays at the class level so they are only created once
@@ -46,13 +47,19 @@ public class GameLogic : Singleton<GameLogic>
         NORMAL
     };
 
-    private void OnEnable()
+    private async void OnEnable()
     {
         MinesweeperTile.OnTileCleared += ClearTileGroup;
         MinesweeperTile.OnTileCleared += CheckGameState;
 
         MinesweeperTile.OnTileChorded += ChordTile;
         MinesweeperTile.OnTileChorded += CheckGameState;
+
+        // Restart the timer if the component is re-enabled mid-game
+        if (isGameActive && countdownCounter != null)
+        {
+            countdownCoroutine = StartCoroutine(TimerRoutine());
+        }
     }
 
     private void OnDisable()
@@ -94,10 +101,12 @@ public class GameLogic : Singleton<GameLogic>
         int totalMines = RemainingMines;
 
         countdownCounter.UpdateCounter(countdownTime); 
+        isGameActive = true;
 
         countdownCoroutine = StartCoroutine(TimerRoutine());
-    }
 
+        
+    }
 
     public async Task GenerateBoard(int startX, int startY)
     {
@@ -351,6 +360,8 @@ public class GameLogic : Singleton<GameLogic>
         restartButton.ChangeSprite(MinesweeperGameState.NORMAL);
 
         countdownCounter.UpdateCounter(countdownTime); 
+        isGameActive = true;
+
         countdownCoroutine = StartCoroutine(TimerRoutine());
 
     }
@@ -366,7 +377,7 @@ public class GameLogic : Singleton<GameLogic>
         // Check if Cleared tiles == non-bomb tiles
         if (nonBombCount == clearedTileCount)
         {   
-
+            isGameActive = false;
             if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
 
             // Pause Tile Inputs
@@ -386,6 +397,7 @@ public class GameLogic : Singleton<GameLogic>
 
     private void LoseGame()
     {
+        isGameActive = false;
         if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
             // Pause Tile Inputs
             foreach (MinesweeperTile tile in tileGrid)

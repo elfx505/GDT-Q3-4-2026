@@ -20,10 +20,8 @@ public class PasswordInputManager : MonoBehaviour
     [SerializeField] private int[] correctCombination;
     
     void Start()
-    {
-        
-        // Hardcoded for now
-        correctCombination = new int[] {1, 4, 3, 2, 4, 0, 2, 1, 4, 7, 4, 3, 3, 1, 5};
+    {   
+        GenerateRandomCombination(); // populates correctCombination with random combination
         
         CreateInputField();
 
@@ -114,6 +112,19 @@ public class PasswordInputManager : MonoBehaviour
             Debug.Log("Correct Password Entered! Opening Shutters..."); // Temp
 
             GameManager.Instance.SetState(GameState.MinesweeperDone, true);
+        }
+    }
+
+    private void GenerateRandomCombination()
+    {
+        // Initialize the array to hold 5 digits
+        correctCombination = new int[5];
+
+        for (int i = 0; i < correctCombination.Length; i++)
+        {
+            // UnityEngine.Random.Range with integers is max-exclusive, 
+            // so (0, 10) generates numbers from 0 to 9.
+            correctCombination[i] = UnityEngine.Random.Range(0, 10);
         }
     }
     
