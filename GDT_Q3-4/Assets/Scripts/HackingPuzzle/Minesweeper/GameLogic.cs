@@ -11,6 +11,7 @@ public class GameLogic : Singleton<GameLogic>
     [Header("UI References")]
     [Tooltip("The parent object with the Layout Group")]
     public Transform contentPanel;
+    public bool hasCompletedMinesweeperGrid=false;
 
     private int rows = 9;
     private int cols = 15;
@@ -39,6 +40,10 @@ public class GameLogic : Singleton<GameLogic>
 
     // Cache a single list to hold neighbors. Capacity is locked to 8.
     private List<MinesweeperTile> cachedNeighbors = new List<MinesweeperTile>(8);
+
+    [SerializeField] private GameObject loginPage;
+    [SerializeField] private GameObject doorControlsPage;
+
 
     public enum MinesweeperGameState
     {
@@ -392,6 +397,10 @@ public class GameLogic : Singleton<GameLogic>
 
             // Change Reset Button Sprite
             restartButton.ChangeSprite(MinesweeperGameState.WIN);
+
+            hasCompletedMinesweeperGrid = true;
+            loginPage.SetActive(false);
+            doorControlsPage.SetActive(true);
         }
     }
 
