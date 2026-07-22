@@ -14,6 +14,13 @@ public enum ItemType
 
 public enum GameState
 {
+    Default,
+    EnteredOffice,
+    KenGreeted,
+    DocGiven1,
+    DocGiven2,
+    DocGiven3,
+    PhoneRead,
     IntroSequenceDone,
     ReadNote,
     SinkBroken,

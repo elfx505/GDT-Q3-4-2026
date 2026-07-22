@@ -11,6 +11,8 @@ public class Door : InteractableObject
     [Header("Door Status")]
     [SerializeField] private bool doorUnlocked = true;
     [SerializeField] private bool isJanitorDoor;
+    [SerializeField] private GameState firstUseTrigger;
+    private bool doorUsed = false;
 
     protected override void PerformAction()
     {
@@ -49,6 +51,11 @@ public class Door : InteractableObject
         if (!isRepeatable)
         {
             Destroy(GetComponent<Outline>());
+        }
+        if (!doorUsed)
+        {
+            GameManager.Instance.SetState(firstUseTrigger, true);
+            doorUsed = true;
         }
     }
 

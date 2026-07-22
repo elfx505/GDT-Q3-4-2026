@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameStateProfile
   states:
   - key: 0
-    value: 0
+    value: 1
   - key: 1
     value: 0
   - key: 2
@@ -48,4 +48,6 @@ MonoBehaviour:
   - key: 16
     value: 0
   - key: 17
+    value: 0
+  - key: 18
     value: 0

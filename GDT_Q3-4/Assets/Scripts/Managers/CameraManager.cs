@@ -145,11 +145,22 @@ public class CameraManager : Singleton<CameraManager>
             elapsedTime += Time.deltaTime;
             overlayColor.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / blinkDuration);
             blinkOverlay.color = overlayColor;
+            Debug.Log(blinkOverlay.color);
             yield return null;
         }
 
         overlayColor.a = endAlpha;
         blinkOverlay.color = overlayColor;
+    }
+
+    public IEnumerator FadeIn()
+    {
+        yield return StartCoroutine(FadeBlink(0f, 1f));
+    }
+
+    public IEnumerator FadeOut()
+    {
+        yield return StartCoroutine(FadeBlink(1f, 0f));
     }
 
     public float GetLookSensitivity()
