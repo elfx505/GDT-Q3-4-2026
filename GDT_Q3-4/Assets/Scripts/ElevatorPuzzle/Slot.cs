@@ -14,18 +14,20 @@ public class Slot : MonoBehaviour
         rend = GetComponent<Renderer>();
     }
 
-    public void changeColor() 
+    public void changeColor(bool isCorrectButton) 
     {
         if (rend == null) return;
-        StartCoroutine(ChangeColorRoutine());
+        StartCoroutine(ChangeColorRoutine(isCorrectButton));
     }
 
-    private IEnumerator ChangeColorRoutine()
+    private IEnumerator ChangeColorRoutine(bool isCorrectButton)
     {
         Material mat = rend.material;
 
-        // Change to Red
-        mat.SetColor("_BaseColor", Color.red);
+        // Change to Red or Green based on Bool
+        Color color = isCorrectButton ? Color.green : Color.red;
+
+        mat.SetColor("_BaseColor", color);
 
         // Pause for 0.5 seconds
         yield return new WaitForSeconds(0.5f);

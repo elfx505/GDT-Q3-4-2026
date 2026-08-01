@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System; 
 
 public class BlinkSequenceLight : MonoBehaviour
 {
@@ -8,92 +10,143 @@ public class BlinkSequenceLight : MonoBehaviour
     public float blinkOnTime = 0.25f;
     public float blinkOffTime = 0.25f;
     public float pauseBetweenNumbers = 0.8f;
-    public float pauseBetweenLoops = 2f;
+    public float pauseBetweenLoops = 2f; 
 
     public List<int> sequence;
+    
+    private Coroutine blinkCoroutine;
+
     private int numberIndex = 0;
     private int blinkCount = 0;
-
-    private float timer = 0f;
 
     private enum State
     {
         TurnOn,
         TurnOff,
         PauseNumber,
-        PauseLoop
+        PauseLoop 
     }
 
     private State state = State.TurnOn;
 
-    void Start()
+    private void OnEnable()
     {
-        if (signalLight != null)
-            signalLight.enabled = true;
+        PuzzleManager.OnSequenceModeChanged += HandleSequenceMode;
+        PuzzleManager.OnSequenceCompleteChanged += HandleSequenceComplete;
     }
 
-    void Update()
+    private void OnDisable()
     {
+        PuzzleManager.OnSequenceModeChanged -= HandleSequenceMode;
+        PuzzleManager.OnSequenceCompleteChanged -= HandleSequenceComplete;
+    }
 
-        if (!PuzzleManager.sequenceMode)
+    private void Start()
+    {
+        HandleSequenceMode(PuzzleManager.sequenceMode);
+        HandleSequenceComplete(PuzzleManager.sequenceComplete);
+    }
+
+    private void HandleSequenceComplete(bool isComplete)
+    {
+        if (isComplete)
         {
+            // Stop the coroutine and turn the light on permanently
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+                blinkCoroutine = null;
+            }
+
             if (signalLight != null)
+            {
                 signalLight.enabled = true;
-                Debug.Log("On");
-            return;
+            }
         }
-        if (sequence == null || sequence.Count == 0 || signalLight == null)
-            return;
+    }
 
-        timer -= Time.deltaTime;
-
-        if (timer > 0f) return;
-
-        switch (state)
+    private void HandleSequenceMode(bool isSequenceMode)
+    {
+        // Don't restart blinking if the puzzle is already solved
+        if (PuzzleManager.sequenceComplete) return; 
+        
+        if (blinkCoroutine != null)
         {
-            case State.TurnOn:
-                signalLight.enabled = true;
-                timer = blinkOnTime;
-                state = State.TurnOff;
-                break;
+            StopCoroutine(blinkCoroutine);
+            blinkCoroutine = null;
+        }
 
-            case State.TurnOff:
-                signalLight.enabled = false;
-                blinkCount++;
+        if (isSequenceMode)
+        {
+            if (sequence != null && sequence.Count > 0 && signalLight != null)
+            {
+                blinkCoroutine = StartCoroutine(BlinkRoutine());
+            }
+        }
+        else
+        {
+            // When PuzzleManager sets sequenceMode = false, this runs!
+            if (signalLight != null)
+            {
+                signalLight.enabled = true; 
+            }
+        }
+    }
 
-                if (blinkCount >= sequence[numberIndex])
-                {
-                    blinkCount = 0;
-                    state = State.PauseNumber;
-                    timer = pauseBetweenNumbers;
-                }
-                else
-                {
+    private IEnumerator BlinkRoutine()
+    {
+        numberIndex = 0;
+        blinkCount = 0;
+        state = State.TurnOn;
+
+        while (true)
+        {
+            switch (state)
+            {
+                case State.TurnOn:
+                    signalLight.enabled = true;
+                    state = State.TurnOff;
+                    yield return new WaitForSeconds(blinkOnTime);
+                    break;
+
+                case State.TurnOff:
+                    signalLight.enabled = false;
+                    blinkCount++;
+
+                    if (blinkCount >= sequence[numberIndex])
+                    {
+                        blinkCount = 0;
+                        state = State.PauseNumber;
+                        yield return new WaitForSeconds(pauseBetweenNumbers);
+                    }
+                    else
+                    {
+                        state = State.TurnOn;
+                        yield return new WaitForSeconds(blinkOffTime);
+                    }
+                    break;
+
+                case State.PauseNumber:
+                    numberIndex++;
+
+                    if (numberIndex >= sequence.Count)
+                    {
+                        numberIndex = 0;
+                        state = State.PauseLoop;
+                        yield return new WaitForSeconds(pauseBetweenLoops);
+                    }
+                    else
+                    {
+                        state = State.TurnOn;
+                        yield return new WaitForSeconds(blinkOnTime);
+                    }
+                    break;
+                
+                case State.PauseLoop:
                     state = State.TurnOn;
-                    timer = blinkOffTime;
-                }
-                break;
-
-            case State.PauseNumber:
-                numberIndex++;
-
-                if (numberIndex >= sequence.Count)
-                {
-                    numberIndex = 0;
-                    state = State.PauseLoop;
-                    timer = pauseBetweenLoops;
-                }
-                else
-                {
-                    state = State.TurnOn;
-                    timer = blinkOnTime;
-                }
-                break;
-
-            case State.PauseLoop:
-                state = State.TurnOn;
-                timer = blinkOnTime;
-                break;
+                    yield return new WaitForSeconds(blinkOnTime);
+                    break;
+            }
         }
     }
 }

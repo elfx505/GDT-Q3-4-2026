@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System;
 
-public class PuzzleManager : MonoBehaviour
+public class PuzzleManager : Singleton<PuzzleManager>
 {
-    public static PuzzleManager Instance;
 
     public AudioTrack thisPuzzleTrack;
 
@@ -23,11 +22,48 @@ public class PuzzleManager : MonoBehaviour
         {"^", 5}
     };
     private int currentStep = 0;
-    public static bool sequenceMode = false;
 
-    void Awake()
+    public static event Action<bool> OnSequenceModeChanged;
+
+    private static bool _sequenceMode;
+
+    // Use a property so that changing the mode automatically fires the event
+    public static bool sequenceMode
     {
-        Instance = this;
+        get { return _sequenceMode; }
+        set
+        {
+            if (_sequenceMode != value)
+            {
+                _sequenceMode = value;
+                // Fire the event, passing the new state
+                OnSequenceModeChanged?.Invoke(_sequenceMode); 
+            }
+        }
+    }
+
+    public static event Action<bool> OnSequenceCompleteChanged;
+
+    private static bool _sequenceComplete;
+
+    public static bool sequenceComplete
+    {
+        get { return _sequenceComplete; }
+        set
+        {
+            if (_sequenceComplete != value)
+            {
+                _sequenceComplete = value;
+                OnSequenceCompleteChanged?.Invoke(_sequenceComplete); 
+            }
+        }
+    }
+
+    void Start()
+    {   
+        
+        sequenceComplete = false;
+
         foreach (var i in sequence) 
         {
             if (i >= slots.Length)
@@ -38,10 +74,7 @@ public class PuzzleManager : MonoBehaviour
         GenerateConstraints();
         AddExtraConstraints();
         Shuffle<ConstraintUI>(constraints);
-    }
 
-    void Start()
-    {
         AudioManager.Instance.PlayTrack(thisPuzzleTrack);
     }
 
@@ -165,12 +198,16 @@ public class PuzzleManager : MonoBehaviour
 
         if (index == sequence[currentStep])
         {
+            
+            slots[index].changeColor(true);
             currentStep++;
 
             if (currentStep >= sequence.Length)
             {
                 Debug.Log("SEQUENCE COMPLETE 🎉");
                 currentStep = 0;
+
+                sequenceComplete = true; // Ensure lights stop blinking after the sequence has been completed.
             }
         }
         else
@@ -178,7 +215,7 @@ public class PuzzleManager : MonoBehaviour
             Debug.Log("WRONG SEQUENCE");
             Debug.Log(index + "pressed");
 
-            slots[index].changeColor();
+            slots[index].changeColor(false);
             currentStep = 0;
         }
     }
