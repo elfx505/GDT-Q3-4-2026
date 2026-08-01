@@ -3,14 +3,17 @@
 public class DraggableButton : MonoBehaviour
 {
     public string symbol;
+    public float dropRadius = 0.1f;
+    public AudioClip clickSFX;
 
     private Renderer rend;
     private Vector3 offset;
     private Camera cam;
     private Vector3 startPos;
     private Slot currentSlot;
-
-    public AudioClip clickSFX;
+    
+    // We replace the float zCoord with an infinite mathematical 3D plane
+    private Plane dragPlane;
 
     void Awake()
     {
@@ -31,14 +34,23 @@ public class DraggableButton : MonoBehaviour
         if (PuzzleManager.sequenceMode) 
         {
             PuzzleManager.Instance.PressButton(currentSlot.index);
-        } else 
+        } 
+        else 
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = Mathf.Abs(cam.transform.position.z - transform.position.z);
-            mousePos = cam.ScreenToWorldPoint(mousePos);
-            offset = transform.position - mousePos;
+            // 1. Create an invisible plane at the button's position. 
+            // We use transform.up so the plane aligns with how the button is rotated.
+            dragPlane = new Plane(transform.up, transform.position);
 
-            // Free current slot when picked up
+            // 2. Shoot a ray from the mouse position into the 3D scene
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+            // 3. Check where the ray hits our invisible dragPlane
+            if (dragPlane.Raycast(ray, out float enter))
+            {
+                // Calculate offset from the actual hit point on the 3D plane
+                offset = transform.position - ray.GetPoint(enter);
+            }
+
             if (currentSlot != null)
             {
                 currentSlot.currentButton = null;
@@ -50,35 +62,33 @@ public class DraggableButton : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (PuzzleManager.sequenceMode) 
+        if (PuzzleManager.sequenceMode) return;
+
+        // Shoot a ray continuously while dragging
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        // Move the button to exactly where the ray hits the 3D plane
+        if (dragPlane.Raycast(ray, out float enter))
         {
-            return;
+            transform.position = ray.GetPoint(enter) + offset;
         }
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(cam.transform.position.z - transform.position.z);
-        mousePos = cam.ScreenToWorldPoint(mousePos);
-        transform.position = mousePos + offset;
     }
 
     void OnMouseUp()
     {
-        if (PuzzleManager.sequenceMode) 
-        {
-            return;
-        }
+        if (PuzzleManager.sequenceMode) return;
         CheckDrop();
     }
 
     void CheckDrop()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, 0.5f);
+        Collider[] hits = Physics.OverlapSphere(transform.position, dropRadius);
 
         foreach (var hit in hits)
         {
             Slot slot = hit.GetComponent<Slot>();
             if (slot != null && slot.currentButton == null)
             {
-                // Snap to slot
                 transform.position = slot.transform.position;
                 slot.currentButton = this;
                 currentSlot = slot;
@@ -88,15 +98,13 @@ public class DraggableButton : MonoBehaviour
             }
         }
 
-        // Return to start if dropped in invalid place
         transform.position = startPos;
     }
 
     void SetColor()
     {
         if (rend == null) return;
-
-        Material mat = rend.material;   // Important: creates instance
+        Material mat = rend.material;
 
         switch (symbol)
         {
@@ -108,5 +116,11 @@ public class DraggableButton : MonoBehaviour
             case "^": mat.SetColor("_BaseColor", Color.cyan); break;
             default:  mat.SetColor("_BaseColor", Color.white); break;
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, dropRadius);
     }
 }
