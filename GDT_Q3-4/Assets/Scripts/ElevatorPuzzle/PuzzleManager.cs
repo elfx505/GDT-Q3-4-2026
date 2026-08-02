@@ -9,8 +9,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
 
     public Slot[] slots;           // Must be ordered left → right in Inspector!
     public ConstraintUI[] constraints;
-    public int[] correctOrder;
-    public int[] sequence;
+    [SerializeField] private int[] correctOrder = new int[6];
+    [SerializeField] private int[] sequence = new int[4];
     string[] symbols = new string[] {"!", "@", "#", "$", "%", "^"};
     public Dictionary<string, int> symbolToIndex = new Dictionary<string, int>()
     {
@@ -64,6 +64,45 @@ public class PuzzleManager : Singleton<PuzzleManager>
         
         sequenceComplete = false;
 
+        // Ensure correctOrder has values (0 to 5) and shuffle them
+        // If all elements are 0 (unassigned in Inspector), auto-fill 0 to correctOrder.Length - 1
+        bool isAllZeroes = true;
+        for (int i = 0; i < correctOrder.Length; i++)
+        {
+            if (correctOrder[i] != 0) { isAllZeroes = false; break; }
+        }
+
+        if (isAllZeroes)
+        {
+            for (int i = 0; i < correctOrder.Length; i++)
+            {
+                correctOrder[i] = i;
+            }
+        }
+        
+        Shuffle(correctOrder);
+
+        // Generate a sequence of 4 UNIQUE slot indices without duplicates
+        if (sequence.Length > slots.Length)
+        {
+            Debug.LogWarning("Sequence length cannot be greater than the number of slots! Adjusting sequence size.");
+            System.Array.Resize(ref sequence, slots.Length);
+        }
+
+        // Populate a pool of all available slot indices (0, 1, 2... slots.Length - 1)
+        int[] availableIndices = new int[slots.Length];
+        for (int i = 0; i < slots.Length; i++)
+        {
+            availableIndices[i] = i;
+        }
+
+        // Shuffle the available indices and take the first 4 for the sequence
+        Shuffle(availableIndices);
+        for (int i = 0; i < sequence.Length; i++)
+        {
+            sequence[i] = availableIndices[i];
+        }
+
         foreach (var i in sequence) 
         {
             if (i >= slots.Length)
@@ -71,9 +110,15 @@ public class PuzzleManager : Singleton<PuzzleManager>
                 Debug.Log("Problematic setup");
             }
         }
+
         GenerateConstraints();
         AddExtraConstraints();
         Shuffle<ConstraintUI>(constraints);
+
+        foreach (var c in constraints)
+        {
+            c.UpdateText();
+        }
 
         AudioManager.Instance.PlayTrack(thisPuzzleTrack);
     }

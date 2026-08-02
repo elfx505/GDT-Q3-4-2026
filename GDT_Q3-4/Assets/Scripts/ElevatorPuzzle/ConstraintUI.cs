@@ -9,9 +9,13 @@ public class ConstraintUI : MonoBehaviour
 
     private TextMeshPro text;
 
-    void Start()
+    void Awake()
     {
         text = GetComponent<TextMeshPro>();
+    }
+
+    void Start()
+    {
         text.color = Color.gray;
         UpdateText();
     }
@@ -26,7 +30,7 @@ public class ConstraintUI : MonoBehaviour
         PuzzleManager.OnSequenceModeChanged -= HandleSequenceModeSwitch;
     }
 
-    void UpdateText()
+    public void UpdateText()
     {
         text.text = leftSymbol + " " + operatorSymbol + " " + rightSymbol;
     }
