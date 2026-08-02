@@ -16,6 +16,16 @@ public class ConstraintUI : MonoBehaviour
         UpdateText();
     }
 
+    private void OnEnable()
+    {
+        PuzzleManager.OnSequenceModeChanged += HandleSequenceModeSwitch;
+    }
+
+    private void OnDisable()
+    {
+        PuzzleManager.OnSequenceModeChanged -= HandleSequenceModeSwitch;
+    }
+
     void UpdateText()
     {
         text.text = leftSymbol + " " + operatorSymbol + " " + rightSymbol;
@@ -42,4 +52,14 @@ public class ConstraintUI : MonoBehaviour
 
         text.color = correct ? Color.green : Color.red;
     }
+
+    private void HandleSequenceModeSwitch(bool isSequenceMode)
+    {
+        if (!isSequenceMode) return;
+
+        gameObject.SetActive(false);
+
+    }
+
+
 }

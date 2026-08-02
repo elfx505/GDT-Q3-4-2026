@@ -1,27 +1,27 @@
 ﻿using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
-    public static AudioManager Instance;
 
     private AudioSource source;
     private AudioTrack currentTrack;
 
     private bool isLoopingCustom = false;
+    [SerializeField] private float defaultVolume = .1f;
 
-    void Awake()
+    void Start()
     {
-        // Singleton
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
         source = gameObject.AddComponent<AudioSource>();
+
+        PauseMenuManager.onMasterVolumeChanged += SetVolume;
+
+        SetVolume(defaultVolume);
+    }
+
+    void OnDestroy()
+    {
+        
+        PauseMenuManager.onMasterVolumeChanged -= SetVolume;
     }
 
     void Update()
@@ -50,7 +50,7 @@ public class AudioManager : MonoBehaviour
         currentTrack = track;
 
         source.clip = track.clip;
-        source.volume = track.volume;
+        // source.volume = track.volume;
         source.pitch = track.pitch;
         source.loop = false; // we handle looping manually
 
@@ -83,10 +83,20 @@ public class AudioManager : MonoBehaviour
 
         AudioSource sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.clip = clip;
-        sfxSource.volume = volume;
+        sfxSource.volume = Mathf.Clamp(volume, volume, source.volume);
         sfxSource.pitch = pitch;
         sfxSource.Play();
 
         Destroy(sfxSource, clip.length);
+    }
+
+    private void SetVolume(float newVolume)
+    {
+        source.volume = newVolume;
+    }
+
+    public float GetVolume()
+    {
+        return source.volume;
     }
 }

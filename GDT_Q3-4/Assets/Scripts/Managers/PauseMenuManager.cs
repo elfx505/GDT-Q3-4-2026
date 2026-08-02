@@ -11,7 +11,7 @@ public class PauseMenuManager : MonoBehaviour
 
     // Action Events
     public static event Action<float> onLookSensitivityChanged;
-    public static event Action<float> onMasterVolumeChanged; // TO-DO, once we agree on what the main Audio Mixer object is
+    public static event Action<float> onMasterVolumeChanged; 
 
     void Awake()
     {
@@ -34,7 +34,7 @@ public class PauseMenuManager : MonoBehaviour
             InputManager.Instance.onEscape += TogglePause;
         } else
         {
-            Debug.LogWarning("[PauseMenuManagerl] InputManager.Instance is null!");
+            Debug.LogWarning("[PauseMenuManager] InputManager.Instance is null!");
         }
 
         if (CameraManager.Instance != null)
@@ -42,8 +42,17 @@ public class PauseMenuManager : MonoBehaviour
             sensitivitySlider.value = CameraManager.Instance.GetLookSensitivity();
         } else
         {
-            Debug.LogWarning("[PauseMenuManagerl] CameraManager.Instance is null!");
+            Debug.LogWarning("[PauseMenuManager] CameraManager.Instance is null!");
         }
+
+        if (AudioManager.Instance != null)
+        {
+            volumeSlider.value = AudioManager.Instance.GetVolume();
+        } else
+        {
+            Debug.LogWarning("[PauseMenuManager] AudioManager.Instance is null!");
+        }
+
     }
 
     void OnDestroy()
@@ -81,6 +90,12 @@ public class PauseMenuManager : MonoBehaviour
     public void SetSensitivity(float sensitivity) // Called by Slider Objects; Set up in Inspector
     {
         onLookSensitivityChanged?.Invoke(sensitivity);
+    }
+
+
+    public void SetVolume(float volume) // Called by Slider Objects; Set up in Inspector
+    {
+        onMasterVolumeChanged?.Invoke(volume);
     }
 
 }
