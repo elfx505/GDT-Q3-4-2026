@@ -10,18 +10,16 @@ public class PipeGridManager : Singleton<PipeGridManager>
     public float spacing = 1.5f;
     public bool random_level = false;
     public int levels;
-    int difficulty;
 
 
     void Start()
     {   
+
         for (int i = 1; i < 4; i++) // Levels 1 to 3
         {
             GenerateRandomLevels(i);
         }
 
-        difficulty = 1;
-        LoadLevelByDifficulty(1);
     }
 
     void ClearGrid()
@@ -40,12 +38,12 @@ public class PipeGridManager : Singleton<PipeGridManager>
         }
     }
 
-    public void LoadLevel(string levelName)
+    public void LoadLevel(int level)
     {
         // Remove old pipes before creating new ones
         ClearGrid();
 
-        char[,] data = LevelLoader.LoadLevel(levelName);
+        char[,] data = LevelLoader.LoadLevel("level"+level.ToString());
 
         for (int x = 0; x < size; x++)
         {
@@ -55,21 +53,33 @@ public class PipeGridManager : Singleton<PipeGridManager>
                 GameObject prefab = GetPrefab(type);
 
                 float offset = (size - 1) / 2f;
-                Vector3 pos = new Vector3(
+                
+                // 1. Calculate local position (this remains the same)
+                Vector3 localPos = new Vector3(
                     (x - offset) * spacing,
                     (y - offset) * spacing,
                     0
                 );
 
-                GameObject obj = Instantiate(prefab, pos, Quaternion.identity);
+                // 2. Instantiate as child. Passing 'false' prevents Unity from doing 
+                // weird World-Space offsets if the Manager is rotated.
+                GameObject obj = Instantiate(prefab, transform, false);
+
+                // 3. Apply the exact local position
+                obj.transform.localPosition = localPos;
+
+                // Force the baseline rotation to (0,0,0) locally
+                obj.transform.localRotation = Quaternion.identity;
+
                 Pipe pipe = obj.GetComponent<Pipe>();
                 pipe.type = type;
-
 
                 int r = Random.Range(0, 4);
                 if (!random_level) r = 0;
                 pipe.rotation = r;
-                obj.transform.Rotate(0, 0, -90 * r);
+
+                // 5. Apply the puzzle piece rotation 
+                obj.transform.Rotate(0, 0, -90 * r, Space.Self);
 
                 grid[x, y] = pipe;
             }
@@ -77,6 +87,7 @@ public class PipeGridManager : Singleton<PipeGridManager>
 
         RecalculatePower();
     }
+
 
     PipeType CharToType(char c)
     {
@@ -150,18 +161,6 @@ public class PipeGridManager : Singleton<PipeGridManager>
         CheckWin();
     }
 
-    public void LoadLevelByDifficulty(int level)
-    {
-        // Stop loading if we've passed all levels (only show win text once)
-        if (level > levels)
-        {
-            UIManager.Instance.ShowWinText();
-            return;
-        }
-
-        // Load the appropriate level
-        LoadLevel("level"+level.ToString());
-    }
 
     void CheckWin()
     {
@@ -172,8 +171,7 @@ public class PipeGridManager : Singleton<PipeGridManager>
         }
 
         Debug.Log("LEVEL COMPLETE!");
-        difficulty++;
-        LoadLevelByDifficulty(difficulty);
+        // TO-DO Adjust GameStates and block this Drawer
     }
 
     public void GenerateRandomLevels(int currentDifficulty)

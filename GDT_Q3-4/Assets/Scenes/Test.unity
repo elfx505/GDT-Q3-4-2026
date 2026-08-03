@@ -15707,8 +15707,8 @@ GameObject:
   m_Component:
   - component: {fileID: 536893545}
   - component: {fileID: 536893546}
-  - component: {fileID: 536893548}
   - component: {fileID: 536893547}
+  - component: {fileID: 536893548}
   m_Layer: 0
   m_Name: ZoomInObjective PipePuzzle1
   m_TagString: Untagged
@@ -15779,9 +15779,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 536893544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a84227d9620e60e428ba6ea49f305d18, type: 3}
+  m_Script: {fileID: 11500000, guid: 87acb3f057e4e234799c7ccf3edebdd7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ZoomInObjective
+  m_EditorClassIdentifier: Assembly-CSharp::InsidePrinterDrawerPipes
   isRepeatable: 1
   itemInteractions: []
   outline: {fileID: 0}
@@ -15789,9 +15789,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   unlockingGameState: 0
-  lockedCameraPerspective: {fileID: 0}
+  lockedCameraPerspective: {fileID: 1516723936}
   previousAnchor: {fileID: 1550121381}
   optionalColliders: []
+  drawerIndex: 1
 --- !u!1 &542772739
 GameObject:
   m_ObjectHideFlags: 0
@@ -79248,8 +79249,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1178969677}
   - component: {fileID: 1178969678}
-  - component: {fileID: 1178969680}
   - component: {fileID: 1178969679}
+  - component: {fileID: 1178969680}
   m_Layer: 0
   m_Name: ZoomInObjective PipePuzzle3
   m_TagString: Untagged
@@ -79320,9 +79321,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1178969676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a84227d9620e60e428ba6ea49f305d18, type: 3}
+  m_Script: {fileID: 11500000, guid: 87acb3f057e4e234799c7ccf3edebdd7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ZoomInObjective
+  m_EditorClassIdentifier: Assembly-CSharp::InsidePrinterDrawerPipes
   isRepeatable: 1
   itemInteractions: []
   outline: {fileID: 0}
@@ -79330,9 +79331,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   unlockingGameState: 0
-  lockedCameraPerspective: {fileID: 0}
+  lockedCameraPerspective: {fileID: 1516723936}
   previousAnchor: {fileID: 1550121381}
   optionalColliders: []
+  drawerIndex: 3
 --- !u!1 &1179398152
 GameObject:
   m_ObjectHideFlags: 0
@@ -86937,8 +86939,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1422759620}
   - component: {fileID: 1422759621}
-  - component: {fileID: 1422759623}
   - component: {fileID: 1422759622}
+  - component: {fileID: 1422759623}
   m_Layer: 0
   m_Name: ZoomInObjective PipePuzzle2
   m_TagString: Untagged
@@ -87009,9 +87011,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1422759619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a84227d9620e60e428ba6ea49f305d18, type: 3}
+  m_Script: {fileID: 11500000, guid: 87acb3f057e4e234799c7ccf3edebdd7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ZoomInObjective
+  m_EditorClassIdentifier: Assembly-CSharp::InsidePrinterDrawerPipes
   isRepeatable: 1
   itemInteractions: []
   outline: {fileID: 0}
@@ -87019,9 +87021,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   unlockingGameState: 0
-  lockedCameraPerspective: {fileID: 0}
+  lockedCameraPerspective: {fileID: 1516723936}
   previousAnchor: {fileID: 1550121381}
   optionalColliders: []
+  drawerIndex: 2
 --- !u!1001 &1426506613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89958,6 +89961,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6567498105378413408, guid: afec55e422c9143aa86f382b681fc7c6, type: 3}
   m_PrefabInstance: {fileID: 1516390823}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1516723936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1516723937}
+  m_Layer: 0
+  m_Name: Pipe Puzzle Locked Perspective
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1516723937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516723936}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 10, y: 5, z: -50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1001 &1518104997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90228,6 +90262,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522874933}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1523191375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523191377}
+  - component: {fileID: 1523191376}
+  m_Layer: 0
+  m_Name: Pipe Puzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1523191376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523191375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4d62a5a7e6b3f488291157c022fde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GridManager
+  prefabs:
+  - {fileID: 3921299323796451901, guid: 49d82f4093f40cb4cb350c2f1050a533, type: 3}
+  - {fileID: 2919972376688674360, guid: 2adde1c06635cb34fa94817e6bb02392, type: 3}
+  - {fileID: 4399868231389298567, guid: 2dc9cb9500e114e42ac53d5ce741c89f, type: 3}
+  - {fileID: 1544241660738883258, guid: 1b8a754919f15f844bd2ab85330a9dec, type: 3}
+  - {fileID: 615921094003130013, guid: 58b50d6a2bc55054fb836fc4e321c3a8, type: 3}
+  - {fileID: 250129613914663357, guid: 1c6e1a90a7471ee438930b70d3e538c2, type: 3}
+  - {fileID: 4040397050466062539, guid: 0c0640a44fd9f92428b22ec4d9491adf, type: 3}
+  spacing: 1.5
+  random_level: 1
+  levels: 3
+--- !u!4 &1523191377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523191375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 10, y: 5, z: -65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &1524008072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110616,6 +110705,7 @@ SceneRoots:
   - {fileID: 94558992}
   - {fileID: 446688729}
   - {fileID: 1779651729}
+  - {fileID: 1516723937}
   - {fileID: 1260443256}
   - {fileID: 1931065553}
   - {fileID: 2096267659}
@@ -110655,6 +110745,7 @@ SceneRoots:
   - {fileID: 1926475981}
   - {fileID: 1123340620}
   - {fileID: 326451898}
+  - {fileID: 1523191377}
   - {fileID: 144909276}
   - {fileID: 818460121}
   - {fileID: 1738194414}
