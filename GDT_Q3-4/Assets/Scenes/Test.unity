@@ -2781,6 +2781,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2783966675330426800, guid: d0a525aa373c7b945b29bbbacabf73b2, type: 3}
   m_PrefabInstance: {fileID: 103753302}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &106872828 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 52143813096572921, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+  m_PrefabInstance: {fileID: 617804154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &108044484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15692,6 +15697,101 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &536893544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 536893545}
+  - component: {fileID: 536893546}
+  - component: {fileID: 536893548}
+  - component: {fileID: 536893547}
+  m_Layer: 0
+  m_Name: ZoomInObjective PipePuzzle1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &536893545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536893544}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.006, z: 0.00055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 106872828}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &536893546
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536893544}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0335, y: 0.02, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &536893547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536893544}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &536893548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536893544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84227d9620e60e428ba6ea49f305d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoomInObjective
+  isRepeatable: 1
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  lockedCameraPerspective: {fileID: 0}
+  previousAnchor: {fileID: 1550121381}
+  optionalColliders: []
 --- !u!1 &542772739
 GameObject:
   m_ObjectHideFlags: 0
@@ -18179,6 +18279,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1071727416}
     m_Modifications:
+    - target: {fileID: 52143813096572921, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.002535719
+      objectReference: {fileID: 0}
     - target: {fileID: 525412369017916749, guid: 3f092aade62644576983527a4667e6b3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -18257,6 +18361,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3779652221418767528, guid: 3f092aade62644576983527a4667e6b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 663048790}
+    - targetCorrespondingSourceObject: {fileID: 52143813096572921, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 536893545}
+    - targetCorrespondingSourceObject: {fileID: 1636999715405217223, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1422759620}
+    - targetCorrespondingSourceObject: {fileID: 2340525453321527745, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1178969677}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4557595574410337810, guid: 3f092aade62644576983527a4667e6b3, type: 3}
       insertIndex: -1
@@ -18446,6 +18559,11 @@ MonoBehaviour:
       m_Calls: []
   unlockingGameState: 0
   drawerIndex: 4
+--- !u!4 &617804166 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2340525453321527745, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+  m_PrefabInstance: {fileID: 617804154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &617804169
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23658,7 +23776,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986cdc259e7821a4c981bb57ca21f54b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrinterPuzzleManager
-  currentOpenDoorIndex: 0
+  currentOpenDrawerIndex: 0
+  allDrawers:
+  - {fileID: 394996656}
+  - {fileID: 617804163}
+  - {fileID: 617804161}
+  - {fileID: 617804165}
+  openAnimationDuration: 1
 --- !u!1 &763161022
 GameObject:
   m_ObjectHideFlags: 0
@@ -79114,6 +79238,101 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177304682}
   m_CullTransparentMesh: 1
+--- !u!1 &1178969676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1178969677}
+  - component: {fileID: 1178969678}
+  - component: {fileID: 1178969680}
+  - component: {fileID: 1178969679}
+  m_Layer: 0
+  m_Name: ZoomInObjective PipePuzzle3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1178969677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178969676}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0008, z: 0.0009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 617804166}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1178969678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178969676}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0335, y: 0.02, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1178969679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178969676}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1178969680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178969676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84227d9620e60e428ba6ea49f305d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoomInObjective
+  isRepeatable: 1
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  lockedCameraPerspective: {fileID: 0}
+  previousAnchor: {fileID: 1550121381}
+  optionalColliders: []
 --- !u!1 &1179398152
 GameObject:
   m_ObjectHideFlags: 0
@@ -85814,6 +86033,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6519894241379486527, guid: 730de0a1c06a2b640bc3a93d2dd8eab5, type: 3}
   m_PrefabInstance: {fileID: 1378984518}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1382060832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1636999715405217223, guid: 3f092aade62644576983527a4667e6b3, type: 3}
+  m_PrefabInstance: {fileID: 617804154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &1382060835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86703,6 +86927,101 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4499873317546874, guid: 3ef7c60670bb53a4eb1d53dce37111c0, type: 3}
   m_PrefabInstance: {fileID: 1419426560}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1422759619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1422759620}
+  - component: {fileID: 1422759621}
+  - component: {fileID: 1422759623}
+  - component: {fileID: 1422759622}
+  m_Layer: 0
+  m_Name: ZoomInObjective PipePuzzle2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1422759620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422759619}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.006, z: -0.00014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1382060832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1422759621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422759619}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0335, y: 0.02, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1422759622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422759619}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1422759623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422759619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84227d9620e60e428ba6ea49f305d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoomInObjective
+  isRepeatable: 1
+  itemInteractions: []
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
+  lockedCameraPerspective: {fileID: 0}
+  previousAnchor: {fileID: 1550121381}
+  optionalColliders: []
 --- !u!1001 &1426506613
 PrefabInstance:
   m_ObjectHideFlags: 0
