@@ -97,3 +97,9 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Ignore generated level text files
+**/Assets/Resources/Levels/*.txt
+
+# Ignore the Unity meta files for the levels
+**/Assets/Resources/Levels/*.txt.meta

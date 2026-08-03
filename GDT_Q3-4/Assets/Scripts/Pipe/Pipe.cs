@@ -36,7 +36,7 @@ public class Pipe : MonoBehaviour
     {
         rotation = (rotation + 1) % 4;
         transform.Rotate(0, 0, -90);
-        GridManager.Instance.RecalculatePower();
+        PipeGridManager.Instance.RecalculatePower();
     }
 
     void OnMouseDown()

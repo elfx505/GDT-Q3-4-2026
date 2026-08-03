@@ -1,9 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class GridManager : MonoBehaviour    
+public class PipeGridManager : Singleton<PipeGridManager>
 {
-    public static GridManager Instance;
 
     public GameObject[] prefabs;
     public static int size = 7;
@@ -13,15 +12,15 @@ public class GridManager : MonoBehaviour
     public int levels;
     int difficulty;
 
-    void Awake()
-    {
-        Instance = this;
-    }
 
     void Start()
-    {
-        difficulty = 1;
+    {   
+        for (int i = 1; i < 4; i++) // Levels 1 to 3
+        {
+            GenerateRandomLevels(i);
+        }
 
+        difficulty = 1;
         LoadLevelByDifficulty(1);
     }
 
@@ -175,5 +174,17 @@ public class GridManager : MonoBehaviour
         Debug.Log("LEVEL COMPLETE!");
         difficulty++;
         LoadLevelByDifficulty(difficulty);
+    }
+
+    public void GenerateRandomLevels(int currentDifficulty)
+    {
+
+        // Ensure randomization is turned on so the pieces get scrambled
+        random_level = true;
+
+        char[,] data = LevelGenerator.Generate(size, currentDifficulty);
+
+        LevelSaver.SaveLevel(data, "level" + currentDifficulty.ToString());
+
     }
 }
