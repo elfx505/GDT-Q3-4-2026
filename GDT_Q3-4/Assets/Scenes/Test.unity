@@ -11307,6 +11307,7 @@ MonoBehaviour:
   unlockingGameState: 0
   drawerIndex: 1
   isLevelComplete: 0
+  cannotPerformActionText: I already fixed this...
 --- !u!1001 &396635066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18486,6 +18487,7 @@ MonoBehaviour:
   unlockingGameState: 0
   drawerIndex: 3
   isLevelComplete: 0
+  cannotPerformActionText: I already fixed this...
 --- !u!114 &617804162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18525,6 +18527,7 @@ MonoBehaviour:
   unlockingGameState: 0
   drawerIndex: 2
   isLevelComplete: 0
+  cannotPerformActionText: I already fixed this...
 --- !u!114 &617804164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18564,6 +18567,7 @@ MonoBehaviour:
   unlockingGameState: 0
   drawerIndex: 4
   isLevelComplete: 0
+  cannotPerformActionText: 
 --- !u!4 &617804166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2340525453321527745, guid: 3f092aade62644576983527a4667e6b3, type: 3}

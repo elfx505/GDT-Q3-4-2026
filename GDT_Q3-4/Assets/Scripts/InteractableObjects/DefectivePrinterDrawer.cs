@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class DefectivePrinterDrawer : InteractableObject
     // Drag the colliders of any items inside this drawer into this array in the Inspector
     private Collider[] innerItemColliders; 
     public bool isLevelComplete = false;
+    [SerializeField] private String cannotPerformActionText;
 
     private void Start()
     {
@@ -37,7 +39,11 @@ public class DefectivePrinterDrawer : InteractableObject
             return;
         }
 
-        if (isLevelComplete) return; // Block drawer if level is complete
+        if (isLevelComplete)
+        {
+            GameTextController.Instance.HandleDialogue(cannotPerformActionText);
+            return; // Block drawer if level is complete
+        }
 
         PrinterPuzzleManager.Instance.OpenDrawer(drawerIndex);
     }
