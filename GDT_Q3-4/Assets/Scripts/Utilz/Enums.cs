@@ -37,6 +37,8 @@ public enum GameState
     ResignationPapersPrinted,
     JanitorDoorUnlocked,
     ElevatorPuzzleDone,
+    ElevatorButtonSequencePressed,
     EnteredReception,
-    MinesweeperDone
+    MinesweeperDone,
+    ShuttersOpened
 }

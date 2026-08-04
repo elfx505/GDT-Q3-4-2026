@@ -59,6 +59,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
         }
     }
 
+    [SerializeField] private CameraAnchor receptionFloorElevatorAnchor;
+
     void Start()
     {   
         
@@ -155,6 +157,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
 
         Debug.Log("PUZZLE COMPLETE! 🎉");
         // TODO: Add win effects here (particles, sound, next level...)
+        GameManager.Instance.SetState(GameState.ElevatorPuzzleDone, true);
         sequenceMode = true;
     }
 
@@ -253,6 +256,14 @@ public class PuzzleManager : Singleton<PuzzleManager>
                 currentStep = 0;
 
                 sequenceComplete = true; // Ensure lights stop blinking after the sequence has been completed.
+
+                 // Trigger Player Movement to Reception floor
+                GameManager.Instance.MoveToAnchor(receptionFloorElevatorAnchor);               
+                // Update GameState after reaching the next floor to trigger dialogue only then
+                GameManager.Instance.SetState(GameState.ElevatorButtonSequencePressed, true);
+
+
+
             }
         }
         else

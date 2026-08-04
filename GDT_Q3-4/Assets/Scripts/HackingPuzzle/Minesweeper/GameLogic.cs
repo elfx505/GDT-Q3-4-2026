@@ -401,6 +401,8 @@ public class GameLogic : Singleton<GameLogic>
             hasCompletedMinesweeperGrid = true;
             loginPage.SetActive(false);
             doorControlsPage.SetActive(true);
+
+            GameManager.Instance.SetState(GameState.MinesweeperDone, true);
         }
     }
 
