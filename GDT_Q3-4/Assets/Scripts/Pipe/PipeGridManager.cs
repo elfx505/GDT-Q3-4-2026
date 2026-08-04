@@ -10,6 +10,7 @@ public class PipeGridManager : Singleton<PipeGridManager>
     public float spacing = 1.5f;
     public bool random_level = false;
     public int levels;
+    private int lastLoadedLevel;
 
 
     void Start()
@@ -84,6 +85,8 @@ public class PipeGridManager : Singleton<PipeGridManager>
                 grid[x, y] = pipe;
             }
         }
+
+        lastLoadedLevel = level;
 
         RecalculatePower();
     }
@@ -171,7 +174,9 @@ public class PipeGridManager : Singleton<PipeGridManager>
         }
 
         Debug.Log("LEVEL COMPLETE!");
-        // TO-DO Adjust GameStates and block this Drawer
+        PrinterPuzzleManager.Instance.BlockDrawer(lastLoadedLevel - 1);
+        // TO-DO Adjust GameStates
+        ToggleCorrectGameState(lastLoadedLevel);
     }
 
     public void GenerateRandomLevels(int currentDifficulty)
@@ -184,5 +189,31 @@ public class PipeGridManager : Singleton<PipeGridManager>
 
         LevelSaver.SaveLevel(data, "level" + currentDifficulty.ToString());
 
+    }
+
+    private void ToggleCorrectGameState(int completedLevel)
+    {   
+        
+        
+        switch(completedLevel)
+        {
+            case 1:
+                GameManager.Instance.SetState(GameState.PipePuzzleComplete1, true);
+                break;
+            case 2:
+                GameManager.Instance.SetState(GameState.PipePuzzleComplete2, true);
+                break;
+            case 3:
+                GameManager.Instance.SetState(GameState.PipePuzzleComplete3, true);
+                break;
+            default:
+                Debug.LogWarning($"[PipeGridManager]: ToggleCorrectGameState: Invalid completed level index submitted ({completedLevel})!");
+                break;
+        }
+
+        if (GameManager.Instance.GetState(GameState.PipePuzzleComplete1) && GameManager.Instance.GetState(GameState.PipePuzzleComplete2) && GameManager.Instance.GetState(GameState.PipePuzzleComplete3))
+        {
+            GameManager.Instance.SetState(GameState.AllPipePuzzlesCompleted, true);
+        }
     }
 }

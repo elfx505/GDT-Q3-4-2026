@@ -11306,6 +11306,7 @@ MonoBehaviour:
       m_Calls: []
   unlockingGameState: 0
   drawerIndex: 1
+  isLevelComplete: 0
 --- !u!1001 &396635066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18484,6 +18485,7 @@ MonoBehaviour:
       m_Calls: []
   unlockingGameState: 0
   drawerIndex: 3
+  isLevelComplete: 0
 --- !u!114 &617804162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18522,6 +18524,7 @@ MonoBehaviour:
       m_Calls: []
   unlockingGameState: 0
   drawerIndex: 2
+  isLevelComplete: 0
 --- !u!114 &617804164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18560,6 +18563,7 @@ MonoBehaviour:
       m_Calls: []
   unlockingGameState: 0
   drawerIndex: 4
+  isLevelComplete: 0
 --- !u!4 &617804166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2340525453321527745, guid: 3f092aade62644576983527a4667e6b3, type: 3}
@@ -89441,7 +89445,7 @@ MonoBehaviour:
   brushPrefab: {fileID: 4296110502099268157, guid: a219bf3ed4b00d54cb7f4975dd55bf4a, type: 3}
   pointMinDistance: 5
   strokeData: []
-  minScoreThreshold: 5
+  minScoreThreshold: 3
   currentSymbolLabel: Key
   isDrawingOnThisBoard: 0
 --- !u!1 &1499575749
@@ -91483,7 +91487,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   unlockingGameState: 0
-  whiteboard: {fileID: 0}
+  whiteboard: {fileID: 1497910338}
 --- !u!1 &1562208388
 GameObject:
   m_ObjectHideFlags: 0

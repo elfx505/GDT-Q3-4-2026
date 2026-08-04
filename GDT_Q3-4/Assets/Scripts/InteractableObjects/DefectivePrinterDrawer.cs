@@ -8,6 +8,7 @@ public class DefectivePrinterDrawer : InteractableObject
     [Header("Inner Drawer Items")]
     // Drag the colliders of any items inside this drawer into this array in the Inspector
     private Collider[] innerItemColliders; 
+    public bool isLevelComplete = false;
 
     private void Start()
     {
@@ -35,6 +36,8 @@ public class DefectivePrinterDrawer : InteractableObject
             Debug.LogWarning($"[DefectivePrinterDrawer] <{gameObject.name}> PrinterPuzzleManager Instance is null!");
             return;
         }
+
+        if (isLevelComplete) return; // Block drawer if level is complete
 
         PrinterPuzzleManager.Instance.OpenDrawer(drawerIndex);
     }

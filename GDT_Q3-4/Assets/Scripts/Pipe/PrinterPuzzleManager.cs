@@ -69,6 +69,12 @@ public class PrinterPuzzleManager : Singleton<PrinterPuzzleManager>
         }
     }
 
+    public void BlockDrawer(int targetLevelIndex) // Called from PipeGridManager
+    {
+        OpenDrawer(0); // Close Drawer
+        allDrawers[targetLevelIndex].isLevelComplete = true;
+    }
+
     
 
 }
