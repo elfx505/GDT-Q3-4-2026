@@ -9292,7 +9292,7 @@ GameObject:
   - component: {fileID: 349298898}
   - component: {fileID: 349298897}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: BossMonitorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17515,6 +17515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NumpadLock
   maxCombinationSize: 4
   text: {fileID: 1722872569}
+  bossMonitorText: {fileID: 349298897}
 --- !u!1 &603738823
 GameObject:
   m_ObjectHideFlags: 0
