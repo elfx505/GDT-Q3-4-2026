@@ -22133,6 +22133,90 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6519894241379486527, guid: 730de0a1c06a2b640bc3a93d2dd8eab5, type: 3}
   m_PrefabInstance: {fileID: 726901751}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &727374193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8134365781796849926, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
+  m_PrefabInstance: {fileID: 1388057742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &727374194 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3834266167294757122, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
+  m_PrefabInstance: {fileID: 1388057742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &727374197
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727374193}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.93210655, y: 0.7578317, z: 0.05}
+  m_Center: {x: 1.4652245, y: 0.083009526, z: 0.1}
+--- !u!114 &727374198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727374193}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &727374199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727374193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6148fdb5376c8aa4091d6f930f1a2e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoleInWall
+  isRepeatable: 1
+  itemInteractions:
+  - requiredItem: {fileID: 11400000, guid: 8117e9aa2bb178948aab6b4f4356eb3a, type: 2}
+    onSuccess:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 727374199}
+          m_TargetAssemblyTypeName: HoleInWall, Assembly-CSharp
+          m_MethodName: BreakWall
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  outline: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  unlockingGameState: 0
 --- !u!1 &727684682
 GameObject:
   m_ObjectHideFlags: 0
@@ -26329,7 +26413,7 @@ Transform:
   m_GameObject: {fileID: 836160347}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.81, y: 1.5886049, z: 3.971}
+  m_LocalPosition: {x: -8.22, y: 1.5886049, z: 3.971}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78243,6 +78327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_dryer Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1605239349564278908, guid: f4b84a21b51d73f438d01dbe9a0a398e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2093368994432176838, guid: f4b84a21b51d73f438d01dbe9a0a398e, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -86192,6 +86280,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlainWall-Hole
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2410067891465250709, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -86210,8 +86302,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -3834266167294757122, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2074455338}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8134365781796849926, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 727374199}
+    - targetCorrespondingSourceObject: {fileID: 8134365781796849926, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 727374198}
+    - targetCorrespondingSourceObject: {fileID: 8134365781796849926, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 727374197}
   m_SourcePrefab: {fileID: 100100000, guid: 171de3ccab78b4bfbbd9ee65078c444f, type: 3}
 --- !u!4 &1388057743 stripped
 Transform:
@@ -88182,6 +88286,7 @@ MonoBehaviour:
       m_Calls: []
   unlockingGameState: 0
   animator: {fileID: 1457511014}
+  col: {fileID: 1457511015}
 --- !u!1 &1458929533
 GameObject:
   m_ObjectHideFlags: 0
@@ -97007,7 +97112,6 @@ Transform:
   - {fileID: 421322497}
   - {fileID: 1694925589}
   - {fileID: 1462428385}
-  - {fileID: 2074455338}
   - {fileID: 1877717719}
   - {fileID: 1297495571}
   - {fileID: 1457511013}
@@ -107823,12 +107927,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074455337}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -8.51, y: 1.568, z: 1.425}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.4799986, y: 0.067999914, z: 0.06499994}
   m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1738194414}
+  m_Father: {fileID: 727374194}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!64 &2074455339
 MeshCollider:
