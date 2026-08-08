@@ -47,8 +47,8 @@ public class TraverseLocationsAction : CutsceneAction
                     Vector3 lookDirection = new Vector3(direction2D.x, 0, direction2D.y);
 
                     Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-
-                    rotationTarget.rotation = Quaternion.Slerp(
+                    targetRotation *= Quaternion.Euler(0f, 180f, 0f);
+                    rotationTarget.rotation = Quaternion.RotateTowards(
                         rotationTarget.rotation,
                         targetRotation,
                         rotationSpeed * Time.deltaTime

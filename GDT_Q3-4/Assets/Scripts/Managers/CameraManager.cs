@@ -14,6 +14,7 @@ public class CameraManager : Singleton<CameraManager>
 
     [Header("Blink Settings")]
     [SerializeField] private float blinkDuration = 0.15f;
+    [SerializeField] private bool startDark = false;
 
     [Header("Look Settings")]
     [SerializeField] private float lookSensitivity = 0.2f;
@@ -27,6 +28,7 @@ public class CameraManager : Singleton<CameraManager>
     private float currentPitch;
     private float currentYaw;
     private Transform focusTarget;
+    private bool blinkedOnce = false;
 
 
     private void Start()
@@ -117,8 +119,14 @@ public class CameraManager : Singleton<CameraManager>
     private IEnumerator BlinkAndMoveRoutine(Transform targetAnchor, bool useAnchorRotation)
     {
         isTransitioning = true;
-
-        yield return StartCoroutine(FadeBlink(0f, 1f));
+        if (!startDark || blinkedOnce)
+        {
+            yield return StartCoroutine(FadeBlink(0f, 1f));
+        }
+        else
+        {
+            yield return StartCoroutine(FadeBlink(1f, 1f));
+        }
 
         // ONLY change position. Let rotation (and our currentPitch/currentYaw) stay exactly as they are!
         mainCamera.transform.position = targetAnchor.position;
@@ -129,21 +137,25 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         yield return new WaitForSeconds(0.05f);
-
-        yield return StartCoroutine(FadeBlink(1f, 0f));
+        if (!startDark || blinkedOnce)
+        {
+            Debug.Log("Fading");
+            yield return StartCoroutine(FadeBlink(1f, 0f));
+        }
+        blinkedOnce = true;
 
         isTransitioning = false;
     }
 
-    private IEnumerator FadeBlink(float startAlpha, float endAlpha)
+    private IEnumerator FadeBlink(float startAlpha, float endAlpha, float duration = 0)
     {
         float elapsedTime = 0f;
         Color overlayColor = blinkOverlay.color;
-
-        while (elapsedTime < blinkDuration)
+        float tempBlinkDuration = duration == 0 ? blinkDuration : duration;
+        while (elapsedTime < tempBlinkDuration)
         {
             elapsedTime += Time.deltaTime;
-            overlayColor.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / blinkDuration);
+            overlayColor.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / tempBlinkDuration);
             blinkOverlay.color = overlayColor;
             Debug.Log(blinkOverlay.color);
             yield return null;
@@ -160,7 +172,7 @@ public class CameraManager : Singleton<CameraManager>
 
     public IEnumerator FadeOut()
     {
-        yield return StartCoroutine(FadeBlink(1f, 0f));
+        yield return StartCoroutine(FadeBlink(blinkOverlay.color.a, 0f));
     }
 
     public float GetLookSensitivity()

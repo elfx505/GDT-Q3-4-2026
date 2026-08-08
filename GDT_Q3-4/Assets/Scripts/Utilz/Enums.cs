@@ -17,6 +17,7 @@ public enum GameState
     Default,
     EnteredOffice,
     KenGreeted,
+    ComputerIntroDone,
     DocGiven1,
     DocGiven2,
     DocGiven3,

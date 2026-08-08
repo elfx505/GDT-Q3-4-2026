@@ -11,6 +11,7 @@ public class Door : InteractableObject
     [Header("Door Status")]
     [SerializeField] private bool doorUnlocked = true;
     [SerializeField] private bool isJanitorDoor;
+    [Tooltip("When the door is first used, set this game state to true")]
     [SerializeField] private GameState firstUseTrigger;
     private bool doorUsed = false;
 

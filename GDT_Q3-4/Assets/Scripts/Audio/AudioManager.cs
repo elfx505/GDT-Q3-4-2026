@@ -9,9 +9,13 @@ public class AudioManager : Singleton<AudioManager>
     private bool isLoopingCustom = false;
     [SerializeField] private float defaultVolume = .1f;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        source = gameObject.AddComponent<AudioSource>();
+    }
     void Start()
     {
-        source = gameObject.AddComponent<AudioSource>();
 
         PauseMenuManager.onMasterVolumeChanged += SetVolume;
 
@@ -20,7 +24,7 @@ public class AudioManager : Singleton<AudioManager>
 
     void OnDestroy()
     {
-        
+
         PauseMenuManager.onMasterVolumeChanged -= SetVolume;
     }
 
@@ -29,8 +33,8 @@ public class AudioManager : Singleton<AudioManager>
         if (currentTrack == null || !isLoopingCustom) return;
 
         // Handle custom loop
-        float loopEnd = currentTrack.loopEndTime > 0f 
-            ? currentTrack.loopEndTime 
+        float loopEnd = currentTrack.loopEndTime > 0f
+            ? currentTrack.loopEndTime
             : source.clip.length;
 
         if (source.time >= loopEnd)

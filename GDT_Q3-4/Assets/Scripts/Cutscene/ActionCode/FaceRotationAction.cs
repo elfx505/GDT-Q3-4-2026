@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FaceRotationAction : CutsceneAction
 {
-    [SerializeField] private GameObject rotateObject;
+    [SerializeField] private GameObject objectToRotate;
     [SerializeField] private GameObject targetRotationObject;
     [SerializeField] private bool transitionSmooth;
     [SerializeField] private float rotationSpeed = 2f;
@@ -16,13 +16,13 @@ public class FaceRotationAction : CutsceneAction
         {
             while (true)
             {
-                if (Vector3.Distance(rotateObject.transform.eulerAngles, targetRotationObject.transform.eulerAngles) <= 0.01f)
+                if (Vector3.Distance(objectToRotate.transform.eulerAngles, targetRotationObject.transform.eulerAngles) <= 0.01f)
                 {
                     break;
                 }
 
-                rotateObject.transform.rotation = Quaternion.Slerp(
-                rotateObject.transform.rotation,
+                objectToRotate.transform.rotation = Quaternion.Slerp(
+                objectToRotate.transform.rotation,
                 targetRotationObject.transform.rotation,
                 rotationSpeed * Time.deltaTime
             );
@@ -32,7 +32,7 @@ public class FaceRotationAction : CutsceneAction
         }
         else
         {
-            rotateObject.transform.eulerAngles = targetRotationObject.transform.eulerAngles;
+            objectToRotate.transform.eulerAngles = targetRotationObject.transform.eulerAngles;
             yield return null;
         }
     }

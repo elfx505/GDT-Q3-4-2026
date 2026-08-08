@@ -13,7 +13,7 @@ public struct GameStateCutscene
 public class CutsceneManager : Singleton<CutsceneManager>
 {
     // public static H_CutsceneManager Instance;
-    [SerializeField] private Cutscene cutsceneTest;
+    [SerializeField] private Cutscene introCutscene;
     [SerializeField] private List<GameStateCutscene> gameStateCutscenes = new();
     CutsceneContext context;
 
@@ -23,9 +23,9 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
     private void Start()
     {
-        if (cutsceneTest)
+        if (introCutscene)
         {
-            PlayCutscene(cutsceneTest);
+            PlayCutscene(introCutscene);
         }
         context =
             new CutsceneContext(Camera.main);
