@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Rat Trap
   itemType: 2
-  icon: {fileID: 21300000, guid: 07e0bcaf0ef0186498c324f6a8adea0e, type: 3}
+  icon: {fileID: 21300000, guid: b02db373af4d14186929909e4fa5d382, type: 3}
   onetime: 1
   isViewable: 0
   viewSprite: {fileID: 0}

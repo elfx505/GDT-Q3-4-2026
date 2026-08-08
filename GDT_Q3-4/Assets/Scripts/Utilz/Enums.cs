@@ -37,6 +37,7 @@ public enum GameState
     InsideJanitorOffice,
     ResignationPapersPrinted,
     JanitorDoorUnlocked,
+    ReachedUpperElevator,
     ElevatorPuzzleDone,
     ElevatorButtonSequencePressed,
     EnteredReception,
