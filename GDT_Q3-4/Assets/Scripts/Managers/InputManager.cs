@@ -97,6 +97,7 @@ public class InputManager : Singleton<InputManager>
             if (currentHoveredInteractable != null)
             {
                 // We clicked an object! Let the object handle the held item.
+                if (CameraManager.Instance.isFaded) return;
                 currentHoveredInteractable.OnClick();
             }
             else

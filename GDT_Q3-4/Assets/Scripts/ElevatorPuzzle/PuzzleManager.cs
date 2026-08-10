@@ -11,7 +11,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
     public ConstraintUI[] constraints;
     [SerializeField] private int[] correctOrder = new int[6];
     [SerializeField] private int[] sequence = new int[4];
-    string[] symbols = new string[] {"!", "@", "#", "$", "%", "^"};
+    string[] symbols = new string[] { "!", "@", "#", "$", "%", "^" };
     public Dictionary<string, int> symbolToIndex = new Dictionary<string, int>()
     {
         {"!", 0},
@@ -37,7 +37,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
             {
                 _sequenceMode = value;
                 // Fire the event, passing the new state
-                OnSequenceModeChanged?.Invoke(_sequenceMode); 
+                OnSequenceModeChanged?.Invoke(_sequenceMode);
             }
         }
     }
@@ -54,7 +54,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
             if (_sequenceComplete != value)
             {
                 _sequenceComplete = value;
-                OnSequenceCompleteChanged?.Invoke(_sequenceComplete); 
+                OnSequenceCompleteChanged?.Invoke(_sequenceComplete);
             }
         }
     }
@@ -62,8 +62,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
     [SerializeField] private CameraAnchor receptionFloorElevatorAnchor;
 
     void Start()
-    {   
-        
+    {
+
         sequenceComplete = false;
 
         // Ensure correctOrder has values (0 to 5) and shuffle them
@@ -81,7 +81,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
                 correctOrder[i] = i;
             }
         }
-        
+
         Shuffle(correctOrder);
 
         // Generate a sequence of 4 UNIQUE slot indices without duplicates
@@ -105,7 +105,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
             sequence[i] = availableIndices[i];
         }
 
-        foreach (var i in sequence) 
+        foreach (var i in sequence)
         {
             if (i >= slots.Length)
             {
@@ -122,7 +122,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
             c.UpdateText();
         }
 
-        AudioManager.Instance.PlayTrack(thisPuzzleTrack);
+        // AudioManager.Instance.PlayTrack(thisPuzzleTrack);
     }
 
     public void CheckWin()
@@ -165,7 +165,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].currentButton != null && 
+            if (slots[i].currentButton != null &&
                 slots[i].currentButton.symbol == symbol)
             {
                 return i;
@@ -182,12 +182,13 @@ public class PuzzleManager : Singleton<PuzzleManager>
             string right = symbols[correctOrder[i + 1]];
 
             int r = UnityEngine.Random.Range(0, 2);
-            if (r == 0) 
+            if (r == 0)
             {
                 constraints[i].leftSymbol = left;
                 constraints[i].rightSymbol = right;
                 constraints[i].operatorSymbol = "<";
-            } else 
+            }
+            else
             {
                 constraints[i].leftSymbol = right;
                 constraints[i].rightSymbol = left;
@@ -226,13 +227,13 @@ public class PuzzleManager : Singleton<PuzzleManager>
     {
         // Use System.Random, not UnityEngine.Random
         System.Random rng = new System.Random();
-    
+
         int n = array.Length;
         while (n > 1)
         {
             n--;
             int k = rng.Next(n + 1);
-        
+
             // Swap
             T temp = array[k];
             array[k] = array[n];
@@ -246,7 +247,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
 
         if (index == sequence[currentStep])
         {
-            
+
             slots[index].changeColor(true);
             currentStep++;
 
@@ -257,8 +258,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
 
                 sequenceComplete = true; // Ensure lights stop blinking after the sequence has been completed.
 
-                 // Trigger Player Movement to Reception floor
-                GameManager.Instance.MoveToAnchor(receptionFloorElevatorAnchor);               
+                // Trigger Player Movement to Reception floor
+                GameManager.Instance.MoveToAnchor(receptionFloorElevatorAnchor);
                 // Update GameState after reaching the next floor to trigger dialogue only then
                 GameManager.Instance.SetState(GameState.ElevatorButtonSequencePressed, true);
 

@@ -25,6 +25,7 @@ public class CameraManager : Singleton<CameraManager>
     private bool isLookInitialized = false;
 
     private bool isTransitioning = false;
+    public bool isFaded = false;
     private float currentPitch;
     private float currentYaw;
     private Transform focusTarget;
@@ -98,6 +99,7 @@ public class CameraManager : Singleton<CameraManager>
     private void HandleCameraLook(Vector2 delta)
     {
         if (isTransitioning) return;
+        if (isFaded) return;
         if (!isLookInitialized)
         {
             RecalibrateCamera();
@@ -134,6 +136,7 @@ public class CameraManager : Singleton<CameraManager>
         if (useAnchorRotation)
         {
             mainCamera.transform.rotation = targetAnchor.rotation;
+            RecalibrateCamera();
         }
 
         yield return new WaitForSeconds(0.05f);
@@ -143,12 +146,13 @@ public class CameraManager : Singleton<CameraManager>
             yield return StartCoroutine(FadeBlink(1f, 0f));
         }
         blinkedOnce = true;
-
+        yield return new WaitForSeconds(0.5f);
         isTransitioning = false;
     }
 
     private IEnumerator FadeBlink(float startAlpha, float endAlpha, float duration = 0)
     {
+        isFaded = true;
         float elapsedTime = 0f;
         Color overlayColor = blinkOverlay.color;
         float tempBlinkDuration = duration == 0 ? blinkDuration : duration;
@@ -163,16 +167,18 @@ public class CameraManager : Singleton<CameraManager>
 
         overlayColor.a = endAlpha;
         blinkOverlay.color = overlayColor;
+        isFaded = false;
+
     }
 
-    public IEnumerator FadeIn()
+    public IEnumerator FadeIn(float duration)
     {
-        yield return StartCoroutine(FadeBlink(0f, 1f));
+        yield return StartCoroutine(FadeBlink(0f, 1f, duration));
     }
 
-    public IEnumerator FadeOut()
+    public IEnumerator FadeOut(float duration)
     {
-        yield return StartCoroutine(FadeBlink(blinkOverlay.color.a, 0f));
+        yield return StartCoroutine(FadeBlink(blinkOverlay.color.a, 0f, duration));
     }
 
     public float GetLookSensitivity()

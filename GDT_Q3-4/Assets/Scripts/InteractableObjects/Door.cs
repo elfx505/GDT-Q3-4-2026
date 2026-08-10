@@ -13,6 +13,7 @@ public class Door : InteractableObject
     [SerializeField] private bool isJanitorDoor;
     [Tooltip("When the door is first used, set this game state to true")]
     [SerializeField] private GameState firstUseTrigger;
+    [SerializeField] private bool useFirstTrigger = false;
     private bool doorUsed = false;
 
     protected override void PerformAction()
@@ -53,7 +54,7 @@ public class Door : InteractableObject
         {
             Destroy(GetComponent<Outline>());
         }
-        if (!doorUsed)
+        if (!doorUsed && useFirstTrigger)
         {
             GameManager.Instance.SetState(firstUseTrigger, true);
             doorUsed = true;

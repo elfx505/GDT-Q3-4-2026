@@ -12,7 +12,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (startingNote != null)
         {
-            AddItem(startingNote); 
+            AddItem(startingNote);
         }
     }
 
@@ -24,7 +24,7 @@ public class InventoryManager : Singleton<InventoryManager>
             return;
         }
         items.Add(item);
-        
+
         if (InventoryUI.Instance != null)
         {
             Debug.Log("Added " + item.itemName);
@@ -35,11 +35,21 @@ public class InventoryManager : Singleton<InventoryManager>
     public void StartHolding(ItemSO item)
     {
         heldItem = item;
-        
+
     }
 
     public void StopHolding()
     {
         heldItem = null;
+    }
+
+    public void RemoveItem(ItemSO item)
+    {
+        items.Remove(item);
+        if (InventoryUI.Instance != null)
+        {
+            Debug.Log("Removed " + item.itemName);
+            InventoryUI.Instance.Refresh();
+        }
     }
 }

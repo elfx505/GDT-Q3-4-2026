@@ -73,6 +73,10 @@ public class InteractableObject : MonoBehaviour, IInteractable
                     {
                         InventoryManager.Instance.StopHolding();
                     }
+                    if (heldItem.consummable)
+                    {
+                        InventoryManager.Instance.RemoveItem(heldItem);
+                    }
 
                     hasBeenInteracted = true;
                     return; // Exit out, we are done!

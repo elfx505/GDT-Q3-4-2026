@@ -14,10 +14,11 @@ public class GameTextController : Singleton<GameTextController>
     [SerializeField] private GameObject panelBackground;
     [SerializeField] private TextMeshProUGUI textUI;
 
-    [Header("State Dialogues Mapping")]
+    [Header("State Dialogues Options")]
     [TextArea(3, 5)]
     public List<string> stateText;
     public List<GameState> keys;
+    [SerializeField] private bool useControllerStateChange;
 
     private Queue<string> messageQueue = new Queue<string>();
     private bool isShowing = false;
@@ -79,16 +80,19 @@ public class GameTextController : Singleton<GameTextController>
 
     private void HandleGameStateChange(GameState key)
     {
-        for (int i = 0; i < keys.Count; i++)
+        if (useControllerStateChange)
         {
-            if (key == keys[i])
+            for (int i = 0; i < keys.Count; i++)
             {
-                // Ensure we don't grab an out-of-bounds element if lists don't match size
-                if (i < stateText.Count)
+                if (key == keys[i])
                 {
-                    StartSequence(sections(stateText[i]));
+                    // Ensure we don't grab an out-of-bounds element if lists don't match size
+                    if (i < stateText.Count)
+                    {
+                        StartSequence(sections(stateText[i]));
+                    }
+                    break;
                 }
-                break;
             }
         }
     }
