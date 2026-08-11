@@ -82,6 +82,8 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogWarning("[GameManager] hiddenDoor not set!");
         }
+
+        
     }
 
     public void EnableKey()

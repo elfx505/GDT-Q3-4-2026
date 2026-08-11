@@ -39,7 +39,7 @@ public class PauseMenuManager : MonoBehaviour
 
         if (CameraManager.Instance != null)
         {
-            sensitivitySlider.value = CameraManager.Instance.GetLookSensitivity();
+            sensitivitySlider.SetValueWithoutNotify(CameraManager.Instance.GetLookSensitivity());
         } else
         {
             Debug.LogWarning("[PauseMenuManager] CameraManager.Instance is null!");
@@ -47,7 +47,7 @@ public class PauseMenuManager : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
-            volumeSlider.value = AudioManager.Instance.GetVolume();
+            volumeSlider.SetValueWithoutNotify(AudioManager.Instance.GetVolume());
         } else
         {
             Debug.LogWarning("[PauseMenuManager] AudioManager.Instance is null!");
@@ -90,12 +90,18 @@ public class PauseMenuManager : MonoBehaviour
     public void SetSensitivity(float sensitivity) // Called by Slider Objects; Set up in Inspector
     {
         onLookSensitivityChanged?.Invoke(sensitivity);
+
+        PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
+        PlayerPrefs.Save();
     }
 
 
     public void SetVolume(float volume) // Called by Slider Objects; Set up in Inspector
     {
         onMasterVolumeChanged?.Invoke(volume);
+
+        PlayerPrefs.SetFloat("MasterVolume", volume);
+        PlayerPrefs.Save();
     }
 
 }

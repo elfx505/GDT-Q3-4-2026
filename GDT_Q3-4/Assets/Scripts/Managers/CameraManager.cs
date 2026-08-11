@@ -18,6 +18,7 @@ public class CameraManager : Singleton<CameraManager>
 
     [Header("Look Settings")]
     [SerializeField] private float lookSensitivity = 0.2f;
+    private float defaultSensitivity = 0.5f;
     [SerializeField] private float minPitch = -60f; // Look up limit
     [SerializeField] private float maxPitch = 60f;  // Look down limit
 
@@ -31,6 +32,13 @@ public class CameraManager : Singleton<CameraManager>
     private Transform focusTarget;
     private bool blinkedOnce = false;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        // Initialize sensitivity early so PauseMenuManager can safely read it later
+        SetLookSensitivity(PlayerPrefs.GetFloat("MouseSensitivity", defaultSensitivity));
+    }
 
     private void Start()
     {

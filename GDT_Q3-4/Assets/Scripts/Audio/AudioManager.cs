@@ -13,13 +13,13 @@ public class AudioManager : Singleton<AudioManager>
     {
         base.Awake();
         source = gameObject.AddComponent<AudioSource>();
+
+        SetVolume(PlayerPrefs.GetFloat("MasterVolume", defaultVolume));
     }
+
     void Start()
     {
-
         PauseMenuManager.onMasterVolumeChanged += SetVolume;
-
-        SetVolume(defaultVolume);
     }
 
     void OnDestroy()
