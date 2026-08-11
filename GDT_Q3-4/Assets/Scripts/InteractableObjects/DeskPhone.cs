@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
 
-public class DeskDrawer : InteractableObject
+public class DeskPhone : ZoomInObjective
 {
     [SerializeField] private string animationOpenName;
-    [SerializeField] private string animationCloseName;
     [SerializeField] private Animator animator;
-    private bool isOpen = false;
 
+
+    private bool isOpen = false;
     protected override void PerformAction()
     {
         base.PerformAction();
@@ -16,12 +15,7 @@ public class DeskDrawer : InteractableObject
             animator.Play(animationOpenName, 0, 0f);
             isOpen = true;
         }
-        else
-        {
-            animator.Play(animationCloseName, 0, 0f);
-            isOpen = false;
 
-        }
 
     }
 }

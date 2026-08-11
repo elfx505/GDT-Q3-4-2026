@@ -37,6 +37,7 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private GameObject key;
     [SerializeField] private GameObject hiddenDoor;
+    [SerializeField] private CameraAnchor upperElevatorHallwayAnchor;
 
     protected override void Awake()
     {
@@ -110,6 +111,10 @@ public class GameManager : Singleton<GameManager>
 
         // Tell the Camera Transition script to do the blink & move (position only)
         CameraManager.Instance.MoveCameraToAnchor(targetAnchor.transform, targetAnchor.useAnchorRotation);
+        if (targetAnchor == upperElevatorHallwayAnchor && GameManager.Instance.GetState(GameState.JanitorDoorUnlocked))
+        {
+            GameManager.Instance.SetState(GameState.ReachedUpperElevator, true);
+        }
     }
 
     private void InitializeGameStatesFromProfile()

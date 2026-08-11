@@ -160,7 +160,7 @@ public class CameraManager : Singleton<CameraManager>
 
     private IEnumerator FadeBlink(float startAlpha, float endAlpha, float duration = 0)
     {
-        isFaded = true;
+        isFaded = !isFaded;
         float elapsedTime = 0f;
         Color overlayColor = blinkOverlay.color;
         float tempBlinkDuration = duration == 0 ? blinkDuration : duration;
@@ -175,7 +175,6 @@ public class CameraManager : Singleton<CameraManager>
 
         overlayColor.a = endAlpha;
         blinkOverlay.color = overlayColor;
-        isFaded = false;
 
     }
 
