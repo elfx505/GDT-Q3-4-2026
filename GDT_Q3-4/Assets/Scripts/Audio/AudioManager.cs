@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
@@ -81,17 +82,45 @@ public class AudioManager : Singleton<AudioManager>
         isLoopingCustom = false;
     }
 
-    public void PlaySFX(AudioClip clip, float volume = 1f, float pitch = 1f)
+    public void PlaySFX(AudioClip clip, float volume = 1f, float pitch = 1f, float startTime = 0f, float endTime = -1f)
     {
         if (clip == null) return;
 
         AudioSource sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.clip = clip;
-        sfxSource.volume = Mathf.Clamp(volume, volume, source.volume);
+        sfxSource.volume = Mathf.Clamp01(volume);
         sfxSource.pitch = pitch;
+
+        // Start at the requested position
+        sfxSource.time = startTime;
         sfxSource.Play();
 
-        Destroy(sfxSource, clip.length);
+        StartCoroutine(StopSFXAtTime(sfxSource, endTime, clip));
+    }
+
+    private IEnumerator StopSFXAtTime(
+    AudioSource audioSource,
+    float endTime,
+    AudioClip clip)
+    {
+        // -1 means play until the end of the clip
+        if (endTime < 0f)
+        {
+            yield return new WaitForSeconds(clip.length - audioSource.time);
+        }
+        else
+        {
+            float duration = endTime - audioSource.time;
+
+            if (duration > 0f)
+                yield return new WaitForSeconds(duration);
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            Destroy(audioSource);
+        }
     }
 
     private void SetVolume(float newVolume)
