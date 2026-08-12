@@ -8,6 +8,7 @@ public class ItemViewer : MonoBehaviour
 
     [SerializeField] private GameObject viewerPanel;
     [SerializeField] private Image bigImage;
+    private ItemSO viewedItem;
 
     private void Awake()
     {
@@ -25,12 +26,7 @@ public class ItemViewer : MonoBehaviour
     public void ShowItem(ItemSO item)
     {
         if (item == null) return;
-
-        // --- GAME STATE TRIGGER ---
-        if (item.name == "Note") 
-        {
-            GameManager.Instance.SetState(GameState.ReadNote, true);
-        }
+        viewedItem = item;
 
         bigImage.sprite = item.viewSprite != null ? item.viewSprite : item.icon;
 
@@ -40,14 +36,22 @@ public class ItemViewer : MonoBehaviour
     public void Close()
     {
         if (viewerPanel != null)
+        {
             viewerPanel.SetActive(false);
+            // --- GAME STATE TRIGGER ---
+            if (viewedItem.name == "Note")
+            {
+                GameManager.Instance.SetState(GameState.ReadNote, true);
+            }
+        }
+
     }
 
     private void Update()
     {
         if (viewerPanel != null && viewerPanel.activeSelf)
         {
-            if (Input.GetMouseButtonDown(0)) // left click anywhere
+            if (Input.GetMouseButtonUp(0)) // left click anywhere
             {
                 Close();
             }
