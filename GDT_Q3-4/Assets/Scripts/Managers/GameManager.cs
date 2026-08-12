@@ -32,6 +32,7 @@ public class GameManager : Singleton<GameManager>
     public bool cameraFocused = false;
     public bool textOnScreen = false;
     public GameObject backButton; // Set In Inspector
+    public GameObject inventoryButton; // Set In Inspector
 
     public static GameManager instance;
 
@@ -64,6 +65,11 @@ public class GameManager : Singleton<GameManager>
         else
         {
             Debug.LogWarning("[GameManager] Back Button not set!");
+        }
+
+        if (inventoryButton == null)
+        {
+            Debug.LogWarning("[GameManager] Inventory Button not set!");
         }
 
         if (key != null)
@@ -149,6 +155,11 @@ public class GameManager : Singleton<GameManager>
     public void ToggleCameraFocused()
     {
         cameraFocused = !cameraFocused;
+    }
+
+    public void ToggleInventoryButton(bool value)
+    {
+        inventoryButton.SetActive(value);
     }
 
     private void UpdateDebugList()

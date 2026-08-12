@@ -21,6 +21,7 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
     public bool IsPlaying => _isPlaying;
 
+
     private void Start()
     {
         if (introCutscene)
@@ -58,11 +59,15 @@ public class CutsceneManager : Singleton<CutsceneManager>
         }
 
         StartCoroutine(RunCutscene(cutscene));
+
+
     }
 
     private IEnumerator RunCutscene(Cutscene cutscene)
     {
         _isPlaying = true;
+
+        GameManager.Instance.ToggleInventoryButton(!_isPlaying);
 
         Debug.Log($"Starting cutscene: {cutscene.cutsceneID}");
 
@@ -89,6 +94,8 @@ public class CutsceneManager : Singleton<CutsceneManager>
         }
 
         _isPlaying = false;
+
+        GameManager.Instance.ToggleInventoryButton(!_isPlaying);
 
         Debug.Log($"Finished cutscene: {cutscene.cutsceneID}");
     }
