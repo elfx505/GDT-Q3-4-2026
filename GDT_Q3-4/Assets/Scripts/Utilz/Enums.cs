@@ -9,6 +9,7 @@ public enum ItemType
     Wrench,
     DefectivePrinterPaper,
     ResignationPaper,
+    ElevatorHint,
 
 }
 
