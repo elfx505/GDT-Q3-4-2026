@@ -5,8 +5,10 @@ public class NumpadLockButton : InteractableObject
     [SerializeField] private NumpadLock numpadLock;
     private int buttonValue;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         if (int.TryParse(gameObject.name, out int result))
         {
             buttonValue = result;

@@ -4,8 +4,10 @@ public class NumpadLockClearButton : InteractableObject
 {   
     [SerializeField] private NumpadLock numpadLock;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         numpadLock = GetComponentInParent<NumpadLock>();
     }
 

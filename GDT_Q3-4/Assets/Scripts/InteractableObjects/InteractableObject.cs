@@ -41,15 +41,18 @@ public class InteractableObject : MonoBehaviour, IInteractable
     }
 #endif
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        outline = gameObject.GetComponent<Outline>();
+        // Keeping the fix from the previous step as well!
+        if (outline == null) 
+        {
+            outline = GetComponentInChildren<Outline>(); 
+        }
 
         if (outline == null)
         {
             Debug.LogWarning($"Missing Outline Component for {gameObject.name}!");
         }
-
     }
 
     public virtual void OnClick()

@@ -5,8 +5,10 @@ public class GasolineHole : InteractableObject
     
     [SerializeField] private GameObject paper;
 
-    private void Awake()
-    {
+    protected override void Awake()
+    {   
+        base.Awake();
+
         if (paper == null)
         {
             Debug.LogWarning($"[GasolineHole] {gameObject.name}: Paper Child Object not set!");
