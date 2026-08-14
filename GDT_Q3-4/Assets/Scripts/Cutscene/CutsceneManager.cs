@@ -68,6 +68,7 @@ public class CutsceneManager : Singleton<CutsceneManager>
         _isPlaying = true;
 
         GameManager.Instance.ToggleInventoryButton(!_isPlaying);
+        GameManager.Instance.ToggleBackButton(!_isPlaying);
 
         Debug.Log($"Starting cutscene: {cutscene.cutsceneID}");
 
@@ -96,6 +97,7 @@ public class CutsceneManager : Singleton<CutsceneManager>
         _isPlaying = false;
 
         GameManager.Instance.ToggleInventoryButton(!_isPlaying);
+        GameManager.Instance.ToggleBackButton(!_isPlaying);
 
         Debug.Log($"Finished cutscene: {cutscene.cutsceneID}");
     }
