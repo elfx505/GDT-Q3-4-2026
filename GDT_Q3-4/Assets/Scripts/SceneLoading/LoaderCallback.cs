@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class LoaderCallback : MonoBehaviour
 {
-   private bool isFirstUpdate = true;
+    private bool isFirstUpdate = true;
 
-   private void Update()
+    private void Update()
     {
         if (isFirstUpdate)
         {
             isFirstUpdate = false;
             Loader.LoaderCallback();
         }
-    } 
+    }
+
+
 }
