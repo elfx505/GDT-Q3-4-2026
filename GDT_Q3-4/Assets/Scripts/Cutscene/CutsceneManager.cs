@@ -21,6 +21,7 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
     public bool IsPlaying => _isPlaying;
 
+    private bool hasToggledBackButton = false;
 
     private void Start()
     {
@@ -68,7 +69,11 @@ public class CutsceneManager : Singleton<CutsceneManager>
         _isPlaying = true;
 
         GameManager.Instance.ToggleInventoryButton(!_isPlaying);
-        GameManager.Instance.ToggleBackButton(!_isPlaying);
+        if (GameManager.Instance.GetBackButtonActiveState())
+        {
+            GameManager.Instance.ToggleBackButton(!_isPlaying);
+            hasToggledBackButton = true;
+        }
 
         Debug.Log($"Starting cutscene: {cutscene.cutsceneID}");
 
@@ -97,7 +102,12 @@ public class CutsceneManager : Singleton<CutsceneManager>
         _isPlaying = false;
 
         GameManager.Instance.ToggleInventoryButton(!_isPlaying);
-        GameManager.Instance.ToggleBackButton(!_isPlaying);
+
+        if (hasToggledBackButton)
+        {
+            GameManager.Instance.ToggleBackButton(!_isPlaying);
+            hasToggledBackButton = false;
+        }
 
         Debug.Log($"Finished cutscene: {cutscene.cutsceneID}");
     }

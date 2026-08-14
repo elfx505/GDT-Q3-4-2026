@@ -150,7 +150,7 @@ public class GameManager : Singleton<GameManager>
     public void TogglePerspectiveLock()
     {
         perspectiveIsLocked = !perspectiveIsLocked;
-        ToggleBackButton(perspectiveIsLocked);
+        backButton.SetActive(perspectiveIsLocked);
     }
     public void ToggleCameraFocused()
     {
@@ -159,12 +159,21 @@ public class GameManager : Singleton<GameManager>
 
     public void ToggleInventoryButton(bool value)
     {
+        
+        
         inventoryButton.SetActive(value);
     }
 
     public void ToggleBackButton(bool value)
     {
+        // if (!backButton.activeSelf) return;
+        
         backButton.SetActive(value);
+    }
+
+    public bool GetBackButtonActiveState()
+    {
+        return backButton.activeSelf;
     }
 
     private void UpdateDebugList()
