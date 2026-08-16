@@ -29,6 +29,8 @@ public class FaceRotationAction : CutsceneAction
 
                 yield return null;
             }
+            objectToRotate.transform.eulerAngles = targetRotationObject.transform.eulerAngles;
+
         }
         else
         {

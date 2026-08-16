@@ -58,6 +58,8 @@ public class TraverseLocationsAction : CutsceneAction
                 yield return null;
             }
         }
+        int locationsSize = locations.Count;
+        objectToMove.transform.position = locations[locationsSize - 1].position;
     }
 
 }
