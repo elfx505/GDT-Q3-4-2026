@@ -41,6 +41,7 @@ public enum GameState
     JanitorDoorUnlocked,
     ReachedUpperElevator,
     JanitorSpokenTo,
+    ElevatorEntered,
     ElevatorPuzzleDone,
     ElevatorButtonSequencePressed,
     EnteredReception,
