@@ -26,8 +26,8 @@ public class InputManager : Singleton<InputManager>
     {
         if (Mouse.current == null) return;
 
-        // Stop processing world inputs if dialogue is showing
-        if (GameManager.Instance.textOnScreen)
+        // Stop processing world inputs if dialogue is showing or if a cutscene is playing
+        if (GameManager.Instance.textOnScreen || CutsceneManager.Instance.IsPlaying)
         {
             // If we were hovering over an object when the text popped up, 
             // force it to stop hovering so it doesn't stay highlighted behind the UI.

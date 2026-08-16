@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DeskPhone : ZoomInObjective
 {
-    [SerializeField] private string animationOpenName;
     [SerializeField] private Animator animator;
 
 
@@ -12,8 +11,8 @@ public class DeskPhone : ZoomInObjective
         base.PerformAction();
         if (!isOpen)
         {
-            animator.Play(animationOpenName, 0, 0f);
             isOpen = true;
+            animator.SetBool("hasOpenedPhone", isOpen);
         }
 
     }

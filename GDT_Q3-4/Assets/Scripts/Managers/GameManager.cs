@@ -136,7 +136,9 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void SetState(GameState key, bool value)
-    {
+    {   
+        if (gameStates[key] == value) return; // Do not trigger if the State Value didn't actually change
+
         gameStates[key] = value;
         UpdateDebugList(); // Update the list whenever the state changes
         onGameStateChange?.Invoke(key);

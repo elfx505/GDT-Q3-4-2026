@@ -88,7 +88,10 @@ public class AudioManager : Singleton<AudioManager>
 
         AudioSource sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.clip = clip;
-        sfxSource.volume = Mathf.Clamp01(volume);
+        
+        // Multiply the individual SFX volume by the master volume
+        sfxSource.volume = Mathf.Clamp01(volume * source.volume);
+        
         sfxSource.pitch = pitch;
 
         // Start at the requested position
