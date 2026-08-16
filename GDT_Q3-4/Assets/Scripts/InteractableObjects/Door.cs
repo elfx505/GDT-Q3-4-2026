@@ -28,6 +28,8 @@ public class Door : InteractableObject
 
         if (!doorUnlocked)
         {
+            if (isJanitorDoor)
+                GameTextController.Instance.HandleDialogue("Looks like I need a key");
             Debug.Log("The door is locked.");
             return;
         }
