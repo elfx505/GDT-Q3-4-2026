@@ -11,6 +11,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
     public ConstraintUI[] constraints;
     [SerializeField] private int[] correctOrder = new int[6];
     [SerializeField] private int[] sequence = new int[4];
+    [SerializeField] private Cutscene hintRevealCutscene;
     string[] symbols = new string[] { "!", "@", "#", "$", "%", "^" };
     public Dictionary<string, int> symbolToIndex = new Dictionary<string, int>()
     {
@@ -121,8 +122,16 @@ public class PuzzleManager : Singleton<PuzzleManager>
         {
             c.UpdateText();
         }
-
+        GameManager.onGameStateChange += CheckIfHint;
         // AudioManager.Instance.PlayTrack(thisPuzzleTrack);
+    }
+
+    private void CheckIfHint(GameState state)
+    {
+        if (state == GameState.ElevatorEntered && GameManager.Instance.GetState(GameState.JanitorSpokenTo))
+        {
+            CutsceneManager.Instance.PlayCutscene(hintRevealCutscene);
+        }
     }
 
     public void CheckWin()
