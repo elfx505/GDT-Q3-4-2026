@@ -16,21 +16,24 @@ public class Pipe : MonoBehaviour
     public PipeType type;
     public int rotation;
     public bool isPowered = false;
+    private bool isComplete = false;
 
     private Renderer rend;
+
+    [Header("Visuals")]
+    [SerializeField] private Material poweredMaterial;
 
     void Awake()
     {
         rend = GetComponentInChildren<Renderer>();
         
         if (rend == null)
+        {
             Debug.LogError($"Renderer NOT found on {gameObject.name}!");
+        }
+        
     }
 
-    void Start()
-    {
-        UpdateVisual();
-    }
 
     public void Rotate()
     {
@@ -40,7 +43,9 @@ public class Pipe : MonoBehaviour
     }
 
     void OnMouseDown()
-    {
+    {   
+        if (isComplete) return;
+
         Rotate();
     }
 
@@ -82,14 +87,20 @@ public class Pipe : MonoBehaviour
     public void SetPowered(bool powered)
     {
         isPowered = powered;
-        UpdateVisual();
     }
 
-    void UpdateVisual()
+    public void UpdateVisual()
     {
         if (rend == null) return;
 
-        Color targetColor = isPowered ? Color.green : Color.red;
+        if (!isPowered) return;
+
+        if (poweredMaterial != null)
+        {
+            rend.material = poweredMaterial;
+        }
+
+        Color targetColor = Color.green;
 
         foreach (var mat in rend.materials)
         {
@@ -98,5 +109,10 @@ public class Pipe : MonoBehaviour
             else if (mat.HasProperty("_Color"))
                 mat.color = targetColor;
         }
+    }
+
+    public void BlockInputs()
+    {
+        isComplete = true;       
     }
 }

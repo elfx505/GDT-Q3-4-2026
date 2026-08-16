@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 2231927961537785933, guid: d94b6d9551b6f4b44807bf673f3ba042, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4f4cb95b1e363b745906f6bd6839609c, type: 2}
+      objectReference: {fileID: 657555580449842308, guid: cf3b76e7a8fed2e4f9d19421c7b641ac, type: 3}
     - target: {fileID: 2818279441632159445, guid: d94b6d9551b6f4b44807bf673f3ba042, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
@@ -99,6 +99,7 @@ MonoBehaviour:
   type: 4
   rotation: 0
   isPowered: 0
+  poweredMaterial: {fileID: 2100000, guid: 4f4cb95b1e363b745906f6bd6839609c, type: 2}
 --- !u!65 &8286950167371800513
 BoxCollider:
   m_ObjectHideFlags: 0

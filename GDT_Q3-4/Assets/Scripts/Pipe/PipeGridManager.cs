@@ -174,9 +174,23 @@ public class PipeGridManager : Singleton<PipeGridManager>
         }
 
         Debug.Log("LEVEL COMPLETE!");
+
+        WinBehaviour();
+    }
+
+    private void WinBehaviour()
+    {  
         PrinterPuzzleManager.Instance.BlockDrawer(lastLoadedLevel - 1);
-        // TO-DO Adjust GameStates
+
         ToggleCorrectGameState(lastLoadedLevel);
+
+        // Block Inputs
+        foreach (var pipe in grid)
+        {
+            pipe.BlockInputs();
+            pipe.UpdateVisual();
+        }
+
     }
 
     public void GenerateRandomLevels(int currentDifficulty)
