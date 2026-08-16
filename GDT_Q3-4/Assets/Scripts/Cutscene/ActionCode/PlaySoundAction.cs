@@ -4,14 +4,20 @@ using UnityEngine;
 public class PlaySoundAction : CutsceneAction
 {
     [SerializeField] private AudioClip audioClip;
+    [SerializeField] private float volume = 1;
+    [SerializeField] private float pitch = 1;
+    [SerializeField] private float startTime = 0;
+    [SerializeField] private float endTime = -1;
 
     public override IEnumerator Play(CutsceneContext context)
     {
-
-        Debug.Log("Sound Playing Actions");
-        Debug.Log("Sound time: " + audioClip.length);
-        AudioManager.Instance.PlaySFX(audioClip);
-        yield return new WaitForSeconds(audioClip.length);
+        AudioManager.Instance.PlaySFX(audioClip, volume, pitch, startTime, endTime);
+        if (endTime > audioClip.length || startTime > endTime)
+        {
+            Debug.LogError("[PlaySoundSoundAction] start or end time not good");
+            yield return null;
+        }
+        yield return new WaitForSeconds(endTime - startTime);
     }
 
 }
