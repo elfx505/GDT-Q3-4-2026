@@ -8,8 +8,11 @@ public class Phone : InteractableObject
     [SerializeField] private string animationFingerName;
     [SerializeField] private Animator animator;
     [SerializeField] private AudioClip fingerSnap;
+    [SerializeField] private AudioClip phoneDial;
+    [SerializeField] private AudioClip phoneDialCancel;
     [SerializeField] private SpriteRenderer hand;
     private bool canDial = false;
+    private bool dialedOnce = false;
 
     protected override void Awake()
     {
@@ -26,8 +29,14 @@ public class Phone : InteractableObject
             StartCoroutine(BossInterrupt());
             return;
         }
-
-        StartCoroutine(ProperDial());
+        if (!dialedOnce)
+        {
+            StartCoroutine(SnapFinger());
+        }
+        else
+        {
+            ProperDial();
+        }
 
     }
 
@@ -39,28 +48,37 @@ public class Phone : InteractableObject
 
     public IEnumerator BossInterrupt()
     {
+        AudioManager.Instance.PlaySFX(phoneDial, 1, 1, 0, 1);
         hand.enabled = true;
         animator.SetFloat("Speed", 1f);
         animator.Play(animationFingerName, 0, 0f);
-        // yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
-        // animator.SetFloat("Speed", -1f);
-        // animator.Play(animationFingerName, 0, 1f);
-        // yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0);
-        // hand.enabled = false;
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
+        AudioManager.Instance.PlaySFX(phoneDialCancel);
+        animator.SetFloat("Speed", -1f);
+        animator.Play(animationFingerName, 0, 1f);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0);
+        hand.enabled = false;
         yield return null;
 
     }
     // TODO: use proper sound
-    public IEnumerator ProperDial()
+    public IEnumerator SnapFinger()
     {
+        AudioManager.Instance.PlaySFX(phoneDial, 1, 1, 0, 1);
         hand.enabled = true;
         animator.SetFloat("Speed", 1f);
         animator.Play(animationFingerName, 0, 0f);
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
         AudioManager.Instance.PlaySFX(fingerSnap);
         animator.SetFloat("Speed", -3f);
+        animator.Play(animationFingerName, 0, 1f);
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0);
         hand.enabled = false;
+        dialedOnce = true;
+    }
+
+    private void ProperDial()
+    {
         GameManager.Instance.SetState(GameState.NumberDialed, true);
     }
 }
