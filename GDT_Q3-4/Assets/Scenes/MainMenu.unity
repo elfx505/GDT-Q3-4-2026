@@ -90461,7 +90461,6 @@ GameObject:
   - component: {fileID: 1812013522}
   - component: {fileID: 1812013525}
   - component: {fileID: 1812013524}
-  - component: {fileID: 1812013523}
   m_Layer: 0
   m_Name: Elevator Light
   m_TagString: Untagged
@@ -90484,24 +90483,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1081562019}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &1812013523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812013521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb904617790a3944a9a006a70a64d8a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BlinkSequenceLight
-  signalLight: {fileID: 1812013525}
-  blinkOnTime: 0.25
-  blinkOffTime: 0.25
-  pauseBetweenNumbers: 0.8
-  pauseBetweenLoops: 2
-  sequence: 
 --- !u!114 &1812013524
 MonoBehaviour:
   m_ObjectHideFlags: 0
