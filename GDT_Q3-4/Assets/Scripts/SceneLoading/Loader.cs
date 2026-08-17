@@ -18,6 +18,10 @@ public static class Loader
 
     public static void Load(Scene scene)
     {   
+        // Ensure time scale is reset to 1 before transitioning, 
+        // preventing frozen animations if leaving a paused scene.
+        Time.timeScale = 1f;
+
         onLoaderCallback = () =>
         {   
             GameObject loadingGameObject = new GameObject("Loading Game Object");
