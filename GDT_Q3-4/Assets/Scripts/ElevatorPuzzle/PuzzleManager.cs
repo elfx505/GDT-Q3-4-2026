@@ -10,7 +10,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
     public Slot[] slots;           // Must be ordered left → right in Inspector!
     public ConstraintUI[] constraints;
     [SerializeField] private int[] correctOrder = new int[6];
-    [SerializeField] private int[] sequence = new int[4];
+    public int[] sequence = new int[4];
     [SerializeField] private Cutscene hintRevealCutscene;
     string[] symbols = new string[] { "!", "@", "#", "$", "%", "^" };
     public Dictionary<string, int> symbolToIndex = new Dictionary<string, int>()

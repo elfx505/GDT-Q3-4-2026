@@ -12,7 +12,7 @@ public class BlinkSequenceLight : MonoBehaviour
     public float pauseBetweenNumbers = 0.8f;
     public float pauseBetweenLoops = 2f; 
 
-    public List<int> sequence;
+    public List<int> sequence = new List<int>();
     
     private Coroutine blinkCoroutine;
 
@@ -77,7 +77,14 @@ public class BlinkSequenceLight : MonoBehaviour
         }
 
         if (isSequenceMode)
-        {
+        {   
+            // Fetch the sequence from the puzzle manager
+            sequence.Clear();
+            foreach (int slotIndex in PuzzleManager.Instance.sequence)
+            {
+                sequence.Add(slotIndex + 1); 
+            }
+
             if (sequence != null && sequence.Count > 0 && signalLight != null)
             {
                 blinkCoroutine = StartCoroutine(BlinkRoutine());
