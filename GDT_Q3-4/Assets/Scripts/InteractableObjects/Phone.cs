@@ -50,7 +50,7 @@ public class Phone : InteractableObject
     public IEnumerator BossInterrupt()
     {
         // Lock interactions
-        isAnimating = true; 
+        isAnimating = true;
 
         AudioManager.Instance.PlaySFX(phoneDial, 1, 1, 0, 1);
         hand.enabled = true;
@@ -79,21 +79,22 @@ public class Phone : InteractableObject
 
         // Wait to confirm we are back in the idle state
         yield return null;
+        Debug.Log("Waiting");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("DummyState"));
 
         // Cleanup and unlock interactions
         hand.enabled = false;
-        isAnimating = false; 
+        isAnimating = false;
     }
 
     // TODO: use proper sound
     public IEnumerator SnapFinger()
-    {   
+    {
         isAnimating = true;
 
         AudioManager.Instance.PlaySFX(phoneDial, 1, 1, 0, 1);
         hand.enabled = true;
-        
+
         animator.SetBool("isInterrupting", true);
 
         // Wait for the Animator to enter the FingerApproach state
@@ -102,7 +103,7 @@ public class Phone : InteractableObject
 
         // Set isSnapping to true so the Animator knows to take the FingerSnap path
         animator.SetBool("isSnapping", true);
-        
+
         float approachLength = animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(approachLength);
 
@@ -123,10 +124,10 @@ public class Phone : InteractableObject
         // Wait to confirm we are back in the idle state
         yield return null;
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("DummyState"));
-
+        GameManager.Instance.SetState(GameState.FingerSnapped, true);
         // Cleanup and unlock interactions
         hand.enabled = false;
-        isAnimating = false; 
+        isAnimating = false;
         dialedOnce = true;
     }
 

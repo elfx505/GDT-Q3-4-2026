@@ -10,8 +10,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
     public Slot[] slots;           // Must be ordered left → right in Inspector!
     public ConstraintUI[] constraints;
     [SerializeField] private int[] correctOrder = new int[6];
-    public int[] sequence = new int[4];
     [SerializeField] private Cutscene hintRevealCutscene;
+    [SerializeField] private int[] sequence = new int[4];
     string[] symbols = new string[] { "!", "@", "#", "$", "%", "^" };
     public Dictionary<string, int> symbolToIndex = new Dictionary<string, int>()
     {
@@ -122,16 +122,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
         {
             c.UpdateText();
         }
-        GameManager.onGameStateChange += CheckIfHint;
         // AudioManager.Instance.PlayTrack(thisPuzzleTrack);
-    }
-
-    private void CheckIfHint(GameState state)
-    {
-        if (state == GameState.ElevatorEntered && GameManager.Instance.GetState(GameState.JanitorSpokenTo))
-        {
-            CutsceneManager.Instance.PlayCutscene(hintRevealCutscene);
-        }
     }
 
     public void CheckWin()

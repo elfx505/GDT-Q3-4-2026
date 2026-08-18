@@ -39,6 +39,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject key;
     [SerializeField] private GameObject hiddenDoor;
     [SerializeField] private CameraAnchor upperElevatorHallwayAnchor;
+    [SerializeField] private CameraAnchor middleElevatorInsideAnchor;
+    [SerializeField] private Cutscene hintRevealCutscene;
+
 
     protected override void Awake()
     {
@@ -90,7 +93,7 @@ public class GameManager : Singleton<GameManager>
             Debug.LogWarning("[GameManager] hiddenDoor not set!");
         }
 
-        
+
     }
 
     public void EnableKey()
@@ -117,9 +120,13 @@ public class GameManager : Singleton<GameManager>
 
         // Tell the Camera Transition script to do the blink & move (position only)
         CameraManager.Instance.MoveCameraToAnchor(targetAnchor.transform, targetAnchor.useAnchorRotation);
-        if (targetAnchor == upperElevatorHallwayAnchor && GameManager.Instance.GetState(GameState.JanitorDoorUnlocked))
+        if (targetAnchor == upperElevatorHallwayAnchor && GetState(GameState.JanitorDoorUnlocked))
         {
-            GameManager.Instance.SetState(GameState.ReachedUpperElevator, true);
+            SetState(GameState.ReachedUpperElevator, true);
+        }
+        if (GetState(GameState.JanitorSpokenTo) && targetAnchor == middleElevatorInsideAnchor)
+        {
+            CutsceneManager.Instance.PlayCutscene(hintRevealCutscene);
         }
     }
 
@@ -136,7 +143,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void SetState(GameState key, bool value)
-    {   
+    {
         if (gameStates[key] == value) return; // Do not trigger if the State Value didn't actually change
 
         gameStates[key] = value;
@@ -161,15 +168,15 @@ public class GameManager : Singleton<GameManager>
 
     public void ToggleInventoryButton(bool value)
     {
-        
-        
+
+
         inventoryButton.SetActive(value);
     }
 
     public void ToggleBackButton(bool value)
     {
         // if (!backButton.activeSelf) return;
-        
+
         backButton.SetActive(value);
     }
 

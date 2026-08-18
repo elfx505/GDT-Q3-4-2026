@@ -16,7 +16,10 @@ public class ConstraintUI : MonoBehaviour
 
     void Start()
     {
-        text.color = Color.gray;
+        Color color = text.color;
+        color = Color.gray;
+        color.a = text.color.a;
+        text.color = color;
         UpdateText();
     }
 
@@ -43,7 +46,10 @@ public class ConstraintUI : MonoBehaviour
         // If not placed yet
         if (leftIndex == -1 || rightIndex == -1)
         {
-            text.color = Color.gray;
+            Color color = text.color;
+            color = Color.gray;
+            color.a = text.color.a;
+            text.color = color;
             return;
         }
 

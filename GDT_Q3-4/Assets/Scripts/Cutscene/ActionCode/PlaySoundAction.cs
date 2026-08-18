@@ -12,7 +12,7 @@ public class PlaySoundAction : CutsceneAction
     public override IEnumerator Play(CutsceneContext context)
     {
         AudioManager.Instance.PlaySFX(audioClip, volume, pitch, startTime, endTime);
-        if (endTime > audioClip.length || startTime > endTime)
+        if (endTime > audioClip.length)
         {
             Debug.LogError("[PlaySoundSoundAction] start or end time not good");
             yield return null;

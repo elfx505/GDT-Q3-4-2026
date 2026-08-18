@@ -30,6 +30,7 @@ public enum GameState
     SinkRepaired,
     ReturnedToDesk,
     RatTrapPlaced,
+    FingerSnapped,
     NumberDialed,
     PipePuzzleComplete1,
     PipePuzzleComplete2,
