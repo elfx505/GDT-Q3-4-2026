@@ -39,7 +39,7 @@ public class Door : InteractableObject
         {
             if (GameManager.Instance.GetState(GameState.SinkBroken) && !GameManager.Instance.GetState(GameState.SinkRepaired))
             {
-                GameTextController.Instance.HandleDialogue("What's wrong with me?[s]I never turned off the sink");
+                GameTextController.Instance.HandleDialogue("What's wrong with me?[s]I did not even turned off the sink");
                 return;
             }
         }
@@ -47,6 +47,14 @@ public class Door : InteractableObject
         // Determine which anchor is closer to the camera
         float distanceToA = Vector3.Distance(Camera.main.transform.position, anchorA.transform.position);
         float distanceToB = Vector3.Distance(Camera.main.transform.position, anchorB.transform.position);
+
+        if (isJanitorDoor &&
+            GameManager.Instance.GetState(GameState.JanitorDoorUnlocked) &&
+            !GameManager.Instance.GetState(GameState.ResignationPapersPrinted))
+        {
+            GameTextController.Instance.HandleDialogue("Wait I still need my resignation letter");
+            return;
+        }
 
         // Set the target to the furthest one (the one we want to move to)
         CameraAnchor targetAnchor = (distanceToA < distanceToB) ? anchorB : anchorA;

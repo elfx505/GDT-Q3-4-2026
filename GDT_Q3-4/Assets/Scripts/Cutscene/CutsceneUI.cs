@@ -45,6 +45,11 @@ public class CutsceneUI : Singleton<CutsceneUI>
         backgroundImage.gameObject.SetActive(true);
     }
 
+    public void ShowCenterText()
+    {
+        centerText.gameObject.SetActive(true);
+    }
+
     public void ShowCinematicBars()
     {
         cinematicBotomPanel.SetActive(true);
@@ -63,11 +68,16 @@ public class CutsceneUI : Singleton<CutsceneUI>
 
     }
 
+    public void HideCenterText()
+    {
+        centerText.gameObject.SetActive(false);
+    }
+
     public void HideAll()
     {
         HideImage();
         backgroundImage.gameObject.SetActive(false);
-        centerText.gameObject.SetActive(false);
+        HideCenterText();
         cinematicBotomPanel.gameObject.SetActive(false);
         cinematicTopPanel.gameObject.SetActive(false);
     }
