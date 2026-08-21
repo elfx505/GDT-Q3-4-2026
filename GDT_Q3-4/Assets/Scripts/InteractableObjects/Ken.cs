@@ -25,14 +25,14 @@ public class Ken : InteractableObject
         }
         else
         {
-            if (documentedReceived > 0)
+
+            if (!GameManager.Instance.GetState(GameState.ComputerIntroDone))
             {
-                GameTextController.Instance.HandleDialogue("Hand me the document");
+                GameTextController.Instance.HandleDialogue("Check out your computer and complete the onboarding!");
             }
             else
             {
-                GameTextController.Instance.HandleDialogue("Check out your computer and complete the onboarding!");
-
+                GameTextController.Instance.HandleDialogue("Hand me the document");
             }
         }
     }

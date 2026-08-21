@@ -17,7 +17,8 @@ public class PlaySoundAction : CutsceneAction
             Debug.LogError("[PlaySoundSoundAction] start or end time not good");
             yield return null;
         }
-        yield return new WaitForSeconds(endTime - startTime);
+        float waitTime = endTime <= 0 ? audioClip.length : endTime - startTime;
+        yield return new WaitForSeconds(waitTime);
     }
 
 }

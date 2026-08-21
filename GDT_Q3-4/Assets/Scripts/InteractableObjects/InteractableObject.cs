@@ -16,6 +16,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
     [SerializeField] private UnityEvent onInteract;
 
     [SerializeField] protected GameState unlockingGameState;
+    [TextArea(3, 5)]
+    [SerializeField] private string objectLockedDialogue;
 
     // The Reset method is called automatically in the Unity Editor when the script is added
 #if UNITY_EDITOR
@@ -44,9 +46,9 @@ public class InteractableObject : MonoBehaviour, IInteractable
     protected virtual void Awake()
     {
         // Keeping the fix from the previous step as well!
-        if (outline == null) 
+        if (outline == null)
         {
-            outline = GetComponentInChildren<Outline>(); 
+            outline = GetComponentInChildren<Outline>();
         }
 
         if (outline == null)
@@ -98,6 +100,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
         // If we have an unlocking state assigned, and that state is false, STOP here.
         if (!GameManager.Instance.GetState(unlockingGameState))
         {
+            GameTextController.Instance.HandleDialogue(objectLockedDialogue);
             Debug.Log($"{name} is currently locked.");
             return;
         }

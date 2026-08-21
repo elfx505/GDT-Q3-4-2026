@@ -38,8 +38,9 @@ public class ItemViewer : MonoBehaviour
         if (viewerPanel != null)
         {
             viewerPanel.SetActive(false);
+            Debug.Log("Item Name: " + viewedItem.name);
             // --- GAME STATE TRIGGER ---
-            if (viewedItem.name == "Note")
+            if (viewedItem.itemType == ItemType.Note)
             {
                 GameManager.Instance.SetState(GameState.ReadNote, true);
             }

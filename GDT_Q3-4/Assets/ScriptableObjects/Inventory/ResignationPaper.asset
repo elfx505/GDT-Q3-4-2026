@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: ResignationPaper
   itemType: 8
   icon: {fileID: 21300000, guid: e48f5e8b7e77c464dbb142f11daa5843, type: 3}
-  onetime: 0
-  consummable: 1
+  onetime: 1
+  consummable: 0
   isViewable: 1
   viewSprite: {fileID: 21300000, guid: cb325b05a0d3f4b20b52cd15f11d43ef, type: 3}

@@ -12,6 +12,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
     [SerializeField] private int[] correctOrder = new int[6];
     [SerializeField] private Cutscene hintRevealCutscene;
     [SerializeField] private int[] sequence = new int[4];
+    public int[] Sequence => sequence;
     string[] symbols = new string[] { "!", "@", "#", "$", "%", "^" };
     public Dictionary<string, int> symbolToIndex = new Dictionary<string, int>()
     {

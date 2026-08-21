@@ -2,9 +2,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class Sink : InteractableObject
-{   
+{
     private bool isBroken;
     [SerializeField] private Transform water;
+    private bool waterActive = false;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class Sink : InteractableObject
             return;
         }
 
-        water.gameObject.SetActive(false);
+        water.gameObject.SetActive(waterActive);
 
 
     }
@@ -28,18 +29,35 @@ public class Sink : InteractableObject
         if (!isBroken)
         {
             isBroken = true;
-            water.gameObject.SetActive(true);
+            SetWaterActive(true);
             GameManager.Instance.SetState(GameState.SinkBroken, true);
-
+        }
+        else
+        {
+            if (!GameManager.Instance.GetState(GameState.SinkRepaired))
+            {
+                GameTextController.Instance.HandleDialogue("Huh...why won't it turn off??[s]The Janitor has been missing since before my took vacation.[s]*Sigh*[s]What's going on in this place?[s]...I should at least try to fix it.");
+            }
+            else
+            {
+                SetWaterActive(!waterActive);
+            }
         }
     }
 
     public void RepairSink()
     {
         if (isBroken)
-        {   
-            water.gameObject.SetActive(false);
+        {
+            SetWaterActive(false);
             GameManager.Instance.SetState(GameState.SinkRepaired, true);
         }
+    }
+
+    private void SetWaterActive(bool active)
+    {
+        waterActive = active;
+        water.gameObject.SetActive(waterActive);
+        // TODO: Play sink running sound.
     }
 }

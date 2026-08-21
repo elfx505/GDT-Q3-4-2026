@@ -92,7 +92,7 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogWarning("[GameManager] hiddenDoor not set!");
         }
-
+        SetState(GameState.Default, true);
 
     }
 

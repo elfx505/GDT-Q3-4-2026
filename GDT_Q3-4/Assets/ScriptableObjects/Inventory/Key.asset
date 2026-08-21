@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Key
   itemType: 1
   icon: {fileID: 21300000, guid: 9d57fce17a7ea41399e54a67b70fe7b5, type: 3}
-  onetime: 0
+  onetime: 1
+  consummable: 1
   isViewable: 0
   viewSprite: {fileID: 0}

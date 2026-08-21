@@ -59,7 +59,8 @@ public class TraverseLocationsAction : CutsceneAction
             }
         }
         int locationsSize = locations.Count;
-        objectToMove.transform.position = locations[locationsSize - 1].position;
+        Vector3 lastLocation = locations[locationsSize - 1].position;
+        objectToMove.transform.position = new Vector3(lastLocation.x, objectToMove.transform.position.y, lastLocation.z);
     }
 
 }

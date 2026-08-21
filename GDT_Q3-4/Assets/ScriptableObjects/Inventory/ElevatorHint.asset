@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: ElevatorHint
   itemType: 9
   icon: {fileID: 21300000, guid: 1b9b3d35309ab459983b9f4c52012b5c, type: 3}
-  onetime: 0
+  onetime: 1
   consummable: 1
   isViewable: 0
   viewSprite: {fileID: 0}

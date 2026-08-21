@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System; 
+using System;
 
 public class BlinkSequenceLight : MonoBehaviour
 {
@@ -10,10 +10,10 @@ public class BlinkSequenceLight : MonoBehaviour
     public float blinkOnTime = 0.25f;
     public float blinkOffTime = 0.25f;
     public float pauseBetweenNumbers = 0.8f;
-    public float pauseBetweenLoops = 2f; 
+    public float pauseBetweenLoops = 2f;
 
     public List<int> sequence = new List<int>();
-    
+
     private Coroutine blinkCoroutine;
 
     private int numberIndex = 0;
@@ -24,7 +24,7 @@ public class BlinkSequenceLight : MonoBehaviour
         TurnOn,
         TurnOff,
         PauseNumber,
-        PauseLoop 
+        PauseLoop
     }
 
     private State state = State.TurnOn;
@@ -68,8 +68,8 @@ public class BlinkSequenceLight : MonoBehaviour
     private void HandleSequenceMode(bool isSequenceMode)
     {
         // Don't restart blinking if the puzzle is already solved
-        if (PuzzleManager.sequenceComplete) return; 
-        
+        if (PuzzleManager.sequenceComplete) return;
+
         if (blinkCoroutine != null)
         {
             StopCoroutine(blinkCoroutine);
@@ -77,12 +77,12 @@ public class BlinkSequenceLight : MonoBehaviour
         }
 
         if (isSequenceMode)
-        {   
+        {
             // Fetch the sequence from the puzzle manager
             sequence.Clear();
-            foreach (int slotIndex in PuzzleManager.Instance.sequence)
+            foreach (int slotIndex in PuzzleManager.Instance.Sequence)
             {
-                sequence.Add(slotIndex + 1); 
+                sequence.Add(slotIndex + 1);
             }
 
             if (sequence != null && sequence.Count > 0 && signalLight != null)
@@ -95,7 +95,7 @@ public class BlinkSequenceLight : MonoBehaviour
             // When PuzzleManager sets sequenceMode = false, this runs!
             if (signalLight != null)
             {
-                signalLight.enabled = true; 
+                signalLight.enabled = true;
             }
         }
     }
@@ -148,7 +148,7 @@ public class BlinkSequenceLight : MonoBehaviour
                         yield return new WaitForSeconds(blinkOnTime);
                     }
                     break;
-                
+
                 case State.PauseLoop:
                     state = State.TurnOn;
                     yield return new WaitForSeconds(blinkOnTime);

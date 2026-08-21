@@ -11,6 +11,7 @@ public class Door : InteractableObject
     [Header("Door Status")]
     [SerializeField] private bool doorUnlocked = true;
     [SerializeField] private bool isJanitorDoor;
+    [SerializeField] private bool isBathroomDoor;
     [Tooltip("When the door is first used, set this game state to true")]
     [SerializeField] private GameState firstUseTrigger;
     [SerializeField] private bool useFirstTrigger = false;
@@ -32,6 +33,15 @@ public class Door : InteractableObject
                 GameTextController.Instance.HandleDialogue("Looks like I need a key");
             Debug.Log("The door is locked.");
             return;
+        }
+
+        if (isBathroomDoor)
+        {
+            if (GameManager.Instance.GetState(GameState.SinkBroken) && !GameManager.Instance.GetState(GameState.SinkRepaired))
+            {
+                GameTextController.Instance.HandleDialogue("What's wrong with me?[s]I never turned off the sink");
+                return;
+            }
         }
 
         // Determine which anchor is closer to the camera
