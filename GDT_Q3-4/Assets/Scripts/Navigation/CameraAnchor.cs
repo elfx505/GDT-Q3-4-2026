@@ -21,7 +21,7 @@ public class CameraAnchor : InteractableObject
     [SerializeField] private bool isHallwayAnchor;
     [SerializeField] private bool isDeskAnchor;
     private bool hasReturnedToDeskFromBathroom;
-    private void Awake()
+    protected override void Awake()
     {
 
         anchorCollider = GetComponent<Collider>();
