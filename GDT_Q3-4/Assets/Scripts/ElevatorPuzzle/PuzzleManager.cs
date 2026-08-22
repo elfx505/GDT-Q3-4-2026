@@ -13,7 +13,11 @@ public class PuzzleManager : Singleton<PuzzleManager>
     [SerializeField] private Cutscene hintRevealCutscene;
     [SerializeField] private int[] sequence = new int[4];
     public int[] Sequence => sequence;
-    string[] symbols = new string[] { "!", "@", "#", "$", "%", "^" };
+    public PuzzleColor[] puzzleColors = new PuzzleColor[] 
+    {
+        PuzzleColor.Cyan, PuzzleColor.Yellow, PuzzleColor.Red, 
+        PuzzleColor.Green, PuzzleColor.Blue, PuzzleColor.Magenta
+    };
     public Dictionary<string, int> symbolToIndex = new Dictionary<string, int>()
     {
         {"!", 0},
@@ -23,6 +27,9 @@ public class PuzzleManager : Singleton<PuzzleManager>
         {"%", 4},
         {"^", 5}
     };
+
+    
+
     private int currentStep = 0;
 
     public static event Action<bool> OnSequenceModeChanged;
@@ -115,9 +122,9 @@ public class PuzzleManager : Singleton<PuzzleManager>
             }
         }
 
+        Shuffle<ConstraintUI>(constraints);
         GenerateConstraints();
         AddExtraConstraints();
-        Shuffle<ConstraintUI>(constraints);
 
         foreach (var c in constraints)
         {
@@ -142,8 +149,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
         // All filled → check constraints
         foreach (var c in constraints)
         {
-            int leftIdx = GetSymbolIndex(c.leftSymbol);
-            int rightIdx = GetSymbolIndex(c.rightSymbol);
+            int leftIdx = GetColorIndex(c.leftColor);
+            int rightIdx = GetColorIndex(c.rightColor);
 
             bool satisfied = false;
 
@@ -162,12 +169,13 @@ public class PuzzleManager : Singleton<PuzzleManager>
         sequenceMode = true;
     }
 
-    public int GetSymbolIndex(string symbol)
+    public int GetColorIndex(PuzzleColor color)
     {
         for (int i = 0; i < slots.Length; i++)
         {
+            // Check against the new enum instead of the string
             if (slots[i].currentButton != null &&
-                slots[i].currentButton.symbol == symbol)
+                slots[i].currentButton.puzzleColor == color)
             {
                 return i;
             }
@@ -179,48 +187,36 @@ public class PuzzleManager : Singleton<PuzzleManager>
     {
         for (int i = 0; i < correctOrder.Length - 1; i++)
         {
-            string left = symbols[correctOrder[i]];
-            string right = symbols[correctOrder[i + 1]];
+            PuzzleColor left = puzzleColors[correctOrder[i]];
+            PuzzleColor right = puzzleColors[correctOrder[i + 1]];
 
             int r = UnityEngine.Random.Range(0, 2);
-            if (r == 0)
-            {
-                constraints[i].leftSymbol = left;
-                constraints[i].rightSymbol = right;
-                constraints[i].operatorSymbol = "<";
-            }
-            else
-            {
-                constraints[i].leftSymbol = right;
-                constraints[i].rightSymbol = left;
-                constraints[i].operatorSymbol = ">";
-            }
+            constraints[i].leftColor = r == 0 ? left : right;
+            constraints[i].rightColor = r == 0 ? right : left;
+            constraints[i].operatorSymbol = r == 0 ? "<" : ">";
         }
     }
 
     void AddExtraConstraints()
     {
-        int a = UnityEngine.Random.Range(0, correctOrder.Length);
-        int b = UnityEngine.Random.Range(0, correctOrder.Length);
-
-        if (a == b) return;
-
-        int posA = System.Array.IndexOf(correctOrder, a);
-        int posB = System.Array.IndexOf(correctOrder, b);
-
-        ConstraintUI c = constraints[UnityEngine.Random.Range(slots.Length - 1, constraints.Length)];
-
-        if (posA < posB)
+        for (int i = correctOrder.Length - 1; i < constraints.Length; i++)
         {
-            c.leftSymbol = symbols[a];
-            c.rightSymbol = symbols[b];
-            c.operatorSymbol = "<";
-        }
-        else
-        {
-            c.leftSymbol = symbols[a];
-            c.rightSymbol = symbols[b];
-            c.operatorSymbol = ">";
+            int a, b;
+            do
+            {
+                a = UnityEngine.Random.Range(0, correctOrder.Length);
+                b = UnityEngine.Random.Range(0, correctOrder.Length);
+            } 
+            while (a == b);
+
+            int posA = System.Array.IndexOf(correctOrder, a);
+            int posB = System.Array.IndexOf(correctOrder, b);
+
+            ConstraintUI c = constraints[i];
+            
+            c.leftColor = puzzleColors[a];
+            c.rightColor = puzzleColors[b];
+            c.operatorSymbol = posA < posB ? "<" : ">";
         }
     }
 

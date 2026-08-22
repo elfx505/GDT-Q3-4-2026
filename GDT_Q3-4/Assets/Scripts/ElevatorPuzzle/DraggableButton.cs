@@ -2,7 +2,7 @@
 
 public class DraggableButton : MonoBehaviour
 {
-    public string symbol;
+    public PuzzleColor puzzleColor;
     public float dropRadius = 0.1f;
     public AudioClip clickSFX;
 
@@ -106,14 +106,14 @@ public class DraggableButton : MonoBehaviour
         if (rend == null) return;
         Material mat = rend.material;
 
-        switch (symbol)
+        switch (puzzleColor)
         {
-            case "!": mat.SetColor("_BaseColor", Color.red); break;
-            case "@": mat.SetColor("_BaseColor", Color.blue); break;
-            case "#": mat.SetColor("_BaseColor", Color.green); break;
-            case "$": mat.SetColor("_BaseColor", Color.yellow); break;
-            case "%": mat.SetColor("_BaseColor", Color.magenta); break;
-            case "^": mat.SetColor("_BaseColor", Color.cyan); break;
+            case PuzzleColor.Red: mat.SetColor("_BaseColor", Color.red); break;
+            case PuzzleColor.Blue: mat.SetColor("_BaseColor", Color.blue); break;
+            case PuzzleColor.Green: mat.SetColor("_BaseColor", Color.green); break;
+            case PuzzleColor.Yellow: mat.SetColor("_BaseColor", Color.yellow); break;
+            case PuzzleColor.Magenta: mat.SetColor("_BaseColor", Color.magenta); break;
+            case PuzzleColor.Cyan: mat.SetColor("_BaseColor", Color.cyan); break;
             default:  mat.SetColor("_BaseColor", Color.white); break;
         }
     }
