@@ -3,73 +3,74 @@ using TMPro;
 
 public class ConstraintUI : MonoBehaviour
 {
-    public string leftSymbol;
-    public string rightSymbol;
+    public PuzzleColor leftColor;
+    public PuzzleColor rightColor;
     public string operatorSymbol; // ">" or "<"
 
-    private TextMeshPro text;
-
-    void Awake()
-    {
-        text = GetComponent<TextMeshPro>();
-    }
+    [SerializeField] private SpriteRenderer leftDotSprite;
+    [SerializeField] private TextMeshPro operatorText;
+    [SerializeField] private SpriteRenderer rightDotSprite;
 
     void Start()
-    {
-        Color color = text.color;
-        color = Color.gray;
-        color.a = text.color.a;
-        text.color = color;
+    {   
+        // Indices for Children are strict
+        // Grabbing SpriteRenderers for the dots and TextMeshPro for the operator
+        leftDotSprite = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        operatorText = gameObject.transform.GetChild(1).GetComponent<TextMeshPro>();
+        rightDotSprite = gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>();
+        
+        // We can still call it here just as a failsafe
         UpdateText();
     }
 
-    private void OnEnable()
-    {
-        PuzzleManager.OnSequenceModeChanged += HandleSequenceModeSwitch;
-    }
+    private void OnEnable() => PuzzleManager.OnSequenceModeChanged += HandleSequenceModeSwitch;
+    private void OnDisable() => PuzzleManager.OnSequenceModeChanged -= HandleSequenceModeSwitch;
 
-    private void OnDisable()
+    private Color GetUnityColor(PuzzleColor color)
     {
-        PuzzleManager.OnSequenceModeChanged -= HandleSequenceModeSwitch;
+        switch (color)
+        {
+            case PuzzleColor.Cyan: return Color.cyan;
+            case PuzzleColor.Yellow: return Color.yellow;
+            case PuzzleColor.Red: return Color.red;
+            case PuzzleColor.Green: return Color.green;
+            case PuzzleColor.Blue: return Color.blue;
+            case PuzzleColor.Magenta: return Color.magenta;
+            default: return Color.white;
+        }
     }
 
     public void UpdateText()
     {
-        text.text = leftSymbol + " " + operatorSymbol + " " + rightSymbol;
+        if (operatorText != null) operatorText.text = operatorSymbol;
+
+        // Apply colors to the SpriteRenderers instead of TextMeshPro properties
+        if (leftDotSprite != null) leftDotSprite.color = GetUnityColor(leftColor);
+        if (rightDotSprite != null) rightDotSprite.color = GetUnityColor(rightColor);
+        if (operatorText != null) operatorText.color = Color.white; 
     }
 
     public void Evaluate()
     {
-        int leftIndex = PuzzleManager.Instance.GetSymbolIndex(leftSymbol);
-        int rightIndex = PuzzleManager.Instance.GetSymbolIndex(rightSymbol);
+        int leftIndex = PuzzleManager.Instance.GetColorIndex(leftColor);
+        int rightIndex = PuzzleManager.Instance.GetColorIndex(rightColor);
 
-        // If not placed yet
         if (leftIndex == -1 || rightIndex == -1)
         {
-            Color color = text.color;
-            color = Color.gray;
-            color.a = text.color.a;
-            text.color = color;
+            if (operatorText != null) operatorText.color = Color.gray;
             return;
         }
 
         bool correct = false;
+        if (operatorSymbol == ">") correct = leftIndex > rightIndex;
+        else if (operatorSymbol == "<") correct = leftIndex < rightIndex;
 
-        if (operatorSymbol == ">")
-            correct = leftIndex > rightIndex;
-        else if (operatorSymbol == "<")
-            correct = leftIndex < rightIndex;
-
-        text.color = correct ? Color.green : Color.red;
+        if (operatorText != null) operatorText.color = correct ? Color.green : Color.red;
     }
 
     private void HandleSequenceModeSwitch(bool isSequenceMode)
     {
         if (!isSequenceMode) return;
-
         gameObject.SetActive(false);
-
     }
-
-
 }

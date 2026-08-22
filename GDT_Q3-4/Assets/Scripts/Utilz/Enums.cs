@@ -13,6 +13,16 @@ public enum ItemType
 
 }
 
+public enum PuzzleColor
+{
+    Cyan,
+    Yellow,
+    Red,
+    Green,
+    Blue,
+    Magenta
+}
+
 public enum GameState
 {
     Default,
