@@ -8,6 +8,7 @@ public class GenericFadeAction : CutsceneAction
     [SerializeField] private bool fadeSolid;
     [SerializeField] private GameObject targetObject;
     [SerializeField] private float fadeTime;
+    private List<ComponentFader> faders = new List<ComponentFader>();
 
     // A lightweight helper class to handle different component types seamlessly
     private abstract class ComponentFader
@@ -30,16 +31,20 @@ public class GenericFadeAction : CutsceneAction
         public override void SetAlpha(float alpha) { Color c = txt.color; c.a = alpha; txt.color = c; }
     }
 
+
     public override IEnumerator Play(CutsceneContext context)
     {
-        List<ComponentFader> faders = new List<ComponentFader>();
-
-        // 1. Gather all SpriteRenderers and TMP_Text components on this object AND its children
-        foreach (var sr in targetObject.GetComponentsInChildren<SpriteRenderer>()) 
+        // 1. Gather components and current alphas at the exact moment the fade begins.
+        // Clearing ensures we don't duplicate entries if this action is run multiple times.
+        faders.Clear();
+        
+        // Passing 'true' guarantees it finds components even on disabled child GameObjects
+        foreach (var sr in targetObject.GetComponentsInChildren<SpriteRenderer>(true)) 
             faders.Add(new SpriteFader(sr));
             
-        foreach (var txt in targetObject.GetComponentsInChildren<TMP_Text>()) 
+        foreach (var txt in targetObject.GetComponentsInChildren<TMP_Text>(true)) 
             faders.Add(new TMPFader(txt));
+
 
         float elapsedTime = 0f;
         float targetAlpha = fadeSolid ? 1f : 0f;

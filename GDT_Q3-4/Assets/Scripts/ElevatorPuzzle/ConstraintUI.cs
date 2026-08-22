@@ -44,10 +44,27 @@ public class ConstraintUI : MonoBehaviour
     {
         if (operatorText != null) operatorText.text = operatorSymbol;
 
-        // Apply colors to the SpriteRenderers instead of TextMeshPro properties
-        if (leftDotSprite != null) leftDotSprite.color = GetUnityColor(leftColor);
-        if (rightDotSprite != null) rightDotSprite.color = GetUnityColor(rightColor);
-        if (operatorText != null) operatorText.color = Color.white; 
+        // Apply colors to the SpriteRenderers, but PRESERVE their current alpha
+        if (leftDotSprite != null) 
+        {
+            Color newColor = GetUnityColor(leftColor);
+            newColor.a = leftDotSprite.color.a; 
+            leftDotSprite.color = newColor;
+        }
+
+        if (rightDotSprite != null) 
+        {
+            Color newColor = GetUnityColor(rightColor);
+            newColor.a = rightDotSprite.color.a;
+            rightDotSprite.color = newColor;
+        }
+
+        if (operatorText != null) 
+        {
+            Color newColor = Color.gray;
+            newColor.a = operatorText.color.a;
+            operatorText.color = newColor;
+        }
     }
 
     public void Evaluate()
@@ -57,7 +74,12 @@ public class ConstraintUI : MonoBehaviour
 
         if (leftIndex == -1 || rightIndex == -1)
         {
-            if (operatorText != null) operatorText.color = Color.gray;
+            if (operatorText != null) 
+            {
+                Color c = Color.gray;
+                c.a = operatorText.color.a;
+                operatorText.color = c;
+            }
             return;
         }
 
@@ -65,9 +87,14 @@ public class ConstraintUI : MonoBehaviour
         if (operatorSymbol == ">") correct = leftIndex > rightIndex;
         else if (operatorSymbol == "<") correct = leftIndex < rightIndex;
 
-        if (operatorText != null) operatorText.color = correct ? Color.green : Color.red;
+        if (operatorText != null) 
+        {
+            Color c = correct ? Color.green : Color.red;
+            c.a = operatorText.color.a;
+            operatorText.color = c;
+        }
     }
-
+    
     private void HandleSequenceModeSwitch(bool isSequenceMode)
     {
         if (!isSequenceMode) return;
