@@ -41,6 +41,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private CameraAnchor upperElevatorHallwayAnchor;
     [SerializeField] private CameraAnchor middleElevatorInsideAnchor;
     [SerializeField] private Cutscene hintRevealCutscene;
+    private bool elevatorCutscenePlayed = false;
 
 
     protected override void Awake()
@@ -123,9 +124,10 @@ public class GameManager : Singleton<GameManager>
         {
             SetState(GameState.ReachedUpperElevator, true);
         }
-        if (GetState(GameState.JanitorSpokenTo) && targetAnchor == middleElevatorInsideAnchor)
+        if (GetState(GameState.JanitorSpokenTo) && targetAnchor == middleElevatorInsideAnchor && !elevatorCutscenePlayed)
         {
             CutsceneManager.Instance.PlayCutscene(hintRevealCutscene);
+            elevatorCutscenePlayed = true;
         }
     }
 
