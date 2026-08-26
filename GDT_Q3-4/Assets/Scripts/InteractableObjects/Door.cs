@@ -39,7 +39,7 @@ public class Door : InteractableObject
         {
             if (GameManager.Instance.GetState(GameState.SinkBroken) && !GameManager.Instance.GetState(GameState.SinkRepaired))
             {
-                GameTextController.Instance.HandleDialogue("What's wrong with me?[s]I did not even turned off the sink");
+                GameTextController.Instance.HandleDialogue("What's wrong with me?[s]I did not even turn off the sink");
                 return;
             }
         }
