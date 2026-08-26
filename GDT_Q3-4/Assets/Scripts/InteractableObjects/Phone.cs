@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEditor.Toolbars;
@@ -5,11 +6,23 @@ using UnityEngine;
 
 public class Phone : InteractableObject
 {
+    [Serializable]
+    public class SoundSettings
+    {
+        public float volume = 1f;
+        public float pitch = 1f;
+        public float startTime = 0f;
+        public float endTime = -1f;
+    }
+
     [SerializeField] private string animationFingerName;
     [SerializeField] private Animator animator;
     [SerializeField] private AudioClip fingerSnap;
+    [SerializeField] private SoundSettings fingerSnapSettings;
     [SerializeField] private AudioClip phoneDial;
+    [SerializeField] private SoundSettings phoneDialSettings;
     [SerializeField] private AudioClip phoneDialCancel;
+    [SerializeField] private SoundSettings phoneDialCancelSettings;
     [SerializeField] private SpriteRenderer hand;
     private bool canDial = false;
     private bool dialedOnce = false;
@@ -52,7 +65,12 @@ public class Phone : InteractableObject
         // Lock interactions
         isAnimating = true;
 
-        AudioManager.Instance.PlaySFX(phoneDial, 1, 1, 0, 1);
+        AudioManager.Instance.PlaySFX(phoneDial,
+        phoneDialSettings.volume,
+        phoneDialSettings.pitch,
+        phoneDialSettings.startTime,
+        phoneDialSettings.endTime
+        );
         hand.enabled = true;
         animator.SetBool("isInterrupting", true);
 
@@ -68,7 +86,12 @@ public class Phone : InteractableObject
         yield return null;
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("FingerDisengage"));
 
-        AudioManager.Instance.PlaySFX(phoneDialCancel);
+        AudioManager.Instance.PlaySFX(phoneDialCancel,
+        phoneDialCancelSettings.volume,
+        phoneDialCancelSettings.pitch,
+        phoneDialCancelSettings.startTime,
+        phoneDialCancelSettings.endTime
+        );
 
         // Get the exact length of the reverse clip and wait for those seconds
         float disengageLength = animator.GetCurrentAnimatorStateInfo(0).length;
@@ -92,7 +115,12 @@ public class Phone : InteractableObject
     {
         isAnimating = true;
 
-        AudioManager.Instance.PlaySFX(phoneDial, 1, 1, 0, 1);
+        AudioManager.Instance.PlaySFX(phoneDial,
+        phoneDialSettings.volume,
+        phoneDialSettings.pitch,
+        phoneDialSettings.startTime,
+        phoneDialSettings.endTime
+        );
         hand.enabled = true;
 
         animator.SetBool("isInterrupting", true);
@@ -111,7 +139,12 @@ public class Phone : InteractableObject
         yield return null;
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("FingerSnap"));
 
-        AudioManager.Instance.PlaySFX(fingerSnap);
+        AudioManager.Instance.PlaySFX(fingerSnap,
+        fingerSnapSettings.volume,
+        fingerSnapSettings.pitch,
+        fingerSnapSettings.startTime,
+        fingerSnapSettings.endTime
+        );
 
         // Divide the length by -3 because your state speed is set to -3!
         float snapLength = animator.GetCurrentAnimatorStateInfo(0).length / 3f;
