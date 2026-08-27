@@ -156,6 +156,8 @@ public class CameraManager : Singleton<CameraManager>
         blinkedOnce = true;
         yield return new WaitForSeconds(0.5f);
         isTransitioning = false;
+
+        GameManager.Instance.isTransitioning = false;
     }
 
     private IEnumerator FadeBlink(float startAlpha, float endAlpha, float duration = 0)

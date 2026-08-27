@@ -87,7 +87,10 @@ public class CameraAnchor : InteractableObject
 
 
     protected override void PerformAction()
-    {
+    {   
+        // Prevent the anchor from doing anything if the camera is already moving
+        if (GameManager.Instance.isTransitioning) return;
+        
         base.PerformAction();
 
         if (gameObject.CompareTag("LoopAnchor"))

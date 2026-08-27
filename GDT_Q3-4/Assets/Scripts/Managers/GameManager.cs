@@ -31,6 +31,7 @@ public class GameManager : Singleton<GameManager>
     public bool perspectiveIsLocked = false;
     public bool cameraFocused = false;
     public bool textOnScreen = false;
+    public bool isTransitioning = false;
     public GameObject backButton; // Set In Inspector
     public GameObject inventoryButton; // Set In Inspector
 
@@ -109,6 +110,10 @@ public class GameManager : Singleton<GameManager>
     public void MoveToAnchor(CameraAnchor targetAnchor)
     {
         if (targetAnchor == null) return;
+
+        if (isTransitioning) return;
+
+        isTransitioning = true;
 
         if (currentAnchor != null)
         {
