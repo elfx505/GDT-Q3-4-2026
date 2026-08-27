@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
@@ -9,6 +10,9 @@ public class AudioManager : Singleton<AudioManager>
 
     private bool isLoopingCustom = false;
     [SerializeField] private float defaultVolume = .1f;
+
+    // Tracker for currently playing SFX to prevent spam stacking
+    private HashSet<AudioClip> activeSFX = new HashSet<AudioClip>();
 
     protected override void Awake()
     {
@@ -86,6 +90,12 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (clip == null) return;
 
+        // If this exact clip is already playing, ignore the new request
+        if (activeSFX.Contains(clip)) return;
+
+        // Register the clip as currently playing
+        activeSFX.Add(clip);
+
         AudioSource sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.clip = clip;
 
@@ -118,6 +128,9 @@ public class AudioManager : Singleton<AudioManager>
             if (duration > 0f)
                 yield return new WaitForSeconds(duration);
         }
+
+        // The sound is finished, remove it from the active list so it can be played again
+        activeSFX.Remove(clip);
 
         if (audioSource != null)
         {
