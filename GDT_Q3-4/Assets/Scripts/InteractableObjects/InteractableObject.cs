@@ -18,6 +18,14 @@ public class InteractableObject : MonoBehaviour, IInteractable
     [SerializeField] protected GameState unlockingGameState;
     [TextArea(3, 5)]
     [SerializeField] private string objectLockedDialogue;
+    [SerializeField] private AudioClip interactionSFX;
+    [SerializeField] private float sfxStartTime = 0f;
+    [SerializeField] private float sfxEndTime = -1f;
+    [SerializeField] private float sfxVolume = 1f;
+    [SerializeField] private AudioClip lockedInteractionSFX;
+    [SerializeField] private float lockedSFXStartTime = 0f;
+    [SerializeField] private float lockedSFXEndTime = -1f;
+    [SerializeField] private float lockedSFXVolume = 1f;
 
     // The Reset method is called automatically in the Unity Editor when the script is added
 #if UNITY_EDITOR
@@ -73,6 +81,11 @@ public class InteractableObject : MonoBehaviour, IInteractable
                     Debug.Log($"Successfully used {heldItem.itemName} on {name}");
                     interaction.onSuccess?.Invoke();
 
+                    if (interaction.successSFX != null)
+                    {
+                        AudioManager.Instance.PlaySFX(interaction.successSFX, volume: interaction.sfxVolume, startTime: interaction.sfxStartTime, endTime: interaction.sfxEndTime);
+                    }
+
                     // Consume the item if it's a one-time use
                     if (heldItem.onetime)
                     {
@@ -100,6 +113,10 @@ public class InteractableObject : MonoBehaviour, IInteractable
         // If we have an unlocking state assigned, and that state is false, STOP here.
         if (!GameManager.Instance.GetState(unlockingGameState))
         {
+            if (lockedInteractionSFX != null)
+            {
+                AudioManager.Instance.PlaySFX(lockedInteractionSFX, volume: lockedSFXVolume, startTime: lockedSFXStartTime, endTime: lockedSFXEndTime);
+            }
             GameTextController.Instance.HandleDialogue(objectLockedDialogue);
             Debug.Log($"{name} is currently locked.");
             return;
@@ -108,6 +125,11 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
         PerformAction();
         onInteract?.Invoke();
+
+        if (interactionSFX != null)
+        {
+            AudioManager.Instance.PlaySFX(interactionSFX, volume: sfxVolume, startTime: sfxStartTime, endTime: sfxEndTime);
+        }
 
         hasBeenInteracted = true;
     }
