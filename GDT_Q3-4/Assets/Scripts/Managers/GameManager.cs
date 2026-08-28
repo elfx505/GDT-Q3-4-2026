@@ -41,6 +41,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject hiddenDoor;
     [SerializeField] private CameraAnchor upperElevatorHallwayAnchor;
     [SerializeField] private CameraAnchor middleElevatorInsideAnchor;
+    [SerializeField] private CameraAnchor finalAnchor;
     [SerializeField] private Cutscene hintRevealCutscene;
     private bool elevatorCutscenePlayed = false;
 
@@ -110,6 +111,7 @@ public class GameManager : Singleton<GameManager>
     public void MoveToAnchor(CameraAnchor targetAnchor)
     {
         if (targetAnchor == null) return;
+        if (targetAnchor == finalAnchor && !GetState(GameState.ShuttersOpened)) return;
 
         if (isTransitioning) return;
 
@@ -128,6 +130,10 @@ public class GameManager : Singleton<GameManager>
         if (targetAnchor == upperElevatorHallwayAnchor && GetState(GameState.JanitorDoorUnlocked))
         {
             SetState(GameState.ReachedUpperElevator, true);
+        }
+        if (targetAnchor == finalAnchor)
+        {
+            SetState(GameState.GameDone, true);
         }
         if (GetState(GameState.JanitorSpokenTo) && targetAnchor == middleElevatorInsideAnchor && !elevatorCutscenePlayed)
         {

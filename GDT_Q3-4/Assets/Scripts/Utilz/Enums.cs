@@ -57,5 +57,6 @@ public enum GameState
     ElevatorButtonSequencePressed,
     EnteredReception,
     MinesweeperDone,
-    ShuttersOpened
+    ShuttersOpened,
+    GameDone
 }
