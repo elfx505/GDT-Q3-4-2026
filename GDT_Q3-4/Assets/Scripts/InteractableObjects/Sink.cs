@@ -36,7 +36,7 @@ public class Sink : InteractableObject
         {
             if (!GameManager.Instance.GetState(GameState.SinkRepaired))
             {
-                GameTextController.Instance.HandleDialogue("Huh...why won't it turn off??[s]The Janitor has been missing even before I took my vacation.[s]*Sigh*[s]What's going on in this place?[s]...maybe I can try to fix it.");
+                GameTextController.Instance.HandleDialogue("Shoichi: Huh?[s]Shoichi: ...why won't it turn off??[s]Shoichi: The Janitor has been missing even before I took my vacation.[s]*Sigh*[s]Shoichi: What's going on in this place?[s]Shoichi: ...maybe I can try to fix it.");
             }
             else
             {

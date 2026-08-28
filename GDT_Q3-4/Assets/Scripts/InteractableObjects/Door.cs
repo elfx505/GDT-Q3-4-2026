@@ -30,7 +30,7 @@ public class Door : InteractableObject
         if (!doorUnlocked)
         {
             if (isJanitorDoor)
-                GameTextController.Instance.HandleDialogue("Looks like I need a key");
+                GameTextController.Instance.HandleDialogue("Shoichi: Looks like I need a key");
             Debug.Log("The door is locked.");
             return;
         }
@@ -39,7 +39,7 @@ public class Door : InteractableObject
         {
             if (GameManager.Instance.GetState(GameState.SinkBroken) && !GameManager.Instance.GetState(GameState.SinkRepaired))
             {
-                GameTextController.Instance.HandleDialogue("What's wrong with me?[s]I did not even turn off the sink");
+                GameTextController.Instance.HandleDialogue("Shoichi: What's wrong with me? I did not even turn off the sink");
                 return;
             }
         }
@@ -52,7 +52,7 @@ public class Door : InteractableObject
             GameManager.Instance.GetState(GameState.JanitorDoorUnlocked) &&
             !GameManager.Instance.GetState(GameState.ResignationPapersPrinted))
         {
-            GameTextController.Instance.HandleDialogue("Wait I still need my resignation letter");
+            GameTextController.Instance.HandleDialogue("Shoichi: Wait I still need my resignation letter");
             return;
         }
 
