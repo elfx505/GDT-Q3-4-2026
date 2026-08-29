@@ -75,6 +75,20 @@ public class InteractableObject : MonoBehaviour, IInteractable
     {
         if (!isRepeatable && hasBeenInteracted) return;
 
+        // --- THE GATEKEEPER ---
+        // If we have an unlocking state assigned, and that state is false, STOP here.
+        if (!GameManager.Instance.GetState(unlockingGameState))
+        {
+            if (lockedInteractionSFX != null)
+            {
+                AudioManager.Instance.PlaySFX(lockedInteractionSFX, volume: lockedSFXVolume, startTime: lockedSFXStartTime, endTime: lockedSFXEndTime);
+            }
+            GameTextController.Instance.HandleDialogue(objectLockedDialogue);
+            Debug.Log($"{name} is currently locked.");
+            return;
+        }
+        // ----------------------
+
         ItemSO heldItem = InventoryManager.Instance.heldItem;
 
         if (heldItem != null)
@@ -125,21 +139,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
         // If we made it here, the player's hand is empty. Do normal click.
         Debug.Log($"Default click on: {name}");
-
-        // --- THE GATEKEEPER ---
-        // If we have an unlocking state assigned, and that state is false, STOP here.
-        if (!GameManager.Instance.GetState(unlockingGameState))
-        {
-            if (lockedInteractionSFX != null)
-            {
-                AudioManager.Instance.PlaySFX(lockedInteractionSFX, volume: lockedSFXVolume, startTime: lockedSFXStartTime, endTime: lockedSFXEndTime);
-            }
-            GameTextController.Instance.HandleDialogue(objectLockedDialogue);
-            Debug.Log($"{name} is currently locked.");
-            return;
-        }
-        // ----------------------
-
+        
         PerformAction();
         onInteract?.Invoke();
 
