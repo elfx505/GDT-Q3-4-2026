@@ -64,16 +64,18 @@ public class NumpadLock : MonoBehaviour
 
     }
 
-    public void CheckExistingInput()
+    public bool CheckExistingInput()
     {
         if (currentCombination.SequenceEqual(correctCombination))
         {
             Debug.Log("Correct Combination");
 
             GameManager.Instance.SetState(GameState.JanitorDoorUnlocked, true);
+            return true;
         } else
         {
             ClearInput();
+            return false;
         }
     }
 

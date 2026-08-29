@@ -171,7 +171,7 @@ public class CameraManager : Singleton<CameraManager>
             elapsedTime += Time.deltaTime;
             overlayColor.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / tempBlinkDuration);
             blinkOverlay.color = overlayColor;
-            Debug.Log(blinkOverlay.color);
+            // Debug.Log(blinkOverlay.color);
             yield return null;
         }
 

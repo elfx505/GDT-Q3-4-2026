@@ -11,4 +11,5 @@ public class ItemInteraction
     public float sfxStartTime;
     public float sfxEndTime;
     public float sfxVolume;
+    
 }

@@ -22,10 +22,17 @@ public class InteractableObject : MonoBehaviour, IInteractable
     [SerializeField] private float sfxStartTime = 0f;
     [SerializeField] private float sfxEndTime = -1f;
     [SerializeField] private float sfxVolume = 1f;
+    [SerializeField] private bool oneTimeSFX;
     [SerializeField] private AudioClip lockedInteractionSFX;
     [SerializeField] private float lockedSFXStartTime = 0f;
     [SerializeField] private float lockedSFXEndTime = -1f;
     [SerializeField] private float lockedSFXVolume = 1f;
+
+    [SerializeField] private AudioClip incorrectInteractionSFX;
+    [SerializeField] private float incorrectSFXStartTime = 0f;
+    [SerializeField] private float incorrectSFXEndTime = -1f;
+    [SerializeField] private float incorrectSFXVolume = 1f;
+
 
     // The Reset method is called automatically in the Unity Editor when the script is added
 #if UNITY_EDITOR
@@ -103,6 +110,17 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
             // If it loops through all interactions and doesn't find a match:
             Debug.Log($"Tried to use {heldItem.name}, but that's not the correct item.");
+
+            // Play Default Incorrect SFX
+            if (incorrectInteractionSFX != null)
+            {
+                Debug.Log($"Playing SFX: {incorrectInteractionSFX.name} at volume {incorrectSFXVolume}");
+                AudioManager.Instance.PlaySFX(incorrectInteractionSFX, volume: incorrectSFXVolume, startTime: incorrectSFXStartTime, endTime: incorrectSFXEndTime);
+            }
+            else
+            {
+                Debug.LogWarning("The incorrectInteractionSFX is NULL! Please assign it in the Inspector.");
+            }
             return;
         }
 
