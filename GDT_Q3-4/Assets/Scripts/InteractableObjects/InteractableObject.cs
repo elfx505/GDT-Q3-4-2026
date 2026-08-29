@@ -22,7 +22,6 @@ public class InteractableObject : MonoBehaviour, IInteractable
     [SerializeField] private float sfxStartTime = 0f;
     [SerializeField] private float sfxEndTime = -1f;
     [SerializeField] private float sfxVolume = 1f;
-    [SerializeField] private bool oneTimeSFX;
     [SerializeField] private AudioClip lockedInteractionSFX;
     [SerializeField] private float lockedSFXStartTime = 0f;
     [SerializeField] private float lockedSFXEndTime = -1f;

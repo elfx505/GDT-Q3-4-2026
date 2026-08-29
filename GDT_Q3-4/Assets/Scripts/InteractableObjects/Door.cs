@@ -12,10 +12,12 @@ public class Door : InteractableObject
     [SerializeField] private bool doorUnlocked = true;
     [SerializeField] private bool isJanitorDoor;
     [SerializeField] private bool isBathroomDoor;
+    [SerializeField] private Sink sink;
     [Tooltip("When the door is first used, set this game state to true")]
     [SerializeField] private GameState firstUseTrigger;
     [SerializeField] private bool useFirstTrigger = false;
     private bool doorUsed = false;
+
 
     protected override void PerformAction()
     {
@@ -37,7 +39,7 @@ public class Door : InteractableObject
 
         if (isBathroomDoor)
         {
-            if (GameManager.Instance.GetState(GameState.SinkBroken) && !GameManager.Instance.GetState(GameState.SinkRepaired))
+            if ((GameManager.Instance.GetState(GameState.SinkBroken) && !GameManager.Instance.GetState(GameState.SinkRepaired)) || (sink != null && sink.waterActive))
             {
                 GameTextController.Instance.HandleDialogue("Shoichi: What's wrong with me? I did not even turn off the sink");
                 return;
