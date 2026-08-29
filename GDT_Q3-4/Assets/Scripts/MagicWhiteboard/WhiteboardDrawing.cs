@@ -135,6 +135,12 @@ public class WhiteboardDrawing : MonoBehaviour
                             // Enable Key from GameManager
                             GameManager.Instance.EnableKey();
                             break;
+
+                        case "Key2":
+                            Debug.Log("SUCCESS: Key Drawn");
+                            // Enable Key from GameManager
+                            GameManager.Instance.EnableKey();
+                            break;
                         
                         case "Door":
                             if (!GameManager.Instance.GetState(GameState.JanitorDoorUnlocked)) return;
