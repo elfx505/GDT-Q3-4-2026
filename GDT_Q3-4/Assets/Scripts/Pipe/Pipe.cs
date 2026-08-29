@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PipeType
@@ -22,6 +23,11 @@ public class Pipe : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private Material poweredMaterial;
+    [Header("SFX")]
+    private AudioClip pipeRotateSFX;
+    private float sfxStartTime;
+    private float sfxEndTime;
+    private float sfxVolume;
 
     void Awake()
     {
@@ -47,6 +53,11 @@ public class Pipe : MonoBehaviour
         if (isComplete) return;
 
         Rotate();
+
+        if (pipeRotateSFX != null)
+        {
+            AudioManager.Instance.PlaySFX(pipeRotateSFX, volume: sfxVolume, startTime: sfxStartTime, endTime: sfxEndTime, canSpam: true);
+        }
     }
 
     public bool HasConnection(Vector2Int dir)
@@ -114,5 +125,13 @@ public class Pipe : MonoBehaviour
     public void BlockInputs()
     {
         isComplete = true;       
+    }
+
+    public void SetAudioData(AudioClip clip, float volume, float startTime, float endTime)
+    {
+        pipeRotateSFX = clip;
+        sfxVolume = volume;
+        sfxStartTime = startTime;
+        sfxEndTime = endTime;
     }
 }

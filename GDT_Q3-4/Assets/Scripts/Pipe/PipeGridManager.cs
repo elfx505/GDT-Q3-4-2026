@@ -12,6 +12,12 @@ public class PipeGridManager : Singleton<PipeGridManager>
     public int levels;
     private int lastLoadedLevel;
 
+    [Header("Global Pipe SFX Settings")]
+    public AudioClip pipeRotateClip;
+    public float pipeRotateVolume = 1f;
+    public float pipeRotateStartTime = 0f;
+    public float pipeRotateEndTime = -1f;
+
 
     void Start()
     {   
@@ -74,6 +80,8 @@ public class PipeGridManager : Singleton<PipeGridManager>
 
                 Pipe pipe = obj.GetComponent<Pipe>();
                 pipe.type = type;
+
+                pipe.SetAudioData(pipeRotateClip, pipeRotateVolume, pipeRotateStartTime, pipeRotateEndTime);
 
                 int r = Random.Range(0, 4);
                 if (!random_level) r = 0;
