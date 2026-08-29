@@ -86,12 +86,12 @@ public class AudioManager : Singleton<AudioManager>
         isLoopingCustom = false;
     }
 
-    public void PlaySFX(AudioClip clip, float volume = 1f, float pitch = 1f, float startTime = 0f, float endTime = -1f)
+    public void PlaySFX(AudioClip clip, float volume = 1f, float pitch = 1f, float startTime = 0f, float endTime = -1f, bool canSpam = false)
     {
         if (clip == null) return;
 
         // If this exact clip is already playing, ignore the new request
-        if (activeSFX.Contains(clip)) return;
+        if (activeSFX.Contains(clip) && !canSpam) return;
 
         // Register the clip as currently playing
         activeSFX.Add(clip);
