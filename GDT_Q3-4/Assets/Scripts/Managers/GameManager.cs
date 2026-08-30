@@ -101,7 +101,7 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogWarning("[GameManager] hiddenDoor not set!");
         }
-
+        SetState(GameState.Default, true);
     }
 
     public void EnableKey()
@@ -121,7 +121,8 @@ public class GameManager : Singleton<GameManager>
         if (objectiveCompleteSFX != null)
         {
             AudioManager.Instance.PlaySFX(objectiveCompleteSFX, volume: volumeObjectiveComplete, startTime: startTimeObjectiveComplete, endTime: endTimeObjectiveComplete);
-        } else
+        }
+        else
         {
             Debug.LogWarning("objectiveCompleteSFX not set!");
         }
