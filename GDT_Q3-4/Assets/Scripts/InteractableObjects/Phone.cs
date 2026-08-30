@@ -49,7 +49,7 @@ public class Phone : InteractableObject
         }
         else if (dialedOnce && !isAnimating)
         {
-            ProperDial();
+            StartCoroutine(ProperDial());
         }
 
     }
@@ -92,6 +92,8 @@ public class Phone : InteractableObject
         phoneDialCancelSettings.startTime,
         phoneDialCancelSettings.endTime
         );
+
+        AudioManager.Instance.StopSFX(phoneDial);
 
         // Get the exact length of the reverse clip and wait for those seconds
         float disengageLength = animator.GetCurrentAnimatorStateInfo(0).length;
@@ -139,6 +141,8 @@ public class Phone : InteractableObject
         yield return null;
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("FingerSnap"));
 
+        AudioManager.Instance.StopSFX(phoneDial);
+
         AudioManager.Instance.PlaySFX(fingerSnap,
         fingerSnapSettings.volume,
         fingerSnapSettings.pitch,
@@ -164,8 +168,17 @@ public class Phone : InteractableObject
         dialedOnce = true;
     }
 
-    private void ProperDial()
+    private IEnumerator ProperDial()
     {
+        AudioManager.Instance.PlaySFX(phoneDial,
+        phoneDialSettings.volume,
+        phoneDialSettings.pitch,
+        phoneDialSettings.startTime,
+        phoneDialSettings.endTime
+        );
+
+        yield return new WaitForSecondsRealtime(phoneDialSettings.endTime - phoneDialSettings.startTime); // Wait for the duration of the dial
+        
         GameManager.Instance.SetState(GameState.NumberDialed, true);
     }
 }

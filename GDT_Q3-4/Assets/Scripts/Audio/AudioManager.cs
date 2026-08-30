@@ -111,6 +111,33 @@ public class AudioManager : Singleton<AudioManager>
         StartCoroutine(StopSFXAtTime(sfxSource, endTime, clip));
     }
 
+    public void StopSFX(AudioClip clip)
+    {
+        if (clip == null) return;
+
+        // Get all AudioSources attached to the AudioManager
+        AudioSource[] allSources = GetComponents<AudioSource>();
+
+        foreach (AudioSource sfxSource in allSources)
+        {
+            // Ignore the main music track source
+            if (sfxSource == source) continue;
+
+            // If this source is playing the clip we want to interrupt
+            if (sfxSource.clip == clip)
+            {
+                sfxSource.Stop();
+                Destroy(sfxSource);
+            }
+        }
+
+        // Remove from the active tracking list so it can be played again later
+        if (activeSFX.Contains(clip))
+        {
+            activeSFX.Remove(clip);
+        }
+    }
+
     private IEnumerator StopSFXAtTime(
     AudioSource audioSource,
     float endTime,
@@ -129,14 +156,14 @@ public class AudioManager : Singleton<AudioManager>
                 yield return new WaitForSeconds(duration);
         }
 
+        // If the audio source was manually destroyed by StopSFX(), abort early
+        if (audioSource == null) yield break;
+
         // The sound is finished, remove it from the active list so it can be played again
         activeSFX.Remove(clip);
 
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-            Destroy(audioSource);
-        }
+        audioSource.Stop();
+        Destroy(audioSource);
     }
 
     private void SetVolume(float newVolume)
