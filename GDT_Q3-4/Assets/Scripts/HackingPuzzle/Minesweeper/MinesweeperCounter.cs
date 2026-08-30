@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting; // Required for IScrollHandler
 
 // Add the IScrollHandler interface to the class
-public class MinesweeperCounter : MonoBehaviour, IScrollHandler
+public class MinesweeperCounter : MonoBehaviour, IScrollHandler, IPointerEnterHandler
 {
     [Header("UI References")]
     [Tooltip("The 3 UI Images on your canvas (Hundreds, Tens, Units)")]
@@ -18,6 +17,12 @@ public class MinesweeperCounter : MonoBehaviour, IScrollHandler
     [SerializeField] private int minScrollValue = 0;
     [SerializeField] private int maxScrollValue = 999;
     [SerializeField] private bool isCountdownCounter = false;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClip beepClip;
+    [SerializeField] private float beepClipVolume;
+    [SerializeField] private float beepClipStartTime;
+    [SerializeField] private float beepClipEndTime;
 
     // A public getter so other scripts (like GameLogic) can read the value the user scrolled to
     public int CurrentValue { get; private set; }
@@ -50,6 +55,7 @@ public class MinesweeperCounter : MonoBehaviour, IScrollHandler
         {
             // Scrolled UP: Increase value, clamped to max
             int value = Mathf.Min(CurrentValue + 1, maxScrollValue);
+            PlayBeep();
             UpdateCounter(value);
 
         }
@@ -57,7 +63,22 @@ public class MinesweeperCounter : MonoBehaviour, IScrollHandler
         {
             // Scrolled DOWN: Decrease value, clamped to min
             int value = Mathf.Max(CurrentValue - 1, minScrollValue);
+            PlayBeep();
             UpdateCounter(value);
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {   
+        if (!isCountdownCounter) return;
+
+        PlayBeep();
+    }
+
+    private void PlayBeep()
+    {
+        if (beepClip == null) return;
+
+        AudioManager.Instance.PlaySFX(beepClip, volume: beepClipVolume, startTime: beepClipStartTime, endTime: beepClipEndTime, canSpam: true);
     }
 }
