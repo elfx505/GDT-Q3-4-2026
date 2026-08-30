@@ -14,6 +14,7 @@ public class CutsceneManager : Singleton<CutsceneManager>
 {
     // public static H_CutsceneManager Instance;
     [SerializeField] private Cutscene introCutscene;
+    [SerializeField] private Cutscene finalCutscene;
     [SerializeField] private List<GameStateCutscene> gameStateCutscenes = new();
     CutsceneContext context;
 
@@ -101,13 +102,21 @@ public class CutsceneManager : Singleton<CutsceneManager>
 
         _isPlaying = false;
 
-        GameManager.Instance.ToggleInventoryButton(!_isPlaying);
-
-        if (hasToggledBackButton)
+        if (cutscene == finalCutscene)
         {
-            GameManager.Instance.ToggleBackButton(!_isPlaying);
-            hasToggledBackButton = false;
+            Loader.Load(Loader.Scene.MainMenu);
         }
+        else
+        {
+            GameManager.Instance.ToggleInventoryButton(!_isPlaying);
+
+            if (hasToggledBackButton)
+            {
+                GameManager.Instance.ToggleBackButton(!_isPlaying);
+                hasToggledBackButton = false;
+            }
+        }
+
 
         Debug.Log($"Finished cutscene: {cutscene.cutsceneID}");
     }

@@ -13,7 +13,7 @@ public class ScrollTextAction : CutsceneAction
         float currentPosition = textToScroll.rectTransform.anchoredPosition.y;
         float moveDirection = (scrollToPositions - currentPosition) > 0 ? 1f : -1f;
 
-        while (Math.Abs(currentPosition - scrollToPositions) > 0.5f)
+        while (Math.Abs(currentPosition - scrollToPositions) > 5f)
         {
             Debug.Log(textToScroll.rectTransform.anchoredPosition.y);
             currentPosition += speed * moveDirection * Time.deltaTime;
