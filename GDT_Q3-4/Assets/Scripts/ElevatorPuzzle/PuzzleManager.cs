@@ -166,6 +166,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
         Debug.Log("PUZZLE COMPLETE! 🎉");
         // TODO: Add win effects here (particles, sound, next level...)
         GameManager.Instance.SetState(GameState.ElevatorPuzzleDone, true);
+        GameManager.Instance.PlayObjectiveCompleteSound();
+
         sequenceMode = true;
     }
 
@@ -255,8 +257,9 @@ public class PuzzleManager : Singleton<PuzzleManager>
 
                 sequenceComplete = true; // Ensure lights stop blinking after the sequence has been completed.
 
+                GameManager.Instance.PlayObjectiveCompleteSound();
                 // Trigger Player Movement to Reception floor
-                GameManager.Instance.MoveToAnchor(receptionFloorElevatorAnchor);
+                // GameManager.Instance.MoveToAnchor(receptionFloorElevatorAnchor); // Replaced with Cutscene
                 // Update GameState after reaching the next floor to trigger dialogue only then
                 GameManager.Instance.SetState(GameState.ElevatorButtonSequencePressed, true);
 

@@ -45,6 +45,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Cutscene hintRevealCutscene;
     private bool elevatorCutscenePlayed = false;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip objectiveCompleteSFX;
+    [SerializeField] private float volumeObjectiveComplete;
+    [SerializeField] private float startTimeObjectiveComplete;
+    [SerializeField] private float endTimeObjectiveComplete;
+
 
     protected override void Awake()
     {
@@ -101,11 +107,24 @@ public class GameManager : Singleton<GameManager>
     public void EnableKey()
     {
         key.SetActive(true);
+        PlayObjectiveCompleteSound();
     }
 
     public void EnableHiddenDoor()
     {
         hiddenDoor.SetActive(true);
+        PlayObjectiveCompleteSound();
+    }
+
+    public void PlayObjectiveCompleteSound()
+    {
+        if (objectiveCompleteSFX != null)
+        {
+            AudioManager.Instance.PlaySFX(objectiveCompleteSFX, volume: volumeObjectiveComplete, startTime: startTimeObjectiveComplete, endTime: endTimeObjectiveComplete);
+        } else
+        {
+            Debug.LogWarning("objectiveCompleteSFX not set!");
+        }
     }
 
     public void MoveToAnchor(CameraAnchor targetAnchor)

@@ -199,6 +199,8 @@ public class PipeGridManager : Singleton<PipeGridManager>
             pipe.UpdateVisual();
         }
 
+        GameManager.Instance.PlayObjectiveCompleteSound();
+
     }
 
     public void GenerateRandomLevels(int currentDifficulty)

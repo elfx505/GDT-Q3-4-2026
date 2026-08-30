@@ -403,6 +403,8 @@ public class GameLogic : Singleton<GameLogic>
             doorControlsPage.SetActive(true);
 
             GameManager.Instance.SetState(GameState.MinesweeperDone, true);
+
+            GameManager.Instance.PlayObjectiveCompleteSound();
         }
     }
 
