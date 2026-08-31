@@ -4,6 +4,7 @@ public class GasolineHole : InteractableObject
 {
     
     [SerializeField] private GameObject paper;
+    [SerializeField] private AudioTrack engineSound;
 
     protected override void Awake()
     {   
@@ -29,6 +30,8 @@ public class GasolineHole : InteractableObject
         if (GameManager.Instance.GetState(GameState.AllPipePuzzlesCompleted))
         {
             GameManager.Instance.SetState(GameState.PrinterFueled, true);
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayTrack(engineSound);
             paper.SetActive(true);
         }
 
