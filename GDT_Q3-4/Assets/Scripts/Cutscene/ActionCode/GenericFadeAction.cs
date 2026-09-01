@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GenericFadeAction : CutsceneAction
 {
@@ -31,20 +32,39 @@ public class GenericFadeAction : CutsceneAction
         public override void SetAlpha(float alpha) { Color c = txt.color; c.a = alpha; txt.color = c; }
     }
 
+    private class ImageFader : ComponentFader
+    {
+        private Image targetImage;
+        public ImageFader(Image image)
+        {
+            this.targetImage = image;
+            startAlpha = image.color.a;
+        }
+
+        public override void SetAlpha(float alpha)
+        {
+            Color c = targetImage.color;
+            c.a = alpha;
+            targetImage.color = c;
+        }
+    }
+
 
     public override IEnumerator Play(CutsceneContext context)
     {
         // 1. Gather components and current alphas at the exact moment the fade begins.
         // Clearing ensures we don't duplicate entries if this action is run multiple times.
         faders.Clear();
-        
+
         // Passing 'true' guarantees it finds components even on disabled child GameObjects
-        foreach (var sr in targetObject.GetComponentsInChildren<SpriteRenderer>(true)) 
+        foreach (var sr in targetObject.GetComponentsInChildren<SpriteRenderer>(true))
             faders.Add(new SpriteFader(sr));
-            
-        foreach (var txt in targetObject.GetComponentsInChildren<TMP_Text>(true)) 
+
+        foreach (var txt in targetObject.GetComponentsInChildren<TMP_Text>(true))
             faders.Add(new TMPFader(txt));
 
+        foreach (var image in targetObject.GetComponentsInChildren<Image>(true))
+            faders.Add(new ImageFader(image));
 
         float elapsedTime = 0f;
         float targetAlpha = fadeSolid ? 1f : 0f;
@@ -53,9 +73,9 @@ public class GenericFadeAction : CutsceneAction
         while (elapsedTime < fadeTime)
         {
             elapsedTime += Time.deltaTime;
-            
+
             // Mathf.Clamp01 ensures our interpolation fraction never exceeds 100%
-            float t = Mathf.Clamp01(elapsedTime / fadeTime); 
+            float t = Mathf.Clamp01(elapsedTime / fadeTime);
 
             foreach (var fader in faders)
             {
