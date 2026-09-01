@@ -25,9 +25,14 @@ public class InputManager : Singleton<InputManager>
     void Update()
     {
         if (Mouse.current == null) return;
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            onEscape?.Invoke();
+            Debug.Log("Escape Pressed this frame!");
+        }
 
         // Stop processing world inputs if dialogue is showing or if a cutscene is playing
-        if (GameManager.Instance.textOnScreen || CutsceneManager.Instance.IsPlaying)
+        if (GameManager.Instance.textOnScreen || CutsceneManager.Instance.IsPlaying || GameManager.Instance.gameIsPaused || InventoryUI.Instance.isInventoryOpen)
         {
             // If we were hovering over an object when the text popped up, 
             // force it to stop hovering so it doesn't stay highlighted behind the UI.
@@ -142,10 +147,6 @@ public class InputManager : Singleton<InputManager>
         //     OnDeleteAIDatabase?.Invoke();
         // }
 
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            onEscape?.Invoke();
-            Debug.Log("Escape Pressed this frame!");
-        }
+
     }
 }

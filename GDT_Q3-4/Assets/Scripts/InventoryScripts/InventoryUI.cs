@@ -3,47 +3,49 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : Singleton<InventoryUI>
 {
-    public static InventoryUI Instance { get; private set; }
+    // public static InventoryUI Instance { get; private set; }
 
     [SerializeField] Transform slotParent;
     [SerializeField] GameObject slotPrefab;
     public GameObject panelToToggle;
+    public bool isInventoryOpen = false;
 
     private List<GameObject> createdSlots = new List<GameObject>();
 
     // hidden at first
-    void Awake()
+    private void Awake()
     {
+        base.Awake();
         if (panelToToggle != null)
         {
-            panelToToggle.SetActive(false);
+            panelToToggle.SetActive(isInventoryOpen);
         }
         else
         {
             Debug.LogWarning("[InventoryUI] panelToToggle is not assigned in Inspector!");
         }
-    
+
     }
 
     public void ToggleInventory()
     {
-        if (InventoryManager.Instance.heldItem != null) return;
+        // if (InventoryManager.Instance.heldItem != null) return;
 
         if (panelToToggle != null)
-                {
-                    bool shouldShow = !panelToToggle.activeSelf;
-                    panelToToggle.SetActive(shouldShow);
-                    Debug.Log("Inventory toggled to: " + shouldShow);
+        {
+            isInventoryOpen = !panelToToggle.activeSelf;
+            panelToToggle.SetActive(isInventoryOpen);
+            Debug.Log("Inventory toggled to: " + isInventoryOpen);
 
-                    if (shouldShow)
-                        Refresh();
-                }
-                else
-                {
-                    Debug.LogError("[InventoryUI] panelToToggle is null - assign it in Inspector!");
-                }
+            if (isInventoryOpen)
+                Refresh();
+        }
+        else
+        {
+            Debug.LogError("[InventoryUI] panelToToggle is null - assign it in Inspector!");
+        }
     }
 
 
@@ -146,6 +148,8 @@ public class InventoryUI : MonoBehaviour
         {
             Debug.Log("Opening viewer for: " + item.itemName);
             ItemViewer.Instance.ShowItem(item);     // Open viewer
+            InventoryUI.Instance.ToggleInventory();
+
         }
         else
         {
@@ -153,7 +157,7 @@ public class InventoryUI : MonoBehaviour
             InventoryManager.Instance.StartHolding(item);   // Normal hold behavior
         }
         Refresh();
-        if (panelToToggle != null) 
+        if (panelToToggle != null)
         {
             StartCoroutine(ClosePanelDelay());
         }

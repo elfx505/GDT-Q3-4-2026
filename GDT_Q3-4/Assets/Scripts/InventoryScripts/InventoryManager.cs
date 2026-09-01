@@ -35,6 +35,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public void StartHolding(ItemSO item)
     {
         heldItem = item;
+        InventoryUI.Instance.ToggleInventory();
 
     }
 
