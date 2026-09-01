@@ -18,4 +18,4 @@ MonoBehaviour:
   onetime: 1
   consummable: 1
   isViewable: 1
-  viewSprite: {fileID: 21300000, guid: f0bdfb83458f14df086430f6f54f2daf, type: 3}
+  viewSprite: {fileID: 21300000, guid: 090ee274118964aa8a4ca04632db2f9e, type: 3}
