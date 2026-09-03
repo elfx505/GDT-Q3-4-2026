@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioTrack
   clip: {fileID: 8300000, guid: 82687698ff39a4c509b99d8cd1b1e840, type: 3}
   loopStartTime: 40.227
-  loopEndTime: 221.251
+  loopEndTime: 0
   volume: 1
   pitch: 1
   playOnLoad: 0
