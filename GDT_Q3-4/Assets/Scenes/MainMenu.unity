@@ -10337,6 +10337,7 @@ MonoBehaviour:
   sensitivitySlider: {fileID: 1114353656}
   defaultVolume: 0.5
   defaultSensitivity: 0.5
+  menuMusic: {fileID: 11400000, guid: 30bb4400040d6448e9dc4cb1afb6baa7, type: 2}
 --- !u!4 &402166257
 Transform:
   m_ObjectHideFlags: 0

@@ -50,6 +50,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float volumeObjectiveComplete;
     [SerializeField] private float startTimeObjectiveComplete;
     [SerializeField] private float endTimeObjectiveComplete;
+    [SerializeField] private AudioTrack gameMusic1;
+    [SerializeField] private AudioTrack gameMusicAfterKen;
+
 
 
     protected override void Awake()
@@ -102,6 +105,7 @@ public class GameManager : Singleton<GameManager>
             Debug.LogWarning("[GameManager] hiddenDoor not set!");
         }
         SetState(GameState.Default, true);
+        AudioManager.Instance.PlayTrack(gameMusic1);
     }
 
     public void EnableKey()
@@ -181,6 +185,11 @@ public class GameManager : Singleton<GameManager>
         gameStates[key] = value;
         UpdateDebugList(); // Update the list whenever the state changes
         onGameStateChange?.Invoke(key);
+        if (key == GameState.KenGreeted)
+        {
+            Debug.Log("Playing second track");
+            AudioManager.Instance.PlayTrack(gameMusicAfterKen);
+        }
     }
 
     public bool GetState(GameState key)
@@ -247,6 +256,11 @@ public class GameManager : Singleton<GameManager>
 
                     // Fire the event manually so your dialogue, doors, etc., react instantly!
                     onGameStateChange?.Invoke(data.state);
+                    if (data.state == GameState.KenGreeted)
+                    {
+                        Debug.Log("Playing second track");
+                        AudioManager.Instance.PlayTrack(gameMusicAfterKen);
+                    }
 
                     Debug.Log($"[GameManager] {data.state} forcibly changed to {data.isActive} via Inspector!");
                 }

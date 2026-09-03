@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Slider sensitivitySlider;
     [SerializeField] private float defaultVolume = .5f;
     [SerializeField] private float defaultSensitivity = .5f;
+    [SerializeField] private AudioTrack menuMusic;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
         {
             Debug.LogWarning("[MainMenuManager] Main Menu GameObject is missing!");
         }
-        
+
         if (settingsMenu == null)
         {
             Debug.LogWarning("[MainMenuManager] Settings Menu GameObject is missing!");
@@ -42,6 +43,7 @@ public class MainMenuManager : MonoBehaviour
         {
             sensitivitySlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("MouseSensitivity", defaultSensitivity));
         }
+        AudioManager.Instance.PlayTrack(menuMusic);
     }
 
     public void OnPlayButton()
@@ -61,7 +63,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnQuitButton()
     {
-        Debug.Log("Quit Game!"); 
+        Debug.Log("Quit Game!");
         Application.Quit();
     }
 
@@ -82,5 +84,6 @@ public class MainMenuManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("MasterVolume", volume);
         PlayerPrefs.Save();
+        AudioManager.Instance.SetVolume(volume);
     }
 }

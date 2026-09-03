@@ -17,11 +17,13 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
 public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehaviour
 {
+    protected bool IsDuplicate { get; private set; }
     protected override void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
 
         DontDestroyOnLoad(gameObject);

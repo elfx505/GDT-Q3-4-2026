@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : SingletonPersistent<AudioManager>
 {
 
     private AudioSource source;
@@ -17,6 +17,8 @@ public class AudioManager : Singleton<AudioManager>
     protected override void Awake()
     {
         base.Awake();
+        if (IsDuplicate)
+            return;
         source = gameObject.AddComponent<AudioSource>();
 
         SetVolume(PlayerPrefs.GetFloat("MasterVolume", defaultVolume));
@@ -55,28 +57,29 @@ public class AudioManager : Singleton<AudioManager>
             Debug.LogWarning("AudioTrack is null or missing clip!");
             return;
         }
+        bool isSameTrack = currentTrack == track;
 
         currentTrack = track;
 
         source.clip = track.clip;
-        // source.volume = track.volume;
+        source.volume = Mathf.Clamp01(track.volume * PlayerPrefs.GetFloat("MasterVolume"));
         source.pitch = track.pitch;
         source.loop = false; // we handle looping manually
 
-        // 🎯 NEW FEATURE: fromStart
-        if (track.fromStart)
+        if (!isSameTrack)
         {
-            source.time = 0f;
-        }
-        else
-        {
-            source.time = track.loopStartTime;
-        }
+            if (track.fromStart)
+            {
+                source.time = 0f;
+            }
+            else
+            {
+                source.time = track.loopStartTime;
+            }
 
-        source.Play();
-
-        // Setup looping
-        isLoopingCustom = true;
+            source.Play();
+            isLoopingCustom = true;
+        }
     }
 
     public void Stop()
@@ -166,8 +169,12 @@ public class AudioManager : Singleton<AudioManager>
         Destroy(audioSource);
     }
 
-    private void SetVolume(float newVolume)
+    public void SetVolume(float newVolume)
     {
+        if (currentTrack)
+        {
+            source.volume = Mathf.Clamp01(newVolume * currentTrack.volume);
+        }
         source.volume = newVolume;
     }
 

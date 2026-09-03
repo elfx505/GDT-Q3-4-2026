@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2905c01c8c4b76c48a5aa7e1cc98fcad, type: 3}
+  m_Name: MainMenuTrack
+  m_EditorClassIdentifier: Assembly-CSharp::AudioTrack
+  clip: {fileID: 8300000, guid: 82687698ff39a4c509b99d8cd1b1e840, type: 3}
+  loopStartTime: 40.227
+  loopEndTime: 221.251
+  volume: 1
+  pitch: 1
+  playOnLoad: 0
+  fromStart: 1
