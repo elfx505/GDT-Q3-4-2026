@@ -15,6 +15,8 @@ public class AudioTrack : ScriptableObject
     [Header("Playback Settings")]
     [Range(0f, 1f)]
     public float volume = 1f;
+    [Range(0f, 10f)]
+    public float volumeMultiplier = 1f;
 
     [Range(0.5f, 2f)]
     public float pitch = 1f;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : SingletonPersistent<AudioManager>
 {
@@ -13,6 +14,10 @@ public class AudioManager : SingletonPersistent<AudioManager>
 
     // Tracker for currently playing SFX to prevent spam stacking
     private HashSet<AudioClip> activeSFX = new HashSet<AudioClip>();
+    [SerializeField] private AudioMixer mainMixer;
+    [SerializeField] private AudioMixerGroup musicMixerGroup;
+    private Coroutine volumeFadeCoroutine;
+    private bool isPaused;
 
     protected override void Awake()
     {
@@ -20,6 +25,8 @@ public class AudioManager : SingletonPersistent<AudioManager>
         if (IsDuplicate)
             return;
         source = gameObject.AddComponent<AudioSource>();
+
+        source.outputAudioMixerGroup = musicMixerGroup;
 
         SetVolume(PlayerPrefs.GetFloat("MasterVolume", defaultVolume));
     }
@@ -48,6 +55,11 @@ public class AudioManager : SingletonPersistent<AudioManager>
         {
             source.time = currentTrack.loopStartTime;
         }
+        else if (!source.isPlaying && !isPaused) 
+        {
+            source.time = currentTrack.loopStartTime;
+            source.Play(); // Must call Play() to wake it up from a full stop
+        }
     }
 
     public void PlayTrack(AudioTrack track)
@@ -62,9 +74,19 @@ public class AudioManager : SingletonPersistent<AudioManager>
         currentTrack = track;
 
         source.clip = track.clip;
-        source.volume = Mathf.Clamp01(track.volume * PlayerPrefs.GetFloat("MasterVolume"));
         source.pitch = track.pitch;
         source.loop = false; // we handle looping manually
+
+        source.volume = Mathf.Clamp01(PlayerPrefs.GetFloat("MasterVolume"));
+
+        // Assuming track.volumeMultiplier is a float (e.g., 0.5 = quieter, 2.0 = louder)
+        float trackMultiplier = track.volumeMultiplier;
+
+        // Convert the linear multiplier to Decibels (dB) for the mixer
+        // If multiplier is 0, set to -80dB (muted). Otherwise, calculate the dB shift.
+        float volumeDb = trackMultiplier > 0.001f ? 20f * Mathf.Log10(trackMultiplier) : -80f;
+
+        mainMixer.SetFloat("MusicVolume", volumeDb);
 
         if (!isSameTrack)
         {
@@ -79,6 +101,11 @@ public class AudioManager : SingletonPersistent<AudioManager>
 
             source.Play();
             isLoopingCustom = true;
+        } 
+        else if (!source.isPlaying) 
+        {
+            // If it IS the same track, but it's not playing, resume it
+            source.UnPause();
         }
     }
 
@@ -181,5 +208,61 @@ public class AudioManager : SingletonPersistent<AudioManager>
     public float GetVolume()
     {
         return source.volume;
+    }
+
+    public void PauseTrack(float fadeDuration = 1f)
+    {
+        if (source != null && source.isPlaying)
+        {   
+            isPaused = true;
+
+            if (volumeFadeCoroutine != null) StopCoroutine(volumeFadeCoroutine);
+            
+            // Fade to 0, then pause at the end
+            volumeFadeCoroutine = StartCoroutine(FadeVolumeRoutine(0f, fadeDuration, true));
+        }
+    }
+
+    public void ResumeTrack(float fadeDuration = 1f)
+    {
+        if (source != null && currentTrack != null && !source.isPlaying)
+        {   
+            isPaused = false;
+            if (volumeFadeCoroutine != null) StopCoroutine(volumeFadeCoroutine);
+            
+            // Unpause immediately so the audio starts playing while faded out
+            source.UnPause();
+            
+            // Calculate the target volume based on your master settings
+            float targetVolume = Mathf.Clamp01(PlayerPrefs.GetFloat("MasterVolume", defaultVolume));
+            
+            // Fade up to the target, do not pause at the end
+            volumeFadeCoroutine = StartCoroutine(FadeVolumeRoutine(targetVolume, fadeDuration, false));
+        }
+    }
+
+    private IEnumerator FadeVolumeRoutine(float targetVolume, float duration, bool pauseOnComplete)
+    {
+        float startVolume = source.volume;
+        float timeElapsed = 0f;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            
+            // Smoothly transition between the start and target volume
+            source.volume = Mathf.Lerp(startVolume, targetVolume, timeElapsed / duration);
+            
+            yield return null; // Wait for the next frame before looping
+        }
+
+        // Guarantee the volume hits the exact target value at the end
+        source.volume = targetVolume;
+
+        // If this was a pause fade, pause the actual AudioSource now
+        if (pauseOnComplete)
+        {
+            source.Pause();
+        }
     }
 }

@@ -9116,6 +9116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   defaultVolume: 0.1
+  mainMixer: {fileID: 24100000, guid: bdb2625ecce15d44b8a1d7e89c1e0ec7, type: 2}
+  musicMixerGroup: {fileID: -1234154673270867760, guid: bdb2625ecce15d44b8a1d7e89c1e0ec7, type: 2}
 --- !u!4 &358316584
 Transform:
   m_ObjectHideFlags: 0
@@ -69972,7 +69974,7 @@ AudioSource:
   m_GameObject: {fileID: 1095691358}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1234154673270867760, guid: bdb2625ecce15d44b8a1d7e89c1e0ec7, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0

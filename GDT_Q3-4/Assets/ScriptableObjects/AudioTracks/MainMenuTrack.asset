@@ -16,6 +16,7 @@ MonoBehaviour:
   loopStartTime: 40.227
   loopEndTime: 0
   volume: 1
+  volumeMultiplier: 7.5
   pitch: 1
   playOnLoad: 0
   fromStart: 1

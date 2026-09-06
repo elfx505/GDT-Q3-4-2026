@@ -60,6 +60,8 @@ public class CutsceneManager : Singleton<CutsceneManager>
             return;
         }
 
+        
+
         StartCoroutine(RunCutscene(cutscene));
 
 
@@ -76,8 +78,12 @@ public class CutsceneManager : Singleton<CutsceneManager>
             hasToggledBackButton = true;
         }
 
-        Debug.Log($"Starting cutscene: {cutscene.cutsceneID}");
+        if (!cutscene.hasBackgroundMusic)
+        {
+            AudioManager.Instance.PauseTrack(cutscene.musicFadeDuration);
+        }
 
+        Debug.Log($"Starting cutscene: {cutscene.cutsceneID}");
 
 
         List<Coroutine> runningParallelActions = new();
@@ -101,6 +107,12 @@ public class CutsceneManager : Singleton<CutsceneManager>
         }
 
         _isPlaying = false;
+
+        if (!cutscene.hasBackgroundMusic)
+        {
+            AudioManager.Instance.ResumeTrack(cutscene.musicFadeDuration);
+        }
+
 
         if (cutscene == finalCutscene)
         {

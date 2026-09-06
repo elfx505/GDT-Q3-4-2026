@@ -15,7 +15,8 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 9ce479884568d48bfa30dcbdb5d57931, type: 3}
   loopStartTime: 21.333
   loopEndTime: 0
-  volume: 0.5
+  volume: 0.7
+  volumeMultiplier: 0.15
   pitch: 1
   playOnLoad: 0
   fromStart: 1
