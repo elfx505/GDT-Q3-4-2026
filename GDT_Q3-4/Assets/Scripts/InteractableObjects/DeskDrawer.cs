@@ -1,27 +1,27 @@
 using System;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class DeskDrawer : InteractableObject
 {
-    [SerializeField] private string animationOpenName;
-    [SerializeField] private string animationCloseName;
     [SerializeField] private Animator animator;
-    private bool isOpen = false;
+    [SerializeField] private int id;
 
     protected override void PerformAction()
     {
         base.PerformAction();
-        if (!isOpen)
+
+        if (animator.GetInteger("Active Drawer") == id)
         {
-            animator.Play(animationOpenName, 0, 0f);
-            isOpen = true;
-        }
+            animator.SetInteger("Active Drawer", 0); // Close drawer if clicking on the same one
+        } 
         else
         {
-            animator.Play(animationCloseName, 0, 0f);
-            isOpen = false;
-
+            animator.SetInteger("Active Drawer", id); // Open drawer
         }
 
+
     }
+
+    
 }
