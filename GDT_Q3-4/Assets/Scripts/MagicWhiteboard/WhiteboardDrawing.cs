@@ -130,19 +130,21 @@ public class WhiteboardDrawing : MonoBehaviour
                     // Use a switch statement to trigger different puzzle logic based on the symbol!
                     switch (result.Match.Name)
                     {
-                        case "Key":
-                            Debug.Log("SUCCESS: Key Drawn");
-                            // Enable Key from GameManager
-                            GameManager.Instance.EnableKey();
-                            break;
+                        // case "Key":
+                        //     Debug.Log("SUCCESS: Key Drawn");
+                        //     // Enable Key from GameManager
+                        //     GameManager.Instance.EnableKey();
+                        //     break;
 
                         case "Key2":
+                            if (!GameManager.Instance.isOfficeWhiteboard) return;
                             Debug.Log("SUCCESS: Key Drawn");
                             // Enable Key from GameManager
                             GameManager.Instance.EnableKey();
                             break;
                         
                         case "Door":
+                            if (!GameManager.Instance.isStairwellWhiteboard) return;
                             if (!GameManager.Instance.GetState(GameState.JanitorDoorUnlocked)) return;
                             Debug.Log("SUCCESS: Door Drawn");
                             // Enable Door From GameManager

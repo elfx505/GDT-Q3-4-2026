@@ -27,6 +27,8 @@ public class GameManager : Singleton<GameManager>
     private Dictionary<GameState, bool> gameStates = new Dictionary<GameState, bool>();
     public static event Action<GameState> onGameStateChange;
     public bool canDraw;
+    public bool isOfficeWhiteboard;
+    public bool isStairwellWhiteboard;
     public bool gameIsPaused;
     public bool perspectiveIsLocked = false;
     public bool cameraFocused = false;

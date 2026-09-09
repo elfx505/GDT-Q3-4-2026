@@ -18,6 +18,8 @@ public class CameraAnchor : InteractableObject
     private Coroutine bobCoroutine;
 
     public bool isDrawAnchor;
+    [SerializeField] private bool isOfficeDrawAnchor;
+    [SerializeField] private bool isStairwellDrawAnchor;
     [SerializeField] private bool isHallwayAnchor;
     [SerializeField] private bool isDeskAnchor;
     private bool hasReturnedToDeskFromBathroom;
@@ -102,13 +104,19 @@ public class CameraAnchor : InteractableObject
             GameManager.Instance.MoveToAnchor(this);
         }
 
-        if (isDrawAnchor)
-        {
+        if (isOfficeDrawAnchor || isStairwellDrawAnchor)
+        {   
+            isDrawAnchor = true;
             GameManager.Instance.canDraw = true;
-        }
+            GameManager.Instance.isOfficeWhiteboard = isOfficeDrawAnchor;
+            GameManager.Instance.isStairwellWhiteboard = isStairwellDrawAnchor;
+
+        } 
         else
         {
             GameManager.Instance.canDraw = false;
+            GameManager.Instance.isOfficeWhiteboard = false;
+            GameManager.Instance.isStairwellWhiteboard = false;
         }
 
         if (!GameManager.Instance.GetState(GameState.SinkRepaired)) return;
