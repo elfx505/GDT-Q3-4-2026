@@ -72,7 +72,10 @@ public class InteractableObject : MonoBehaviour, IInteractable
     }
 
     public virtual void OnClick()
-    {
+    {   
+        // If the camera is already moving, ignore the click entirely.
+        if (GameManager.Instance.isTransitioning) return;
+
         if (!isRepeatable && hasBeenInteracted) return;
 
         // --- THE GATEKEEPER ---
