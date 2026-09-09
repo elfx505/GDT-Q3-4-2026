@@ -1,11 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
-using NUnit.Framework;
 
 [RequireComponent(typeof(CanvasClickListener))]
 public class MinesweeperTile : MonoBehaviour

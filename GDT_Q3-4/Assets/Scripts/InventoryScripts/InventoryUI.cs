@@ -15,7 +15,7 @@ public class InventoryUI : Singleton<InventoryUI>
     private List<GameObject> createdSlots = new List<GameObject>();
 
     // hidden at first
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         if (panelToToggle != null)
