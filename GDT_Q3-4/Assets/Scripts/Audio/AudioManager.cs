@@ -55,7 +55,7 @@ public class AudioManager : SingletonPersistent<AudioManager>
         {
             source.time = currentTrack.loopStartTime;
         }
-        else if (!source.isPlaying && !isPaused) 
+        else if (!source.isPlaying && !isPaused)
         {
             source.time = currentTrack.loopStartTime;
             source.Play(); // Must call Play() to wake it up from a full stop
@@ -101,8 +101,8 @@ public class AudioManager : SingletonPersistent<AudioManager>
 
             source.Play();
             isLoopingCustom = true;
-        } 
-        else if (!source.isPlaying) 
+        }
+        else if (!source.isPlaying)
         {
             // If it IS the same track, but it's not playing, resume it
             source.UnPause();
@@ -130,7 +130,7 @@ public class AudioManager : SingletonPersistent<AudioManager>
         sfxSource.clip = clip;
 
         // Multiply the individual SFX volume by the master volume
-        sfxSource.volume = Mathf.Clamp01(volume * source.volume);
+        sfxSource.volume = Mathf.Clamp01(volume * PlayerPrefs.GetFloat("MasterVolume", 1f));
 
         sfxSource.pitch = pitch;
 
@@ -198,11 +198,11 @@ public class AudioManager : SingletonPersistent<AudioManager>
 
     public void SetVolume(float newVolume)
     {
+        source.volume = newVolume;
         if (currentTrack)
         {
             source.volume = Mathf.Clamp01(newVolume * currentTrack.volume);
         }
-        source.volume = newVolume;
     }
 
     public float GetVolume()
@@ -213,11 +213,11 @@ public class AudioManager : SingletonPersistent<AudioManager>
     public void PauseTrack(float fadeDuration = 1f)
     {
         if (source != null && source.isPlaying)
-        {   
+        {
             isPaused = true;
 
             if (volumeFadeCoroutine != null) StopCoroutine(volumeFadeCoroutine);
-            
+
             // Fade to 0, then pause at the end
             volumeFadeCoroutine = StartCoroutine(FadeVolumeRoutine(0f, fadeDuration, true));
         }
@@ -226,16 +226,16 @@ public class AudioManager : SingletonPersistent<AudioManager>
     public void ResumeTrack(float fadeDuration = 1f)
     {
         if (source != null && currentTrack != null && !source.isPlaying)
-        {   
+        {
             isPaused = false;
             if (volumeFadeCoroutine != null) StopCoroutine(volumeFadeCoroutine);
-            
+
             // Unpause immediately so the audio starts playing while faded out
             source.UnPause();
-            
+
             // Calculate the target volume based on your master settings
             float targetVolume = Mathf.Clamp01(PlayerPrefs.GetFloat("MasterVolume", defaultVolume));
-            
+
             // Fade up to the target, do not pause at the end
             volumeFadeCoroutine = StartCoroutine(FadeVolumeRoutine(targetVolume, fadeDuration, false));
         }
@@ -249,10 +249,10 @@ public class AudioManager : SingletonPersistent<AudioManager>
         while (timeElapsed < duration)
         {
             timeElapsed += Time.deltaTime;
-            
+
             // Smoothly transition between the start and target volume
             source.volume = Mathf.Lerp(startVolume, targetVolume, timeElapsed / duration);
-            
+
             yield return null; // Wait for the next frame before looping
         }
 
